@@ -5,4 +5,12 @@ public class Conflict {
 	{
 		conflict = conflictCurr;
 	}
+	
+	public void isConflict(boolean conflict) {
+		if (!conflict) {
+			this.conflict = false;
+		} else {
+			this.conflict = true;
+		}
+	}
 }
