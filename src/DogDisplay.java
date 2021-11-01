@@ -15,7 +15,7 @@ public class DogDisplay {
   private JFrame frame;
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
-  private String dogNames[];
+  private String[] dogNames;
 
   public DogDisplay() {
 
