@@ -8,5 +8,8 @@
 	</classpathentry>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="src" path="ui"/>
+	<classpathentry kind="lib" path="jackson-annotations-2.11.3.jar"/>
+	<classpathentry kind="lib" path="jackson-core-2.11.3.jar"/>
+	<classpathentry kind="lib" path="jackson-databind-2.11.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
