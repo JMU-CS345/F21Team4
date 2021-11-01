@@ -19,7 +19,7 @@ public class DogDisplay {
 
   public DogDisplay() {
 
-  }
+  }  
 
   public void createAndShowGUI() {
 
