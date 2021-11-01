@@ -5,8 +5,8 @@ import javax.swing.JFrame;
 /**
  * A class.
  * 
- * @author zacktucker
- *
+ * @author Zach Tucker
+ * @version Nov 1, 2021
  */
 
 public class DogDisplay {
