@@ -1,8 +1,13 @@
-
+/**
+ * Driver class for Dog Display.
+ * @author Zack Tucker
+ *
+ */
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		DogDisplay dd = new DogDisplay();
+		dd.createAndShowGUI();
 
 	}
 
