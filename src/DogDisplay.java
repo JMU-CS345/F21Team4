@@ -1,5 +1,11 @@
 import java.awt.Dimension;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
@@ -15,11 +21,12 @@ public class DogDisplay {
   private JFrame frame;
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
-  private String[] dogNames;
+  List<String> dogBreeds = new ArrayList<String>();
+  // private String[] dogNames;
 
   public DogDisplay() {
 
-  }  
+  }
 
   public void createAndShowGUI() {
 
@@ -33,7 +40,24 @@ public class DogDisplay {
     frame.setVisible(true);
   }
 
-  public void getDogNames() {
+  public void getDogNames() throws IOException {
+    StringBuilder sb = new StringBuilder();
+    String line;
+    URL url = new URL("https://api.thedogapi.com/v1/breeds");
+
+
+
+    ObjectMapper mapper = new ObjectMapper();
+    JsonNode tree = mapper.readTree(url);
+    List<String> dogBreeds = new ArrayList<String>();
+
+    for (int x = 0; x < tree.size(); x++) {
+      JsonNode breedNode = tree.get(x);
+
+      String dogBreed = breedNode.get("name").asText();
+      this.dogBreeds.add(x, dogBreed);
+    }
+
 
   }
 }
