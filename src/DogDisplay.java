@@ -15,7 +15,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -37,23 +39,29 @@ public class DogDisplay implements ListSelectionListener
   List<String> dogBreeds;
   JList dogJList;
   JScrollPane scrollPane;
+  JSplitPane splitPane;
+  JPanel pictureAndText;
   static JLabel dogBreedLabel = new JLabel();
 
   public DogDisplay() throws IOException
   {
     
-    frame = new JFrame("PA2 - Senators");
+    frame = new JFrame("Dog Display");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(1195, 815);
     
     scrollPane = new JScrollPane();
     dogBreeds = new ArrayList<String>();
     getDogNames();
     dogJList = new JList(dogBreeds.toArray());
     scrollPane.setViewportView(dogJList);
-    frame.add(scrollPane, BorderLayout.WEST);
+    
     dogJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     dogJList.addListSelectionListener(this);
+
+    pictureAndText = new JPanel();
+    pictureAndText.add(dogBreedLabel);
+    splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollPane,pictureAndText);
+    
   }
 
   public void createAndShowGUI()
@@ -61,7 +69,7 @@ public class DogDisplay implements ListSelectionListener
 
     // Create and set up the window.
     frame = new JFrame("DogDisplay");
-    frame.add(this.scrollPane);
+    frame.add(this.splitPane);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     // Display the window.
@@ -96,6 +104,8 @@ public class DogDisplay implements ListSelectionListener
     {
       String textDisp = "No info yet";
       dogBreedLabel.setText(textDisp);
+      dogBreedLabel.setVerticalTextPosition(JLabel.BOTTOM);
+      dogBreedLabel.setHorizontalTextPosition(JLabel.CENTER);
     }
 
   }
