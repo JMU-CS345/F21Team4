@@ -1,11 +1,17 @@
+
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -16,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @version Nov 1, 2021
  */
 
-public class DogDisplay {
+public class DogDisplay implements ListSelectionListener {
 
   private JFrame frame;
   private final int windowWidth = 1024;
@@ -25,13 +31,22 @@ public class DogDisplay {
   List<URL> dogPictures;
   JList dogJList;
   JScrollPane scrollPane;
+  static JLabel dogBreedLabel = new JLabel();
 
   public DogDisplay() throws IOException {
+
+    frame = new JFrame("PA2 - Senators");
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setSize(1195, 815);
+
+    scrollPane = new JScrollPane();
     dogBreeds = new ArrayList<String>();
     getDogNames();
     dogJList = new JList(dogBreeds.toArray());
-    scrollPane = new JScrollPane(dogJList);
-
+    scrollPane.setViewportView(dogJList);
+    frame.add(scrollPane, BorderLayout.WEST);
+    dogJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    dogJList.addListSelectionListener(this);
   }
 
   public void createAndShowGUI() {
@@ -81,6 +96,17 @@ public class DogDisplay {
       String urlString = jsonNode.asText();
       urlDogPics = new URL(urlString);
       this.dogPictures.add(x, urlDogPics);
+    }
+
+
+
+  }
+
+  @Override
+  public void valueChanged(ListSelectionEvent e) {
+    if (!e.getValueIsAdjusting()) {
+      String textDisp = "No info yet";
+      dogBreedLabel.setText(textDisp);
     }
 
   }
