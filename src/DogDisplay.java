@@ -35,6 +35,7 @@ public class DogDisplay implements ListSelectionListener
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
   List<String> dogBreeds;
+  List<URL> dogPictures;
   JList dogJList;
   JScrollPane scrollPane;
   static JLabel dogBreedLabel = new JLabel();
@@ -87,6 +88,26 @@ public class DogDisplay implements ListSelectionListener
       this.dogBreeds.add(x, dogBreed);
     }
 
+  }
+  
+  public void getDogPhotoURL() throws IOException {
+    StringBuilder sb = new StringBuilder();
+    String line;
+    URL url = new URL("https://api.thedogapi.com/v1/breeds%22");
+
+    ObjectMapper mapper = new ObjectMapper();
+    JsonNode tree = mapper.readTree(url);
+
+
+
+    for (int x = 0; x < tree.size(); x++) {
+      JsonNode jsonNode = tree.get("photo_url");
+
+      URL urlDogPics = null;
+      String urlString = jsonNode.asText();
+      urlDogPics = new URL(urlString);
+      this.dogPictures.add(x, urlDogPics);
+    }
   }
 
   @Override
