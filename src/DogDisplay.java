@@ -41,6 +41,12 @@ public class DogDisplay implements ListSelectionListener
 
   public DogDisplay() throws IOException
   {
+    
+    frame = new JFrame("PA2 - Senators");
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setSize(1195, 815);
+    
+    scrollPane = new JScrollPane();
     dogBreeds = new ArrayList<String>();
     getDogNames();
     dogJList = new JList(dogBreeds.toArray());
