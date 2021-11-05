@@ -12,7 +12,7 @@ public class Main {
     DogDisplay dd = new DogDisplay();
     dd.createAndShowGUI();
 
-    dd.getDogNames();
+
 
   }
 
