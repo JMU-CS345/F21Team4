@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  * A class.
@@ -26,50 +28,69 @@ import javax.swing.event.ListSelectionEvent;
  * @version Nov 1, 2021
  */
 
-public class DogDisplay {
+public class DogDisplay implements ListSelectionListener
+{
 
-	private JFrame frame;
-	private final int windowWidth = 1024;
-	private final int windowHeight = 768;
-	List<String> dogBreeds;
-	JList dogJList;
-	JScrollPane scrollPane;
+  private JFrame frame;
+  private final int windowWidth = 1024;
+  private final int windowHeight = 768;
+  List<String> dogBreeds;
+  JList dogJList;
+  JScrollPane scrollPane;
+  static JLabel dogBreedLabel = new JLabel();
 
-	public DogDisplay() throws IOException {
-		dogBreeds = new ArrayList<String>();
-		getDogNames();
-		dogJList = new JList(dogBreeds.toArray());
-        scrollPane = new JScrollPane(dogJList);
+  public DogDisplay() throws IOException
+  {
+    dogBreeds = new ArrayList<String>();
+    getDogNames();
+    dogJList = new JList(dogBreeds.toArray());
+    scrollPane.setViewportView(dogJList);
+    frame.add(scrollPane, BorderLayout.WEST);
+    dogJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    dogJList.addListSelectionListener(this);
+  }
 
-	}
+  public void createAndShowGUI()
+  {
 
-	public void createAndShowGUI() {
+    // Create and set up the window.
+    frame = new JFrame("DogDisplay");
+    frame.add(this.scrollPane);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// Create and set up the window.
-		frame = new JFrame("DogDisplay");
-	    frame.add(this.scrollPane);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    // Display the window.
+    frame.setMinimumSize(new Dimension(windowWidth, windowHeight));
+    frame.pack();
+    frame.setVisible(true);
+  }
 
-		// Display the window.
-		frame.setMinimumSize(new Dimension(windowWidth, windowHeight));
-		frame.pack();
-		frame.setVisible(true);
-	}
+  public void getDogNames() throws IOException
+  {
+    StringBuilder sb = new StringBuilder();
+    String line;
+    URL url = new URL("https://api.thedogapi.com/v1/breeds");
 
-	public void getDogNames() throws IOException {
-		StringBuilder sb = new StringBuilder();
-		String line;
-		URL url = new URL("https://api.thedogapi.com/v1/breeds");
+    ObjectMapper mapper = new ObjectMapper();
+    JsonNode tree = mapper.readTree(url);
 
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode tree = mapper.readTree(url);
+    for (int x = 0; x < tree.size(); x++)
+    {
+      JsonNode breedNode = tree.get(x);
 
-		for (int x = 0; x < tree.size(); x++) {
-			JsonNode breedNode = tree.get(x);
+      String dogBreed = breedNode.get("name").asText();
+      this.dogBreeds.add(x, dogBreed);
+    }
 
-			String dogBreed = breedNode.get("name").asText();
-			this.dogBreeds.add(x, dogBreed);
-		}
+  }
 
-	}
+  @Override
+  public void valueChanged(ListSelectionEvent e)
+  {
+    if (!e.getValueIsAdjusting())
+    {
+      String textDisp = "No info yet";
+      dogBreedLabel.setText(textDisp);
+    }
+
+  }
 }
