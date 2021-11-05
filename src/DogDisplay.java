@@ -46,23 +46,23 @@ public class DogDisplay implements ListSelectionListener
 
   public DogDisplay() throws IOException
   {
-    
+
     frame = new JFrame("Dog Display");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    
+
     scrollPane = new JScrollPane();
     dogBreeds = new ArrayList<String>();
     getDogNames();
     dogJList = new JList(dogBreeds.toArray());
     scrollPane.setViewportView(dogJList);
-    
+
     dogJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     dogJList.addListSelectionListener(this);
 
     pictureAndText = new JPanel();
     pictureAndText.add(dogBreedLabel);
-    splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollPane,pictureAndText);
-    
+    splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, pictureAndText);
+
   }
 
   public void createAndShowGUI()
@@ -97,8 +97,9 @@ public class DogDisplay implements ListSelectionListener
     }
 
   }
-  
-  public void getDogPhotoURL() throws IOException {
+
+  public void getDogPhotoURL() throws IOException
+  {
     StringBuilder sb = new StringBuilder();
     String line;
     URL url = new URL("https://api.thedogapi.com/v1/breeds%22");
@@ -106,9 +107,8 @@ public class DogDisplay implements ListSelectionListener
     ObjectMapper mapper = new ObjectMapper();
     JsonNode tree = mapper.readTree(url);
 
-
-
-    for (int x = 0; x < tree.size(); x++) {
+    for (int x = 0; x < tree.size(); x++)
+    {
       JsonNode jsonNode = tree.get("photo_url");
 
       URL urlDogPics = null;
