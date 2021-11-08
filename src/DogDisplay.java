@@ -40,6 +40,7 @@ public class DogDisplay implements ListSelectionListener
   private final int windowHeight = 768;
   private List<String> dogBreeds;
   private List<URL> dogPictures;
+  private List<Dog> dogList;
   private JList dogJList;
   private JScrollPane scrollPane;
   private JSplitPane splitPane;
@@ -54,15 +55,21 @@ public class DogDisplay implements ListSelectionListener
    */
   public DogDisplay() throws IOException
   {
-
     frame = new JFrame("Dog Display");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+    // This creates a list of all the dog objects
+    dogList = new ArrayList<Dog>();
+    getDogList();
+    
+    
     scrollPane = new JScrollPane();
+    // These two lists below need to be removed and there
+    // functionality needs to be applied to dogList
     dogBreeds = new ArrayList<String>();
     getDogNames();
     dogPictures = new ArrayList<URL>();
     getDogPhotoURL();
+    
     dogJList = new JList(dogBreeds.toArray());
     scrollPane.setViewportView(dogJList);
 
@@ -135,6 +142,31 @@ public class DogDisplay implements ListSelectionListener
       urlDogPics = new URL(urlString);
       this.dogPictures.add(urlDogPics);
     }
+  }
+  
+  public void getDogList() throws IOException {
+    URL url = new URL("https://api.thedogapi.com/v1/breeds");
+
+    ObjectMapper mapper = new ObjectMapper();
+    JsonNode tree = mapper.readTree(url);
+    
+    for (int x = 0; x < tree.size(); x++)
+    {
+      JsonNode breedNode = tree.get(x);
+
+      String dogBreed = breedNode.get("name").asText();
+      String urlString = breedNode.get("image").get("url").asText();
+      URL urlDogPics = new URL(urlString);
+      String height = breedNode.get("height").asText();
+      String weight = breedNode.get("weight").asText();
+      String origin = breedNode.get("origin").asText();
+      String lifespan = breedNode.get("lifespan").asText();
+      String description = breedNode.get("description").asText();
+      
+      Dog dog = new Dog(dogBreed, urlDogPics, height, weight, origin, lifespan, description);
+      this.dogList.add(dog);
+    }
+    
   }
 
   /**
