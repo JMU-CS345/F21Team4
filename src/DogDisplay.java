@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -42,6 +43,7 @@ public class DogDisplay implements ListSelectionListener {
   private JSplitPane splitPane;
   private JPanel pictureAndText;
   private JLabel dogBreedLabel = new JLabel();
+  private JButton fullScreenButton;
 
   /**
    * Constructor for all the DogDisplay elements, including the frame, panes, and scrollable-list
@@ -70,7 +72,9 @@ public class DogDisplay implements ListSelectionListener {
     pictureAndText = new JPanel();
     pictureAndText.add(dogBreedLabel);
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, pictureAndText);
-
+    
+    fullScreenButton = new JButton("FullScreen");
+    
   }
 
 
