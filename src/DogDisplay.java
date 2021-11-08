@@ -1,19 +1,24 @@
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 /**
  * A class.
@@ -27,33 +32,52 @@ public class DogDisplay implements ListSelectionListener {
   private JFrame frame;
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
-  List<String> dogBreeds;
-  List<URL> dogPictures;
-  JList dogJList;
-  JScrollPane scrollPane;
-  static JLabel dogBreedLabel = new JLabel();
 
+
+  private List<String> dogBreeds;
+  private List<URL> dogPictures;
+  private JList dogJList;
+  private JScrollPane scrollPane;
+  private JSplitPane splitPane;
+  private JPanel pictureAndText;
+  private JLabel dogBreedLabel = new JLabel();
+
+  /**
+   * Constructor for all the DogDisplay elements, including the frame, panes, and scrollable-list
+   * along with the dog picture URLs and names.
+   * 
+   * @throws IOException If getting the names or photo URLs fail to pull from the API.
+   */
   public DogDisplay() throws IOException {
 
-    frame = new JFrame("PA2 - Senators");
+    frame = new JFrame("Dog Display");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(1195, 815);
+
 
     scrollPane = new JScrollPane();
     dogBreeds = new ArrayList<String>();
     getDogNames();
+    dogPictures = new ArrayList<URL>();
+    getDogPhotoURL();
     dogJList = new JList(dogBreeds.toArray());
     scrollPane.setViewportView(dogJList);
-    frame.add(scrollPane, BorderLayout.WEST);
+
     dogJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     dogJList.addListSelectionListener(this);
+
+    pictureAndText = new JPanel();
+    pictureAndText.add(dogBreedLabel);
+    splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, pictureAndText);
+
   }
+
 
   public void createAndShowGUI() {
 
+
     // Create and set up the window.
     frame = new JFrame("DogDisplay");
-    frame.add(this.scrollPane);
+    frame.add(this.splitPane);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     // Display the window.
@@ -62,9 +86,14 @@ public class DogDisplay implements ListSelectionListener {
     frame.setVisible(true);
   }
 
+
+  /**
+   * Gets the names of the dogs from the API and stores them in an array.
+   * 
+   * @throws IOException If the URL to the API is invalid.
+   */
   public void getDogNames() throws IOException {
-    StringBuilder sb = new StringBuilder();
-    String line;
+
     URL url = new URL("https://api.thedogapi.com/v1/breeds");
 
     ObjectMapper mapper = new ObjectMapper();
@@ -80,8 +109,7 @@ public class DogDisplay implements ListSelectionListener {
   }
 
   public void getDogPhotoURL() throws IOException {
-    StringBuilder sb = new StringBuilder();
-    String line;
+
     URL url = new URL("https://api.thedogapi.com/v1/breeds");
 
     ObjectMapper mapper = new ObjectMapper();
@@ -102,11 +130,29 @@ public class DogDisplay implements ListSelectionListener {
 
   }
 
-  @Override
+
+
+  /**
+   * Updates the state of the panel when the user clicks on an element of the scrollable-list.
+   * 
+   * @param e Scrollable-list selection.
+   */
   public void valueChanged(ListSelectionEvent e) {
     if (!e.getValueIsAdjusting()) {
-      String textDisp = "No info yet";
-      dogBreedLabel.setText(textDisp);
+      Image currImg = null;
+      try {
+        int index = dogBreeds.indexOf(dogJList.getSelectedValue());
+        URL picURL = dogPictures.get(index);
+        currImg = ImageIO.read(picURL);
+        currImg = currImg.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+      } catch (IOException exception) {
+        exception.printStackTrace();
+      }
+      ImageIcon icon = new ImageIcon(currImg);
+      dogBreedLabel.setIcon(icon);
+      dogBreedLabel.setVerticalTextPosition(JLabel.BOTTOM);
+      dogBreedLabel.setHorizontalTextPosition(JLabel.CENTER);
+
     }
 
   }
