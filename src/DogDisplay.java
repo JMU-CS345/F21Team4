@@ -1,17 +1,10 @@
-import java.awt.BorderLayout;
-import java.awt.Component;
+
 import java.awt.Dimension;
 import java.awt.Image;
-import java.util.ArrayList;
-import java.util.List;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFrame;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -20,10 +13,12 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 /**
  * A class.
@@ -32,12 +27,13 @@ import javax.swing.event.ListSelectionListener;
  * @version Nov 1, 2021
  */
 
-public class DogDisplay implements ListSelectionListener
-{
+public class DogDisplay implements ListSelectionListener {
 
   private JFrame frame;
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
+
+
   private List<String> dogBreeds;
   private List<URL> dogPictures;
   private List<Dog> dogList;
@@ -53,15 +49,10 @@ public class DogDisplay implements ListSelectionListener
    * 
    * @throws IOException If getting the names or photo URLs fail to pull from the API.
    */
-  public DogDisplay() throws IOException
-  {
+  public DogDisplay() throws IOException {
+
     frame = new JFrame("Dog Display");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    // This creates a list of all the dog objects
-    dogList = new ArrayList<Dog>();
-    getDogList();
-    
-    
     scrollPane = new JScrollPane();
     // These two lists below need to be removed and there
     // functionality needs to be applied to dogList
@@ -82,11 +73,9 @@ public class DogDisplay implements ListSelectionListener
 
   }
 
-  /**
-   * Creates the Display.
-   */
-  public void createAndShowGUI()
-  {
+
+  public void createAndShowGUI() {
+
 
     // Create and set up the window.
     frame = new JFrame("DogDisplay");
@@ -99,20 +88,20 @@ public class DogDisplay implements ListSelectionListener
     frame.setVisible(true);
   }
 
+
   /**
    * Gets the names of the dogs from the API and stores them in an array.
    * 
    * @throws IOException If the URL to the API is invalid.
    */
-  public void getDogNames() throws IOException
-  {
+  public void getDogNames() throws IOException {
+
     URL url = new URL("https://api.thedogapi.com/v1/breeds");
 
     ObjectMapper mapper = new ObjectMapper();
     JsonNode tree = mapper.readTree(url);
 
-    for (int x = 0; x < tree.size(); x++)
-    {
+    for (int x = 0; x < tree.size(); x++) {
       JsonNode breedNode = tree.get(x);
 
       String dogBreed = breedNode.get("name").asText();
@@ -121,27 +110,26 @@ public class DogDisplay implements ListSelectionListener
 
   }
 
-  /**
-   * Gets the photo URLs of the dog photos from the API and stores them in an array.
-   * 
-   * @throws IOException If the URL is invalid.
-   */
-  public void getDogPhotoURL() throws IOException
-  {
+  public void getDogPhotoURL() throws IOException {
+
     URL url = new URL("https://api.thedogapi.com/v1/breeds");
 
     ObjectMapper mapper = new ObjectMapper();
     JsonNode tree = mapper.readTree(url);
 
-    for (int x = 0; x < tree.size(); x++)
-    {
-      JsonNode jsonNode = tree.get(x);
+
+
+    for (int x = 0; x < tree.size(); x++) {
+      JsonNode jsonNode = tree.get("photo_url");
 
       URL urlDogPics = null;
-      String urlString = jsonNode.get("image").get("url").asText();
+      String urlString = jsonNode.asText();
       urlDogPics = new URL(urlString);
-      this.dogPictures.add(urlDogPics);
+      this.dogPictures.add(x, urlDogPics);
     }
+
+
+
   }
   
   public void getDogList() throws IOException {
@@ -169,32 +157,29 @@ public class DogDisplay implements ListSelectionListener
     
   }
 
+
+
   /**
    * Updates the state of the panel when the user clicks on an element of the scrollable-list.
    * 
    * @param e Scrollable-list selection.
    */
-  @Override
-  public void valueChanged(ListSelectionEvent e)
-  {
-    if (!e.getValueIsAdjusting())
-    {
+  public void valueChanged(ListSelectionEvent e) {
+    if (!e.getValueIsAdjusting()) {
       Image currImg = null;
-      try
-      {
+      try {
         int index = dogBreeds.indexOf(dogJList.getSelectedValue());
         URL picURL = dogPictures.get(index);
         currImg = ImageIO.read(picURL);
         currImg = currImg.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
-      }
-      catch (IOException exception)
-      {
+      } catch (IOException exception) {
         exception.printStackTrace();
       }
       ImageIcon icon = new ImageIcon(currImg);
       dogBreedLabel.setIcon(icon);
       dogBreedLabel.setVerticalTextPosition(JLabel.BOTTOM);
       dogBreedLabel.setHorizontalTextPosition(JLabel.CENTER);
+
     }
 
   }
