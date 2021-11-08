@@ -12,9 +12,8 @@ public class Dog {
 	private final String weight;
 	private final String origin;
 	private final String lifespan;
-	private final String description;
 
-	public Dog(String name, URL url, String height, String weight, String origin, String lifespan, String description) {
+	public Dog(String name, URL url, String height, String weight, String origin, String lifespan) {
 
 		this.name = name;
 		this.url = url;
@@ -22,7 +21,6 @@ public class Dog {
 		this.weight = weight;
 		this.origin = origin;
 		this.lifespan = lifespan;
-		this.description = description;
 
 	}
 
@@ -48,10 +46,6 @@ public class Dog {
 
 	public String getLifespan() {
 		return this.lifespan;
-	}
-
-	public String getDescription() {
-		return this.description;
 	}
 
 }

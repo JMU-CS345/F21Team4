@@ -35,7 +35,6 @@ public class DogDisplay implements ListSelectionListener {
 
 
   private List<String> dogBreeds;
-  private List<URL> dogPictures;
   private List<Dog> dogList;
   private JList dogJList;
   private JScrollPane scrollPane;
@@ -55,12 +54,12 @@ public class DogDisplay implements ListSelectionListener {
     frame = new JFrame("Dog Display");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     scrollPane = new JScrollPane();
-    // These two lists below need to be removed and there
-    // functionality needs to be applied to dogList
+    
+    dogList = new ArrayList<Dog>();
+    getDogList();
+    
     dogBreeds = new ArrayList<String>();
     getDogNames();
-    dogPictures = new ArrayList<URL>();
-    getDogPhotoURL();
     
     dogJList = new JList(dogBreeds.toArray());
     scrollPane.setViewportView(dogJList);
@@ -78,7 +77,6 @@ public class DogDisplay implements ListSelectionListener {
 
 
   public void createAndShowGUI() {
-
 
     // Create and set up the window.
     frame = new JFrame("DogDisplay");
@@ -99,39 +97,9 @@ public class DogDisplay implements ListSelectionListener {
    */
   public void getDogNames() throws IOException {
 
-    URL url = new URL("https://api.thedogapi.com/v1/breeds");
-
-    ObjectMapper mapper = new ObjectMapper();
-    JsonNode tree = mapper.readTree(url);
-
-    for (int x = 0; x < tree.size(); x++) {
-      JsonNode breedNode = tree.get(x);
-
-      String dogBreed = breedNode.get("name").asText();
-      this.dogBreeds.add(x, dogBreed);
+    for (Dog dog : dogList) {
+      this.dogBreeds.add(dog.getName());
     }
-
-  }
-
-  public void getDogPhotoURL() throws IOException {
-
-    URL url = new URL("https://api.thedogapi.com/v1/breeds");
-
-    ObjectMapper mapper = new ObjectMapper();
-    JsonNode tree = mapper.readTree(url);
-
-
-
-    for (int x = 0; x < tree.size(); x++) {
-      JsonNode jsonNode = tree.get("photo_url");
-
-      URL urlDogPics = null;
-      String urlString = jsonNode.asText();
-      urlDogPics = new URL(urlString);
-      this.dogPictures.add(x, urlDogPics);
-    }
-
-
 
   }
   
@@ -150,17 +118,16 @@ public class DogDisplay implements ListSelectionListener {
       URL urlDogPics = new URL(urlString);
       String height = breedNode.get("height").asText();
       String weight = breedNode.get("weight").asText();
-      String origin = breedNode.get("origin").asText();
-      String lifespan = breedNode.get("lifespan").asText();
-      String description = breedNode.get("description").asText();
+      String origin = null;
+      if (breedNode.get("origin") != null)
+          origin = breedNode.get("origin").asText();
+      String lifespan = breedNode.get("life_span").asText();
       
-      Dog dog = new Dog(dogBreed, urlDogPics, height, weight, origin, lifespan, description);
+      Dog dog = new Dog(dogBreed, urlDogPics, height, weight, origin, lifespan);
       this.dogList.add(dog);
     }
     
   }
-
-
 
   /**
    * Updates the state of the panel when the user clicks on an element of the scrollable-list.
@@ -171,10 +138,16 @@ public class DogDisplay implements ListSelectionListener {
     if (!e.getValueIsAdjusting()) {
       Image currImg = null;
       try {
-        int index = dogBreeds.indexOf(dogJList.getSelectedValue());
-        URL picURL = dogPictures.get(index);
+        int index = -1;
+        for (Dog dog : dogList) {
+          if (dog.getName().equals(dogJList.getSelectedValue())) {
+            index = dogList.indexOf(dog);
+            break;
+          }
+        }
+        URL picURL = dogList.get(index).getURL();
         currImg = ImageIO.read(picURL);
-        currImg = currImg.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+        currImg = currImg.getScaledInstance(windowWidth / 3, windowHeight / 3, Image.SCALE_SMOOTH);
       } catch (IOException exception) {
         exception.printStackTrace();
       }
