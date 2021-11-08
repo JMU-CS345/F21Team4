@@ -122,8 +122,11 @@ public class DogDisplay implements ListSelectionListener {
       if (breedNode.get("origin") != null)
           origin = breedNode.get("origin").asText();
       String lifespan = breedNode.get("life_span").asText();
+      String temperament = null;
+       if (breedNode.get("temperament") != null)
+         breedNode.get("temperament").asText();
       
-      Dog dog = new Dog(dogBreed, urlDogPics, height, weight, origin, lifespan);
+      Dog dog = new Dog(dogBreed, urlDogPics, height, weight, origin, lifespan, temperament);
       this.dogList.add(dog);
     }
     
