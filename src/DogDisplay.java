@@ -40,7 +40,7 @@ public class DogDisplay implements ListSelectionListener {
   private JScrollPane scrollPane;
   private JSplitPane splitPane;
   private JPanel pictureAndText;
-  private JLabel dogBreedLabel = new JLabel();
+  private JLabel dogPictureLabel = new JLabel();
   private JButton fullScreenButton;
 
   /**
@@ -68,7 +68,7 @@ public class DogDisplay implements ListSelectionListener {
     dogJList.addListSelectionListener(this);
 
     pictureAndText = new JPanel();
-    pictureAndText.add(dogBreedLabel);
+    pictureAndText.add(dogPictureLabel);
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, pictureAndText);
     
     fullScreenButton = new JButton("FullScreen");
@@ -155,9 +155,9 @@ public class DogDisplay implements ListSelectionListener {
         exception.printStackTrace();
       }
       ImageIcon icon = new ImageIcon(currImg);
-      dogBreedLabel.setIcon(icon);
-      dogBreedLabel.setVerticalTextPosition(JLabel.BOTTOM);
-      dogBreedLabel.setHorizontalTextPosition(JLabel.CENTER);
+      dogPictureLabel.setIcon(icon);
+      dogPictureLabel.setVerticalTextPosition(JLabel.BOTTOM);
+      dogPictureLabel.setHorizontalTextPosition(JLabel.CENTER);
 
     }
 
