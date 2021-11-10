@@ -27,7 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @version Nov 1, 2021
  */
 
-public class DogDisplay implements ListSelectionListener {
+public class DogDisplayAsAPane implements ListSelectionListener {
 
   private JFrame frame;
   private final int windowWidth = 1024;
@@ -49,7 +49,7 @@ public class DogDisplay implements ListSelectionListener {
    * 
    * @throws IOException If getting the names or photo URLs fail to pull from the API.
    */
-  public DogDisplay() throws IOException {
+  public DogDisplayAsAPane() throws IOException {
 
     frame = new JFrame("Dog Display");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
