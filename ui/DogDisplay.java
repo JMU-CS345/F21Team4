@@ -41,6 +41,7 @@ public class DogDisplay implements ListSelectionListener {
   private JSplitPane splitPane;
   private JPanel pictureAndText;
   private JLabel dogPictureLabel = new JLabel();
+  private JLabel dogInformationLabel = new JLabel();
   private JButton fullScreenButton;
 
   /**
@@ -54,25 +55,26 @@ public class DogDisplay implements ListSelectionListener {
     frame = new JFrame("Dog Display");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     scrollPane = new JScrollPane();
-    
+
     dogList = new ArrayList<Dog>();
     getDogList();
-    
+
     dogBreeds = new ArrayList<String>();
     getDogNames();
-    
+
     dogJList = new JList(dogBreeds.toArray());
     scrollPane.setViewportView(dogJList);
 
     dogJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     dogJList.addListSelectionListener(this);
 
+    // Adding the dog pictures to the label
     pictureAndText = new JPanel();
     pictureAndText.add(dogPictureLabel);
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, pictureAndText);
-    
+    pictureAndText.add(dogInformationLabel);
     fullScreenButton = new JButton("FullScreen");
-    
+
   }
 
 
@@ -102,34 +104,33 @@ public class DogDisplay implements ListSelectionListener {
     }
 
   }
-  
+
   public void getDogList() throws IOException {
     URL url = new URL("https://api.thedogapi.com/v1/breeds");
 
     ObjectMapper mapper = new ObjectMapper();
     JsonNode tree = mapper.readTree(url);
-    
-    for (int x = 0; x < tree.size(); x++)
-    {
+
+    for (int x = 0; x < tree.size(); x++) {
       JsonNode breedNode = tree.get(x);
 
       String dogBreed = breedNode.get("name").asText();
       String urlString = breedNode.get("image").get("url").asText();
       URL urlDogPics = new URL(urlString);
-      String height = breedNode.get("height").asText();
-      String weight = breedNode.get("weight").asText();
+      String height = breedNode.get("height").get("imperial").asText();
+      String weight = breedNode.get("weight").get("imperial").asText();
       String origin = null;
       if (breedNode.get("origin") != null)
-          origin = breedNode.get("origin").asText();
+        origin = breedNode.get("origin").asText();
       String lifespan = breedNode.get("life_span").asText();
       String temperament = null;
-       if (breedNode.get("temperament") != null)
-         breedNode.get("temperament").asText();
-      
+      if (breedNode.get("temperament") != null)
+        breedNode.get("temperament").asText();
+
       Dog dog = new Dog(dogBreed, urlDogPics, height, weight, origin, lifespan, temperament);
       this.dogList.add(dog);
     }
-    
+
   }
 
   /**
@@ -151,6 +152,9 @@ public class DogDisplay implements ListSelectionListener {
         URL picURL = dogList.get(index).getURL();
         currImg = ImageIO.read(picURL);
         currImg = currImg.getScaledInstance(windowWidth / 3, windowHeight / 3, Image.SCALE_SMOOTH);
+        dogInformationLabel.setText("<html>" + "Dog Breed: " + dogList.get(index).getName()
+            + "<br/>" + " Dog Height: " + dogList.get(index).getHeight() + "inches<br/>"
+            + " Dog Weight: " + dogList.get(index).getWeight() + "lbs<br/>" + "<html/>");
       } catch (IOException exception) {
         exception.printStackTrace();
       }
