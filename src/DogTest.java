@@ -17,7 +17,7 @@ public class DogTest {
 
 	@BeforeEach
 	void beforeEach() throws IOException {
-		d = new Dog("Test", new URL("https://api.thedogapi.com/v1/breeds"), "50", "100", "ISAT Building", "1");
+		d = new Dog("Test", new URL("https://api.thedogapi.com/v1/breeds"), "50", "100", "ISAT Building", "1", "2");
 
 	}
 
