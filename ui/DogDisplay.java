@@ -122,10 +122,15 @@ public class DogDisplay implements ListSelectionListener {
       String origin = null;
       if (breedNode.get("origin") != null)
         origin = breedNode.get("origin").asText();
+      else
+        origin = "N/A";
+      if (origin.equals("")) {
+        origin = "N/A";
+      }
       String lifespan = breedNode.get("life_span").asText();
       String temperament = null;
       if (breedNode.get("temperament") != null)
-        breedNode.get("temperament").asText();
+        temperament = breedNode.get("temperament").asText();
 
       Dog dog = new Dog(dogBreed, urlDogPics, height, weight, origin, lifespan, temperament);
       this.dogList.add(dog);
@@ -154,7 +159,10 @@ public class DogDisplay implements ListSelectionListener {
         currImg = currImg.getScaledInstance(windowWidth / 3, windowHeight / 3, Image.SCALE_SMOOTH);
         dogInformationLabel.setText("<html>" + "Dog Breed: " + dogList.get(index).getName()
             + "<br/>" + " Dog Height: " + dogList.get(index).getHeight() + "inches<br/>"
-            + " Dog Weight: " + dogList.get(index).getWeight() + "lbs<br/>" + "<html/>");
+            + " Dog Weight: " + dogList.get(index).getWeight() + "lbs<br/>" + " Dog Origin: "
+            + dogList.get(index).getOrigin() + "<br/>" + " Dog Lifespan: "
+            + dogList.get(index).getLifespan() + "<br/>" + " Dog Tempermant: "
+            + dogList.get(index).getTemperament() + "<html/>");
       } catch (IOException exception) {
         exception.printStackTrace();
       }
