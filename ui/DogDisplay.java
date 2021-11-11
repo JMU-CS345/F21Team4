@@ -1,4 +1,5 @@
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.IOException;
 import java.net.URL;
@@ -40,8 +41,8 @@ public class DogDisplay implements ListSelectionListener {
   private JScrollPane scrollPane;
   private JSplitPane splitPane;
   private JPanel pictureAndText;
-  private JLabel dogPictureLabel = new JLabel();
-  private JLabel dogInformationLabel = new JLabel();
+  private JLabel dogPictureLabel = new JLabel(" ", JLabel.CENTER);
+  private JLabel dogInformationLabel = new JLabel(" ", JLabel.CENTER);
   private JButton fullScreenButton;
 
   /**
@@ -70,6 +71,7 @@ public class DogDisplay implements ListSelectionListener {
 
     // Adding the dog pictures to the label
     pictureAndText = new JPanel();
+    pictureAndText.setLayout(new GridLayout(2, 1));
     pictureAndText.add(dogPictureLabel);
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, pictureAndText);
     pictureAndText.add(dogInformationLabel);
