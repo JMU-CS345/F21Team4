@@ -7,10 +7,13 @@ import java.io.IOException;
  * @version Nov 1, 2021
  */
 public class Main {
-
+  
   public static void main(String[] args) throws IOException {
-    DogDisplay dd = new DogDisplay();
-    dd.createAndShowGUI();
+    // DogDisplay dd = new DogDisplay();
+    // dd.createAndShowGUI();
+
+    Window mainWindow = new Window();
+    mainWindow.createAndShowGUI();
   }
 }
 

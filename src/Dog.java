@@ -2,7 +2,8 @@ import java.net.URL;
 
 /**
  * 
- * @author zacktucker
+ * @author Zack Tucker, Matt Wong, Thomas Mandell, Alex Polivka, Jonathan Wist
+ * @version Nov 1, 2021 
  *
  */
 public class Dog {
