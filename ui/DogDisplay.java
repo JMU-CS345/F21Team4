@@ -111,7 +111,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener {
       String lifespan = breedNode.get("life_span").asText();
       String temperament = null;
       if (breedNode.get("temperament") != null)
-        breedNode.get("temperament").asText();
+        temperament = breedNode.get("temperament").asText();
 
       Dog dog = new Dog(dogBreed, urlDogPics, height, weight, origin, lifespan, temperament);
       this.dogList.add(dog);
@@ -154,6 +154,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener {
     }
 
   }
+
   public void show() {
     this.splitPane.setVisible(true);
   }
