@@ -46,6 +46,9 @@ public class DogDisplay extends JPanel implements ListSelectionListener
   private JLabel dogPictureLabel = new JLabel(" ", JLabel.CENTER);
   private JLabel dogInformationLabel = new JLabel(" ", JLabel.CENTER);
   private JButton fullScreenButton;
+  private Image currImg = null;
+  public JPanel fullScreenImage;
+  private JLabel fullScreenLabel;
 
   /**
    * Constructor for all the DogDisplay elements, including the frame, panes, and scrollable-list
@@ -79,6 +82,9 @@ public class DogDisplay extends JPanel implements ListSelectionListener
     pictureAndText.add(dogPictureLabel);
     pictureAndText.add(dogInformationLabel);
     pictureAndText.add(fullScreenButton);
+    
+    fullScreenImage = new JPanel();
+    fullScreenLabel = new JLabel();
 
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, pictureAndText);
     splitPane.setVisible(false);
@@ -141,7 +147,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
   {
     if (!e.getValueIsAdjusting())
     {
-      Image currImg = null;
+      currImg = null;
       try
       {
         int index = -1;
@@ -182,8 +188,11 @@ public class DogDisplay extends JPanel implements ListSelectionListener
     public void actionPerformed(ActionEvent e)
     {
       choice = e.getActionCommand();
-      
-      ;
+      if (currImg != null) {
+        fullScreenLabel.setIcon(new ImageIcon(currImg));
+        fullScreenImage.add(fullScreenLabel);
+        fullScreenImage.setVisible(true);
+      }
     }
   }
 
