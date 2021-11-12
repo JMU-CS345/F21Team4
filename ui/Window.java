@@ -19,7 +19,7 @@ public class Window {
 
     test.setPreferredSize(new Dimension(windowWidth, windowHeight));
     // Display the window.
-    this.createAndShowGUI();
+    // this.createAndShowGUI();
 
     // frame.setLayout(new BorderLayout());
 
