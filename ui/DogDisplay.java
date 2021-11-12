@@ -103,8 +103,8 @@ public class DogDisplay extends JPanel implements ListSelectionListener {
       String dogBreed = breedNode.get("name").asText();
       String urlString = breedNode.get("image").get("url").asText();
       URL urlDogPics = new URL(urlString);
-      String height = breedNode.get("height").asText();
-      String weight = breedNode.get("weight").asText();
+      String height = breedNode.get("height").get("imperial").asText();
+      String weight = breedNode.get("weight").get("imperial").asText();
       String origin = null;
       if (breedNode.get("origin") != null)
         origin = breedNode.get("origin").asText();
@@ -139,7 +139,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener {
         currImg = ImageIO.read(picURL);
         currImg = currImg.getScaledInstance(windowWidth / 3, windowHeight / 3, Image.SCALE_SMOOTH);
         dogInformationLabel.setText("<html>" + "Dog Breed: " + dogList.get(index).getName()
-            + "<br/>" + " Dog Height: " + dogList.get(index).getHeight() + "inches<br/>"
+            + "<br/>" + " Dog Height: " + dogList.get(index).getHeight() + " inches<br/>"
             + " Dog Weight: " + dogList.get(index).getWeight() + "lbs<br/>" + " Dog Lifespan: "
             + dogList.get(index).getLifespan() + "<br/>" + " Dog Tempermant: "
             + dogList.get(index).getTemperament() + "<html/>");
