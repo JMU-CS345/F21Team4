@@ -1,6 +1,7 @@
 import java.awt.Dimension;
 import java.io.IOException;
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 
 /**
  * Window class
@@ -9,26 +10,37 @@ import javax.swing.JFrame;
  * @version Nov 1, 2021
  */
 
-public class Window  {
+public class Window
+{
   JFrame frame = new JFrame("DogDisplay");
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
   public static DogDisplay test;
   private HomePage home = new HomePage();
+  
+  private JLayeredPane layeredPane;
 
-  public Window() throws IOException {
+  public Window() throws IOException
+  {
+    layeredPane = new JLayeredPane();
+    layeredPane.setPreferredSize(new Dimension(300, 310));
+    layeredPane.setVisible(true);
     test = new DogDisplay();
     test.setPreferredSize(new Dimension(windowWidth, windowHeight));
 
   }
 
-  public void createAndShowGUI() {
-
+  public void createAndShowGUI()
+  {
+   
     // Create and set up the window.
-    frame.add(test.splitPane);
-    frame.add(home.buttonPad);
+    layeredPane.add(test.splitPane, 0);
+    layeredPane.add(home.buttonPad, 1);
+    test.splitPane.setBounds(10, 10, 900, 500);
+    home.buttonPad.setBounds(70, 70, 900, 500);
+    
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+    frame.add(layeredPane);
     // Display the window.
     frame.setMinimumSize(new Dimension(windowWidth, windowHeight));
     frame.pack();

@@ -31,7 +31,7 @@ public class HomePage extends JPanel
     {
       choice = e.getActionCommand();
       buttonPad.setVisible(false);
-      Window.test.splitPane.setVisible(true);
+      Window.test.show();
     }
 
   }

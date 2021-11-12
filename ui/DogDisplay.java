@@ -154,4 +154,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener {
     }
 
   }
+  public void show() {
+    this.splitPane.setVisible(true);
+  }
 }
