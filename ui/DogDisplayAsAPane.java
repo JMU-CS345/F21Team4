@@ -27,7 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @version Nov 1, 2021
  */
 
-public class DogDisplayAsAPane implements ListSelectionListener {
+public class DogDisplayAsAPane extends JPanel implements ListSelectionListener {
 
   private JFrame frame;
   private final int windowWidth = 1024;
