@@ -9,14 +9,15 @@ import javax.swing.JFrame;
  * @version Nov 1, 2021
  */
 
-public class Window {
+public class Window  {
   JFrame frame = new JFrame("DogDisplay");
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
-  private DogDisplay test = new DogDisplay();
+  public static DogDisplay test;
+  private HomePage home = new HomePage();
 
   public Window() throws IOException {
-
+    test = new DogDisplay();
     test.setPreferredSize(new Dimension(windowWidth, windowHeight));
 
   }
@@ -25,6 +26,7 @@ public class Window {
 
     // Create and set up the window.
     frame.add(test.splitPane);
+    frame.add(home.buttonPad);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     // Display the window.

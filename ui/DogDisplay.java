@@ -71,6 +71,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener {
     pictureAndText.add(dogInformationLabel);
 
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, pictureAndText);
+    splitPane.setVisible(false);
 
     fullScreenButton = new JButton("FullScreen");
 
