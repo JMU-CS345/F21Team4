@@ -1,4 +1,3 @@
-import java.awt.Dimension;
 import java.awt.Image;
 import java.io.IOException;
 import java.net.URL;
@@ -7,7 +6,6 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -29,7 +27,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DogDisplayAsAPane extends JPanel implements ListSelectionListener {
 
-  private JFrame frame;
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
 
@@ -38,7 +35,7 @@ public class DogDisplayAsAPane extends JPanel implements ListSelectionListener {
   private List<Dog> dogList;
   private JList dogJList;
   private JScrollPane scrollPane;
-  private JSplitPane splitPane;
+  public JSplitPane splitPane;
   private JPanel pictureAndText;
   private JLabel dogPictureLabel = new JLabel(" ", JLabel.CENTER);
   private JLabel dogInformationLabel = new JLabel(" ", JLabel.CENTER);
@@ -52,8 +49,7 @@ public class DogDisplayAsAPane extends JPanel implements ListSelectionListener {
    */
   public DogDisplayAsAPane() throws IOException {
 
-    frame = new JFrame("Dog Display");
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     scrollPane = new JScrollPane();
 
     dogList = new ArrayList<Dog>();
@@ -70,24 +66,11 @@ public class DogDisplayAsAPane extends JPanel implements ListSelectionListener {
 
     pictureAndText = new JPanel();
     pictureAndText.add(dogPictureLabel);
+
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, pictureAndText);
 
     fullScreenButton = new JButton("FullScreen");
 
-  }
-
-
-  public void createAndShowGUI() {
-
-    // Create and set up the window.
-    frame = new JFrame("DogDisplay");
-    frame.add(this.splitPane);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-    // Display the window.
-    frame.setMinimumSize(new Dimension(windowWidth, windowHeight));
-    frame.pack();
-    frame.setVisible(true);
   }
 
 
