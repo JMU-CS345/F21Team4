@@ -36,8 +36,8 @@ public class Window
     // Create and set up the window.
     layeredPane.add(test.splitPane, 0);
     layeredPane.add(home.buttonPad, 1);
-    test.splitPane.setBounds(10, 10, 900, 500);
-    home.buttonPad.setBounds(70, 70, 900, 500);
+    test.splitPane.setBounds(0, 0, windowWidth, windowHeight - 50);
+    home.buttonPad.setBounds(0, 0, windowWidth, windowHeight - 50);
     
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.add(layeredPane);
