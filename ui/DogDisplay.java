@@ -191,9 +191,13 @@ public class DogDisplay extends JPanel implements ListSelectionListener
       if (currImg != null) {
         fullScreenLabel.setIcon(new ImageIcon(currImg));
         fullScreenImage.add(fullScreenLabel);
-        fullScreenImage.setVisible(true);
+        Window.test.showImage();
       }
     }
+  }
+  
+  public void showImage() {
+    fullScreenImage.setVisible(true);
   }
 
   public void show()
