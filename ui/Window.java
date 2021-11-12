@@ -13,7 +13,7 @@ public class Window {
   JFrame frame = new JFrame("DogDisplay");
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
-  private DogDisplayAsAPane test = new DogDisplayAsAPane();
+  private DogDisplay test = new DogDisplay();
 
   public Window() throws IOException {
 
