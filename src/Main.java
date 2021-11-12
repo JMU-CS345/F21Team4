@@ -9,8 +9,10 @@ import java.io.IOException;
 public class Main {
 
   public static void main(String[] args) throws IOException {
-    DogDisplay dd = new DogDisplay();
-    dd.createAndShowGUI();
+//    DogDisplay dd = new DogDisplay();
+//    dd.createAndShowGUI();
+    
+    Window test = new Window();
   }
 }
 
