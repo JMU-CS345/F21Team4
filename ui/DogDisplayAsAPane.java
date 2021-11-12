@@ -1,3 +1,4 @@
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.IOException;
 import java.net.URL;
@@ -65,7 +66,9 @@ public class DogDisplayAsAPane extends JPanel implements ListSelectionListener {
     dogJList.addListSelectionListener(this);
 
     pictureAndText = new JPanel();
+    pictureAndText.setLayout(new GridLayout(2, 1));
     pictureAndText.add(dogPictureLabel);
+    pictureAndText.add(dogInformationLabel);
 
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, pictureAndText);
 

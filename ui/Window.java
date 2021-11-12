@@ -10,7 +10,7 @@ import javax.swing.JFrame;
  */
 
 public class Window {
-  private JFrame frame;
+  JFrame frame = new JFrame("DogDisplay");
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
   private DogDisplayAsAPane test = new DogDisplayAsAPane();
@@ -18,18 +18,12 @@ public class Window {
   public Window() throws IOException {
 
     test.setPreferredSize(new Dimension(windowWidth, windowHeight));
-    // Display the window.
-    // this.createAndShowGUI();
 
-    // frame.setLayout(new BorderLayout());
-
-    frame.add(test);
   }
 
   public void createAndShowGUI() {
 
     // Create and set up the window.
-    frame = new JFrame("DogDisplay");
     frame.add(test.splitPane);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
