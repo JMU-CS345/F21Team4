@@ -1,3 +1,4 @@
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.IOException;
@@ -38,6 +39,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener {
   private JScrollPane scrollPane;
   public JSplitPane splitPane;
   private JPanel pictureAndText;
+  public JPanel fullPane;
   private JLabel dogPictureLabel = new JLabel(" ", JLabel.CENTER);
   private JLabel dogInformationLabel = new JLabel(" ", JLabel.CENTER);
   private JButton fullScreenButton;
@@ -65,16 +67,20 @@ public class DogDisplay extends JPanel implements ListSelectionListener {
     dogJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     dogJList.addListSelectionListener(this);
 
+    fullScreenButton = new JButton("FullScreen");
+    fullScreenButton.setPreferredSize(new Dimension(100, 100));
+    
     pictureAndText = new JPanel();
-    pictureAndText.setLayout(new GridLayout(2, 1));
+    pictureAndText.setLayout(new GridLayout(3, 1));
     pictureAndText.add(dogPictureLabel);
     pictureAndText.add(dogInformationLabel);
+    pictureAndText.add(fullScreenButton);
 
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, pictureAndText);
     splitPane.setVisible(false);
-
-    fullScreenButton = new JButton("FullScreen");
-
+    
+    
+   
   }
 
 
