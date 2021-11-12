@@ -28,7 +28,13 @@ public class HomePage extends JPanel
     buttonPad.setVisible(true);
 
   }
-
+  
+  /**
+   * 
+   * @author Zack Tucker, Matt Wong, Thomas Mandell, Alex Polivka, Jonathan Wist
+   * @version Nov 1, 2021 
+   *
+   */
   private class ButtonPress implements ActionListener
   {
 
