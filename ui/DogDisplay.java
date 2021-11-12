@@ -76,6 +76,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
 
     fullScreenButton = new JButton("FullScreen");
     fullScreenButton.setPreferredSize(new Dimension(100, 100));
+    fullScreenButton.setVisible(false);
 
     pictureAndText = new JPanel();
     pictureAndText.setLayout(new GridLayout(3, 1));
@@ -85,6 +86,11 @@ public class DogDisplay extends JPanel implements ListSelectionListener
     
     fullScreenImage = new JPanel();
     fullScreenLabel = new JLabel();
+    
+    fullScreenImage.setPreferredSize(new Dimension(1024,768));
+    fullScreenLabel.setPreferredSize(new Dimension(1024,768));
+    
+    fullScreenImage.add(fullScreenLabel);
 
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, pictureAndText);
     splitPane.setVisible(false);
@@ -190,7 +196,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
       choice = e.getActionCommand();
       if (currImg != null) {
         fullScreenLabel.setIcon(new ImageIcon(currImg));
-        fullScreenImage.add(fullScreenLabel);
+        
         Window.test.showImage();
       }
     }

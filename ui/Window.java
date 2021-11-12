@@ -27,14 +27,15 @@ public class Window
     layeredPane.setVisible(true);
     test = new DogDisplay();
     test.setPreferredSize(new Dimension(windowWidth, windowHeight));
+    
   }
 
   public void createAndShowGUI()
   {
     // Create and set up the window.
-    layeredPane.add(test.fullScreenImage, 0);
-    layeredPane.add(test.splitPane, 1);
-    layeredPane.add(home.buttonPad, 2);
+    layeredPane.add(test.fullScreenImage, 2);
+    layeredPane.add(test.splitPane, 0);
+    layeredPane.add(home.buttonPad, 1);
     test.fullScreenImage.setBounds(0, 0, windowWidth, windowHeight - 50);
     test.splitPane.setBounds(0, 0, windowWidth, windowHeight - 50);
     home.buttonPad.setBounds(0, 0, windowWidth, windowHeight - 50);
