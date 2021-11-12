@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DogDisplayAsAPane implements ListSelectionListener {
 
-  private JFrame frame;
+  private JPanel panel;
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
 
@@ -44,15 +44,15 @@ public class DogDisplayAsAPane implements ListSelectionListener {
   private JButton fullScreenButton;
 
   /**
-   * Constructor for all the DogDisplay elements, including the frame, panes, and scrollable-list
+   * Constructor for all the DogDisplay elements, including the panel, panes, and scrollable-list
    * along with the dog picture URLs and names.
    * 
    * @throws IOException If getting the names or photo URLs fail to pull from the API.
    */
   public DogDisplayAsAPane() throws IOException {
 
-    frame = new JFrame("Dog Display");
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    panel = new JPanel();
+    // panel.setDefaultCloseOperation(JPanel.EXIT_ON_CLOSE);
     scrollPane = new JScrollPane();
     
     dogList = new ArrayList<Dog>();
@@ -79,14 +79,14 @@ public class DogDisplayAsAPane implements ListSelectionListener {
   public void createAndShowGUI() {
 
     // Create and set up the window.
-    frame = new JFrame("DogDisplay");
-    frame.add(this.splitPane);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    panel = new JPanel();
+    panel.add(this.splitPane);
+    //panel.setDefaultCloseOperation(Jpanel.EXIT_ON_CLOSE);
 
     // Display the window.
-    frame.setMinimumSize(new Dimension(windowWidth, windowHeight));
-    frame.pack();
-    frame.setVisible(true);
+    panel.setMinimumSize(new Dimension(windowWidth, windowHeight));
+    //panel.pack();
+    panel.setVisible(true);
   }
 
 
