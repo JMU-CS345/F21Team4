@@ -2,6 +2,9 @@ import java.awt.Dimension;
 import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+
+import java.awt.CardLayout;
 
 /**
  * Window class
@@ -18,13 +21,13 @@ public class Window
   public static DogDisplay test;
   private HomePage home = new HomePage();
   
-  private JLayeredPane layeredPane;
+  private JPanel layoutPane;
 
   public Window() throws IOException
   {
-    layeredPane = new JLayeredPane();
-    layeredPane.setPreferredSize(new Dimension(300, 310));
-    layeredPane.setVisible(true);
+    layoutPane = new JPanel(new CardLayout());
+    layoutPane.setPreferredSize(new Dimension(300, 310));
+    layoutPane.setVisible(true);
     test = new DogDisplay();
     test.setPreferredSize(new Dimension(windowWidth, windowHeight));
     
@@ -33,15 +36,15 @@ public class Window
   public void createAndShowGUI()
   {
     // Create and set up the window.
-    layeredPane.add(test.fullScreenImage, 2);
-    layeredPane.add(test.splitPane, 0);
-    layeredPane.add(home.buttonPad, 1);
+    layoutPane.add(test.fullScreenImage);
+    layoutPane.add(test.splitPane);
+    layoutPane.add(home.buttonPad);
     test.fullScreenImage.setBounds(0, 0, windowWidth, windowHeight - 50);
     test.splitPane.setBounds(0, 0, windowWidth, windowHeight - 50);
     home.buttonPad.setBounds(0, 0, windowWidth, windowHeight - 50);
     
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.add(layeredPane);
+    frame.add(layoutPane);
     // Display the window.
     frame.setMinimumSize(new Dimension(windowWidth, windowHeight));
     frame.pack();
