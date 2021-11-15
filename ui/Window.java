@@ -20,12 +20,14 @@ public class Window
   private final int windowHeight = 768;
   public static DogDisplay test;
   private HomePage home = new HomePage();
+  private CardLayout layout;
   
   private JPanel layoutPane;
 
   public Window() throws IOException
   {
-    layoutPane = new JPanel(new CardLayout());
+    layout = new CardLayout();
+    layoutPane = new JPanel(layout);
     layoutPane.setPreferredSize(new Dimension(300, 310));
     layoutPane.setVisible(true);
     test = new DogDisplay();
@@ -36,12 +38,13 @@ public class Window
   public void createAndShowGUI()
   {
     // Create and set up the window.
-    layoutPane.add(test.fullScreenImage);
-    layoutPane.add(test.splitPane);
-    layoutPane.add(home.buttonPad);
-    test.fullScreenImage.setBounds(0, 0, windowWidth, windowHeight - 50);
-    test.splitPane.setBounds(0, 0, windowWidth, windowHeight - 50);
-    home.buttonPad.setBounds(0, 0, windowWidth, windowHeight - 50);
+    layoutPane.add(test.fullScreenImage, "fullscreen");
+    layoutPane.add(test.splitPane, "dogdisplay");
+    layoutPane.add(home.buttonPad, "homescreen");
+    //test.fullScreenImage.setBounds(0, 0, windowWidth, windowHeight - 50);
+    //test.splitPane.setBounds(0, 0, windowWidth, windowHeight - 50);
+    //home.buttonPad.setBounds(0, 0, windowWidth, windowHeight - 50);
+    layout.show(layoutPane, "homescreen");
     
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.add(layoutPane);
