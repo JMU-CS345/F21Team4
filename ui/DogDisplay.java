@@ -65,7 +65,6 @@ public class DogDisplay extends JPanel implements ListSelectionListener
    */
   public DogDisplay() throws IOException
   {
-
     scrollPane = new JScrollPane();
 
     dogList = new ArrayList<Dog>();
@@ -120,12 +119,10 @@ public class DogDisplay extends JPanel implements ListSelectionListener
    */
   public void getDogNames() throws IOException
   {
-
     for (Dog dog : dogList)
     {
       this.dogBreeds.add(dog.getName());
     }
-
   }
 
   public void getDogList() throws IOException
@@ -162,7 +159,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
    * Updates the state of the panel when the user clicks on an element of the scrollable-list.
    * 
    * @param e
-   *          Scrollable-list selection.
+   *          scrollable list selection.
    */
   public void valueChanged(ListSelectionEvent e)
   {
@@ -199,9 +196,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
       back.setVisible(true);
       dogPictureLabel.setVerticalTextPosition(JLabel.BOTTOM);
       dogPictureLabel.setHorizontalTextPosition(JLabel.CENTER);
-
     }
-
   }
 
   private class ButtonPress implements ActionListener, KeyListener
@@ -233,14 +228,12 @@ public class DogDisplay extends JPanel implements ListSelectionListener
     public void keyTyped(KeyEvent e)
     {
       // Does nothing, only for implementation.
-
     }
 
     @Override
     public void keyPressed(KeyEvent e)
     {
       // Does nothing, only for implementation.
-
     }
 
     @Override
@@ -250,9 +243,6 @@ public class DogDisplay extends JPanel implements ListSelectionListener
       {
         Window.layout.show(Window.layoutPane, "dogdisplay");
       }
-
     }
-
   }
-
 }
