@@ -47,7 +47,7 @@ public class HomePage extends JPanel
       }
       else
       {
-        System.out.print("worked1");
+        Window.layout.show(Window.layoutPane, "randFact");
       }
       buttonPad.setVisible(false);
 

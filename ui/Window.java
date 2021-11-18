@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.event.ListSelectionListener;
 
 import java.awt.CardLayout;
 
@@ -15,13 +16,14 @@ import java.awt.CardLayout;
  * @version Nov 1, 2021
  */
 
-public class Window
+public class Window 
 {
   public static JFrame frame = new JFrame("DogDisplay");
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
   public static DogDisplay test;
   public static RandomDogPane randDogPage;
+  public static RandomFactPane randFactPage;
   private HomePage home = new HomePage();
   public static CardLayout layout;
 
@@ -37,6 +39,8 @@ public class Window
     test.setPreferredSize(new Dimension(windowWidth, windowHeight));
     randDogPage = new RandomDogPane();
 
+    randDogPage = new RandomDogPane();
+    randFactPage = new RandomFactPane();
   }
 
   public void createAndShowGUI()
@@ -46,6 +50,7 @@ public class Window
     layoutPane.add(test.splitPane, "dogdisplay");
     layoutPane.add(home.buttonPad, "homescreen");
     layoutPane.add(randDogPage.dogRandom, "randImg");
+    layoutPane.add(randFactPage.factRandom, "randFact");
     
     
     layout.show(layoutPane, "homescreen");
