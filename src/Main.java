@@ -1,7 +1,4 @@
-import java.awt.EventQueue;
 import java.io.IOException;
-
-import javax.swing.JFrame;
 
 /**
  * Driver class for Dog Display.
@@ -10,36 +7,12 @@ import javax.swing.JFrame;
  * @version Nov 1, 2021
  */
 public class Main {
-  
+
   public static void main(String[] args) throws IOException {
-    DogApp app = new DogApp();
-    app.run();
+    // DogDisplay dd = new DogDisplay();
+    // dd.createAndShowGUI();
+
+    Window mainWindow = new Window();
+    mainWindow.createAndShowGUI();
   }
-  
-
-    
-  private JFrame frame;
-//  /**
-//   * Launch the application.
-//   */
-//  public static void main(String[] args)
-//  {
-//    EventQueue.invokeLater(new Runnable()
-//    {
-//      public void run()
-//      {
-//        try
-//        {
-//          DogDisplay window = new DogDisplay();
-//          window.frame.setVisible(true);
-//        }
-//        catch (Exception e)
-//        {
-//          e.printStackTrace();
-//        }
-//      }
-//    });
-//  }
 }
-
-

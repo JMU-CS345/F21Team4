@@ -3,6 +3,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,10 +30,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @version Nov 1, 2021
  */
 
-public class DogDisplay extends JPanel implements ListSelectionListener {
+public class DogDisplay extends JPanel implements ListSelectionListener
+{
 
   private String choice;
-
+  
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
 
@@ -53,9 +56,11 @@ public class DogDisplay extends JPanel implements ListSelectionListener {
    * Constructor for all the DogDisplay elements, including the frame, panes, and scrollable-list
    * along with the dog picture URLs and names.
    * 
-   * @throws IOException If getting the names or photo URLs fail to pull from the API.
+   * @throws IOException
+   *           If getting the names or photo URLs fail to pull from the API.
    */
-  public DogDisplay() throws IOException {
+  public DogDisplay() throws IOException
+  {
 
     scrollPane = new JScrollPane();
 
@@ -72,6 +77,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener {
     dogJList.addListSelectionListener(this);
 
     fullScreenButton = new JButton("FullScreen");
+    fullScreenButton.addActionListener(new ButtonPress());
     fullScreenButton.setPreferredSize(new Dimension(100, 100));
     fullScreenButton.setVisible(false);
 
@@ -80,14 +86,41 @@ public class DogDisplay extends JPanel implements ListSelectionListener {
     pictureAndText.add(dogPictureLabel);
     pictureAndText.add(dogInformationLabel);
     pictureAndText.add(fullScreenButton);
-
+    
     fullScreenImage = new JPanel();
     fullScreenLabel = new JLabel();
-
-    fullScreenImage.setPreferredSize(new Dimension(1024, 768));
-    fullScreenLabel.setPreferredSize(new Dimension(1024, 768));
-
+    
+    fullScreenImage.setPreferredSize(new Dimension(1024,768));
+    fullScreenLabel.setPreferredSize(new Dimension(1024,768));
+    
     fullScreenImage.add(fullScreenLabel);
+    /*Window.frame.addKeyListener(new KeyListener(){
+
+      @Override
+      public void keyTyped(KeyEvent e)
+      {
+        System.out.println("typed");
+        
+      }
+
+      @Override
+      public void keyPressed(KeyEvent e)
+      {
+        System.out.println("pressed");
+        
+      }
+
+      @Override
+      public void keyReleased(KeyEvent e)
+      {
+        System.out.println("released");
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+          Window.layout.show(Window.layoutPane, "dogdisplay");
+        }
+        
+      }
+      
+    });*/
 
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, pictureAndText);
     splitPane.setVisible(false);
@@ -97,23 +130,28 @@ public class DogDisplay extends JPanel implements ListSelectionListener {
   /**
    * Gets the names of the dogs from the API and stores them in an array.
    * 
-   * @throws IOException If the URL to the API is invalid.
+   * @throws IOException
+   *           If the URL to the API is invalid.
    */
-  public void getDogNames() throws IOException {
+  public void getDogNames() throws IOException
+  {
 
-    for (Dog dog : dogList) {
+    for (Dog dog : dogList)
+    {
       this.dogBreeds.add(dog.getName());
     }
 
   }
 
-  public void getDogList() throws IOException {
+  public void getDogList() throws IOException
+  {
     URL url = new URL("https://api.thedogapi.com/v1/breeds");
 
     ObjectMapper mapper = new ObjectMapper();
     JsonNode tree = mapper.readTree(url);
 
-    for (int x = 0; x < tree.size(); x++) {
+    for (int x = 0; x < tree.size(); x++)
+    {
       JsonNode breedNode = tree.get(x);
 
       String dogBreed = breedNode.get("name").asText();
@@ -138,15 +176,21 @@ public class DogDisplay extends JPanel implements ListSelectionListener {
   /**
    * Updates the state of the panel when the user clicks on an element of the scrollable-list.
    * 
-   * @param e Scrollable-list selection.
+   * @param e
+   *          Scrollable-list selection.
    */
-  public void valueChanged(ListSelectionEvent e) {
-    if (!e.getValueIsAdjusting()) {
+  public void valueChanged(ListSelectionEvent e)
+  {
+    if (!e.getValueIsAdjusting())
+    {
       currImg = null;
-      try {
+      try
+      {
         int index = -1;
-        for (Dog dog : dogList) {
-          if (dog.getName().equals(dogJList.getSelectedValue())) {
+        for (Dog dog : dogList)
+        {
+          if (dog.getName().equals(dogJList.getSelectedValue()))
+          {
             index = dogList.indexOf(dog);
             break;
           }
@@ -159,11 +203,14 @@ public class DogDisplay extends JPanel implements ListSelectionListener {
             + " Dog Weight: " + dogList.get(index).getWeight() + "lbs<br/>" + " Dog Lifespan: "
             + dogList.get(index).getLifespan() + "<br/>" + " Dog Tempermant: "
             + dogList.get(index).getTemperament() + "<html/>");
-      } catch (IOException exception) {
+      }
+      catch (IOException exception)
+      {
         exception.printStackTrace();
       }
       ImageIcon icon = new ImageIcon(currImg);
       dogPictureLabel.setIcon(icon);
+      fullScreenButton.setVisible(true);
       dogPictureLabel.setVerticalTextPosition(JLabel.BOTTOM);
       dogPictureLabel.setHorizontalTextPosition(JLabel.CENTER);
 
@@ -171,32 +218,26 @@ public class DogDisplay extends JPanel implements ListSelectionListener {
 
   }
 
-  private class ButtonPress implements ActionListener {
+  private class ButtonPress implements ActionListener
+  {
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
       choice = e.getActionCommand();
       if (currImg != null) {
-<<<<<<< HEAD
-        fullScreenLabel.setIcon(new ImageIcon(
-            currImg.getScaledInstance(windowWidth, windowHeight, Image.SCALE_SMOOTH)));
+        fullScreenLabel.setIcon(new ImageIcon(currImg.getScaledInstance(windowWidth, windowHeight, Image.SCALE_SMOOTH)));
         Window.layout.show(Window.layoutPane, "fullscreen");
-=======
-        fullScreenLabel.setIcon(new ImageIcon(currImg));
-        
-        Window.test.showImage();
->>>>>>> parent of e904a19 (Initial Changes for FullScreen Functionality)
       }
     }
   }
-
+  
   public void showImage() {
     fullScreenImage.setVisible(true);
   }
 
-  public void show() {
+  public void show()
+  {
     this.splitPane.setVisible(true);
   }
 }
-
-
