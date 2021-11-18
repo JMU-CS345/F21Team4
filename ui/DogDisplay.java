@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,6 +21,7 @@ import javax.swing.JSplitPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -102,36 +104,6 @@ public class DogDisplay extends JPanel implements ListSelectionListener
     fullScreenLabel.setPreferredSize(new Dimension(1024, 768));
 
     fullScreenImage.add(fullScreenLabel);
-
-    Window.frame.addKeyListener(new KeyListener()
-    {
-
-      @Override
-      public void keyTyped(KeyEvent e)
-      {
-        System.out.println("typed");
-
-      }
-
-      @Override
-      public void keyPressed(KeyEvent e)
-      {
-        System.out.println("pressed");
-
-      }
-
-      @Override
-      public void keyReleased(KeyEvent e)
-      {
-        System.out.println("released");
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
-        {
-
-        }
-
-      }
-
-    });
 
     fullScreenImage.addKeyListener(new ButtonPress());
 

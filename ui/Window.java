@@ -10,7 +10,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.CardLayout;
 
 /**
- * Window class
+ * This class creates a Jframe that houses the rest of our items and sets initial parameters for frames and such.
  * 
  * @author Zack Tucker, Matt Wong, Thomas Mandell, Alex Polivka, Jonathan Wist
  * @version Nov 1, 2021
