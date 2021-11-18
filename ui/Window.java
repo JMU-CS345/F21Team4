@@ -20,9 +20,9 @@ public class Window
   private final int windowHeight = 768;
   public static DogDisplay test;
   private HomePage home = new HomePage();
-  public static CardLayout layout;
+  private CardLayout layout;
   
-  public static JPanel layoutPane;
+  private JPanel layoutPane;
 
   public Window() throws IOException
   {
