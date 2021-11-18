@@ -43,8 +43,7 @@ public class HomePage extends JPanel
       }
       else if (choice.equals("Random Dog Picture"))
       {
-
-        System.out.print("worked");
+        Window.layout.show(Window.layoutPane, "randImg");
       }
       else
       {
@@ -52,11 +51,7 @@ public class HomePage extends JPanel
       }
       buttonPad.setVisible(false);
 
-      
     }
 
-
-    }
   }
-
-
+}

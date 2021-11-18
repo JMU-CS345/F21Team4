@@ -21,6 +21,7 @@ public class Window
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
   public static DogDisplay test;
+  public static RandomDogPane randDogPage;
   private HomePage home = new HomePage();
   public static CardLayout layout;
 
@@ -34,6 +35,7 @@ public class Window
     layoutPane.setVisible(true);
     test = new DogDisplay();
     test.setPreferredSize(new Dimension(windowWidth, windowHeight));
+    randDogPage = new RandomDogPane();
 
   }
 
@@ -43,6 +45,8 @@ public class Window
     layoutPane.add(test.fullScreenImage, "fullscreen");
     layoutPane.add(test.splitPane, "dogdisplay");
     layoutPane.add(home.buttonPad, "homescreen");
+    layoutPane.add(randDogPage.dogRandom, "randImg");
+    
     
     layout.show(layoutPane, "homescreen");
 
