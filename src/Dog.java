@@ -54,5 +54,9 @@ public class Dog {
 	public String getTemperament() {
 	  return this.temperament;
 	}
+	
+	public String toString() {
+		return this.name;
+	}
 
 }
