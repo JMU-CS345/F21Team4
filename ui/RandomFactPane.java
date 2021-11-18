@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -22,12 +23,13 @@ public class RandomFactPane extends JPanel implements ListSelectionListener {
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
 
-  public RandomFactPane() {
-	  factList = getFacts();
+  public RandomFactPane() throws IOException {
+	  getFacts();
 	  
   }
   
-  public ArrayList<String> getFacts() {
+  public void getFacts() throws IOException {
+	  factList = new ArrayList<String>();
 	    URL url = new URL("https://github.com/DukeNgn/Dog-facts-API");
 
 	    ObjectMapper mapper = new ObjectMapper();
@@ -35,23 +37,9 @@ public class RandomFactPane extends JPanel implements ListSelectionListener {
 
 	    for (int x = 0; x < tree.size(); x++)
 	    {
-	      JsonNode breedNode = tree.get(x);
-
-	      String dogBreed = breedNode.get("name").asText();
-	      String urlString = breedNode.get("image").get("url").asText();
-	      URL urlDogPics = new URL(urlString);
-	      String height = breedNode.get("height").get("imperial").asText();
-	      String weight = breedNode.get("weight").get("imperial").asText();
-	      String origin = null;
-	      if (breedNode.get("origin") != null)
-	        origin = breedNode.get("origin").asText();
-	      String lifespan = breedNode.get("life_span").asText();
-	      String temperament = null;
-	      if (breedNode.get("temperament") != null)
-	        temperament = breedNode.get("temperament").asText();
-
-	      Dog dog = new Dog(dogBreed, urlDogPics, height, weight, origin, lifespan, temperament);
-	      this.factList.add(dog);
+	      JsonNode stringNode = tree.get(x);
+	      String fact = stringNode.get("fact").asText();
+	      this.factList.add(fact);
 	    }
 	  
   }
