@@ -32,15 +32,15 @@ public class RandomFactPane extends JPanel implements ListSelectionListener {
   
   public void getFacts() throws IOException {
 	  factList = new ArrayList<String>();
-	    URL url = new URL("https://github.com/DukeNgn/Dog-facts-API");
+	    URL url = new URL("https://dog-facts-api.herokuapp.com/api/v1/resources/dogs/all");
 
 	    ObjectMapper mapper = new ObjectMapper();
 	    JsonNode tree = mapper.readTree(url);
-
+	    //tree.asText();
 	    for (int x = 0; x < tree.size(); x++)
 	    {
-	      JsonNode stringNode = tree.get(x);
-	      String fact = stringNode.get("fact").asText();
+	      JsonNode factNode = tree.get(x);
+	      String fact = factNode.get("fact").asText();
 	      this.factList.add(fact);
 	    }
 	  
