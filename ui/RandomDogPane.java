@@ -1,5 +1,4 @@
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,15 +8,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.event.ListSelectionListener;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class RandomDogPane extends JPanel implements ListSelectionListener {
+public class RandomDogPane extends JPanel {
   URL urlDogPic;
 
   JButton random = new JButton("Random Dog Picture");
-  public static JPanel dogRandom = new JPanel(new GridLayout(2, 1));
+  public static JPanel dogRandom = new JPanel();
   JLabel image = new JLabel(" ", JLabel.CENTER);
 
   private Image currImg = null;
@@ -48,7 +46,7 @@ public class RandomDogPane extends JPanel implements ListSelectionListener {
     ObjectMapper mapper = new ObjectMapper();
     JsonNode tree = mapper.readTree(url);
 
-    JsonNode breedNode = tree.get(1);
+    JsonNode breedNode = tree.get(0);
 
     String urlString = breedNode.get("message").asText();
 
@@ -62,17 +60,13 @@ public class RandomDogPane extends JPanel implements ListSelectionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
       // TODO Auto-generated method stub
-      try {
-        getDogImage();
-      } catch (IOException e1) {
-        // TODO Auto-generated catch block
-        e1.printStackTrace();
-      }
+
       ImageIcon icon = new ImageIcon(urlDogPic);
       image.setIcon(icon);
       // back.setVisible(true);
 
     }
   }
+
 
 }
