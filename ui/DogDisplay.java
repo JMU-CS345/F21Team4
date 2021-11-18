@@ -239,133 +239,150 @@ import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 
-public class DogDisplay implements ListSelectionListener {
+public class DogDisplay implements ListSelectionListener
+{
 
-	private JFrame frame;
-	private List<Dog> dogList;
-	private JList dogJList;
-	private Image currImage;
-	private final int windowHeight = 300;
-	private final int windowWidth = 450;
-	private JLabel dogInfoLabel;
-	private JLabel dogPicLabel;
+  private JFrame frame;
+  private List<Dog> dogList;
+  private JList dogJList;
+  private Image currImage;
+  private final int windowHeight = 300;
+  private final int windowWidth = 450;
+  private JLabel dogInfoLabel;
+  private JLabel dogPicLabel;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DogDisplay window = new DogDisplay();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+  /**
+   * Launch the application.
+   */
+  public static void main(String[] args)
+  {
+    EventQueue.invokeLater(new Runnable()
+    {
+      public void run()
+      {
+        try
+        {
+          DogDisplay window = new DogDisplay();
+          window.frame.setVisible(true);
+        }
+        catch (Exception e)
+        {
+          e.printStackTrace();
+        }
+      }
+    });
+  }
 
-	/**
-	 * Create the application.
-	 * 
-	 * @throws IOException
-	 */
-	public DogDisplay() throws IOException {
-		initialize();
-		dogInfoLabel = new JLabel();
-	}
+  /**
+   * Create the application.
+   * 
+   * @throws IOException
+   */
+  public DogDisplay() throws IOException
+  {
+    initialize();
+    dogInfoLabel = new JLabel();
+  }
 
-	public void getDogList() throws IOException {
-		this.dogList = new ArrayList<Dog>();
-		URL url = new URL("https://api.thedogapi.com/v1/breeds");
+  public void getDogList() throws IOException
+  {
+    this.dogList = new ArrayList<Dog>();
+    URL url = new URL("https://api.thedogapi.com/v1/breeds");
 
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode tree = mapper.readTree(url);
+    ObjectMapper mapper = new ObjectMapper();
+    JsonNode tree = mapper.readTree(url);
 
-		for (int x = 0; x < tree.size(); x++) {
-			JsonNode breedNode = tree.get(x);
+    for (int x = 0; x < tree.size(); x++)
+    {
+      JsonNode breedNode = tree.get(x);
 
-			String dogBreed = breedNode.get("name").asText();
-			String urlString = breedNode.get("image").get("url").asText();
-			URL urlDogPics = new URL(urlString);
-			String height = breedNode.get("height").get("imperial").asText();
-			String weight = breedNode.get("weight").get("imperial").asText();
-			String origin = null;
-			if (breedNode.get("origin") != null)
-				origin = breedNode.get("origin").asText();
-			String lifespan = breedNode.get("life_span").asText();
-			String temperament = null;
-			if (breedNode.get("temperament") != null)
-				temperament = breedNode.get("temperament").asText();
+      String dogBreed = breedNode.get("name").asText();
+      String urlString = breedNode.get("image").get("url").asText();
+      URL urlDogPics = new URL(urlString);
+      String height = breedNode.get("height").get("imperial").asText();
+      String weight = breedNode.get("weight").get("imperial").asText();
+      String origin = null;
+      if (breedNode.get("origin") != null)
+        origin = breedNode.get("origin").asText();
+      String lifespan = breedNode.get("life_span").asText();
+      String temperament = null;
+      if (breedNode.get("temperament") != null)
+        temperament = breedNode.get("temperament").asText();
 
-			Dog dog = new Dog(dogBreed, urlDogPics, height, weight, origin, lifespan, temperament);
+      Dog dog = new Dog(dogBreed, urlDogPics, height, weight, origin, lifespan, temperament);
 
-			this.dogList.add(dog);
-		}
+      this.dogList.add(dog);
+    }
 
-	}
-	
-	
-	public void valueChanged(ListSelectionEvent e) {
-		@SuppressWarnings("rawtypes")
-		JList list = (JList) e.getSource();
-		Dog d = (Dog) dogList.toArray()[list.getSelectedIndex()];
-		updateLabels(d);
-	}
-	
-	private void updateLabels(Dog dog) {
-		ImageIcon icon = createImageIcon(dog.getURL());
-		this.dogPicLabel.setIcon(icon);
-		if (icon != null) {
-			dogInfoLabel.setText("<html>" + "Dog Breed: " + dog.getName() + "<br/>" + " Dog Height: "
-			+ dog.getHeight() + " inches<br/>" + " Dog Weight: "
-			+ dog.getWeight() + "lbs<br/>" + " Dog Lifespan: "
-			+ dog.getLifespan() + "<br/>" + " Dog Tempermant: "
-			+ dog.getTemperament() + "<html/>");
-		} else {
-			this.dogPicLabel.setText("Image not found");
-			this.dogPicLabel.setVerticalTextPosition(JLabel.CENTER);
-		}
-	}
-	
-	private static ImageIcon createImageIcon(URL path) {
-		URL imgURL = path;
-		if (imgURL != null) {
-			return new ImageIcon(imgURL);
-		} else {
-			return null;
-		}
-	}
-	
+  }
 
-	/**
-	 * Initialize the contents of the frame.
-	 * 
-	 * @throws IOException
-	 */
-	private void initialize() throws IOException {
-		dogPicLabel = new JLabel();
-		frame = new JFrame();
-		frame.setBounds(100, 100, windowHeight, windowWidth);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new CardLayout(0, 0));
-		getDogList();
-		this.dogJList = new JList(this.dogList.toArray());
-		dogJList.addListSelectionListener(this);
-		dogJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		JSplitPane splitPane = new JSplitPane();
-		frame.getContentPane().add(splitPane, "name_136656520770172");
+  public void valueChanged(ListSelectionEvent e)
+  {
+    @SuppressWarnings("rawtypes")
+    JList list = (JList) e.getSource();
+    Dog d = (Dog) dogList.toArray()[list.getSelectedIndex()];
+    updateLabels(d);
+  }
 
-		JScrollPane scrollPane = new JScrollPane();
-		splitPane.setLeftComponent(scrollPane);
-		scrollPane.add(this.dogJList);
-		scrollPane.setViewportView(this.dogJList);
-		this.dogJList = new JList(dogList.toArray());
-		JPanel panel = new JPanel();
-		JSplitPane splitPane2 = new JSplitPane();
-		splitPane.setRightComponent(dogPicLabel);
-		panel.add(splitPane2);
-	}
+  private void updateLabels(Dog dog)
+  {
+    ImageIcon icon = createImageIcon(dog.getURL());
+    this.dogPicLabel.setIcon(icon);
+    if (icon != null)
+    {
+      dogInfoLabel.setText("<html>" + "Dog Breed: " + dog.getName() + "<br/>" + " Dog Height: "
+          + dog.getHeight() + " inches<br/>" + " Dog Weight: " + dog.getWeight() + "lbs<br/>"
+          + " Dog Lifespan: " + dog.getLifespan() + "<br/>" + " Dog Tempermant: "
+          + dog.getTemperament() + "<html/>");
+    }
+    else
+    {
+      this.dogPicLabel.setText("Image not found");
+      this.dogPicLabel.setVerticalTextPosition(JLabel.CENTER);
+    }
+  }
+
+  private static ImageIcon createImageIcon(URL path)
+  {
+    URL imgURL = path;
+    if (imgURL != null)
+    {
+      return new ImageIcon(imgURL);
+    }
+    else
+    {
+      return null;
+    }
+  }
+
+  /**
+   * Initialize the contents of the frame.
+   * 
+   * @throws IOException
+   */
+  private void initialize() throws IOException
+  {
+    dogPicLabel = new JLabel();
+    frame = new JFrame();
+    frame.setBounds(100, 100, windowHeight, windowWidth);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.getContentPane().setLayout(new CardLayout(0, 0));
+    getDogList();
+    this.dogJList = new JList(this.dogList.toArray());
+    dogJList.addListSelectionListener(this);
+    dogJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    JSplitPane splitPane = new JSplitPane();
+    frame.getContentPane().add(splitPane, "name_136656520770172");
+
+    JScrollPane scrollPane = new JScrollPane();
+    splitPane.setLeftComponent(scrollPane);
+    scrollPane.add(this.dogJList);
+    scrollPane.setViewportView(this.dogJList);
+    this.dogJList = new JList(dogList.toArray());
+    JPanel panel = new JPanel();
+    JSplitPane splitPane2 = new JSplitPane();
+    splitPane.setRightComponent(dogPicLabel);
+    panel.add(splitPane2);
+  }
 
 }

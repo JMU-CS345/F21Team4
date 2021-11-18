@@ -1,4 +1,3 @@
-package ui;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
