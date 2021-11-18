@@ -52,6 +52,10 @@ public class HomePage extends JPanel
       }
       buttonPad.setVisible(false);
 
+      Window.layout.show(Window.layoutPane, "dogdisplay");
+    }
+
+
     }
   }
 

@@ -94,6 +94,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
     fullScreenLabel.setPreferredSize(new Dimension(1024,768));
     
     fullScreenImage.add(fullScreenLabel);
+
     Window.frame.addKeyListener(new KeyListener(){
 
       @Override
@@ -122,6 +123,8 @@ public class DogDisplay extends JPanel implements ListSelectionListener
       }
       
     });
+
+    fullScreenImage.addKeyListener(new ButtonPress());
 
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, pictureAndText);
     splitPane.setVisible(false);
@@ -219,7 +222,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
 
   }
 
-  private class ButtonPress implements ActionListener
+  private class ButtonPress implements ActionListener, KeyListener
   {
 
     @Override
@@ -229,17 +232,38 @@ public class DogDisplay extends JPanel implements ListSelectionListener
       if (currImg != null) {
         fullScreenLabel.setIcon(new ImageIcon(currImg.getScaledInstance(windowWidth, windowHeight, Image.SCALE_SMOOTH)));
         Window.layout.show(Window.layoutPane, "fullscreen");
+        fullScreenImage.requestFocus();
       }
     }
-  }
-  
-  public void showImage() {
-    fullScreenImage.setVisible(true);
-  }
+
 
   public void show()
   {
     this.splitPane.setVisible(true);
- 
+
+    @Override
+    public void keyTyped(KeyEvent e)
+    {
+      // Does nothing, only for implementation.
+      
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e)
+    {
+      // Does nothing, only for implementation.
+      
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e)
+    {
+      if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        Window.layout.show(Window.layoutPane, "dogdisplay");
+      }
+      
+    }
+
   }
+
 }
