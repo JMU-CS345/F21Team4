@@ -39,7 +39,7 @@ public class HomePage extends JPanel
       if (choice.equals("Dog Display"))
       {
 
-        Window.test.show();
+        Window.layout.show(Window.layoutPane, "dogdisplay");
       }
       else if (choice.equals("Random Dog Picture"))
       {
@@ -52,7 +52,7 @@ public class HomePage extends JPanel
       }
       buttonPad.setVisible(false);
 
-      Window.layout.show(Window.layoutPane, "dogdisplay");
+      
     }
 
 
