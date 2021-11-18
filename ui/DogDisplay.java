@@ -94,33 +94,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
     fullScreenLabel.setPreferredSize(new Dimension(1024,768));
     
     fullScreenImage.add(fullScreenLabel);
-    /*Window.frame.addKeyListener(new KeyListener(){
-
-      @Override
-      public void keyTyped(KeyEvent e)
-      {
-        System.out.println("typed");
-        
-      }
-
-      @Override
-      public void keyPressed(KeyEvent e)
-      {
-        System.out.println("pressed");
-        
-      }
-
-      @Override
-      public void keyReleased(KeyEvent e)
-      {
-        System.out.println("released");
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-          Window.layout.show(Window.layoutPane, "dogdisplay");
-        }
-        
-      }
-      
-    });*/
+    fullScreenImage.addKeyListener(new ButtonPress());
 
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, pictureAndText);
     splitPane.setVisible(false);
@@ -218,7 +192,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
 
   }
 
-  private class ButtonPress implements ActionListener
+  private class ButtonPress implements ActionListener, KeyListener
   {
 
     @Override
@@ -228,16 +202,32 @@ public class DogDisplay extends JPanel implements ListSelectionListener
       if (currImg != null) {
         fullScreenLabel.setIcon(new ImageIcon(currImg.getScaledInstance(windowWidth, windowHeight, Image.SCALE_SMOOTH)));
         Window.layout.show(Window.layoutPane, "fullscreen");
+        fullScreenImage.requestFocus();
       }
     }
-  }
-  
-  public void showImage() {
-    fullScreenImage.setVisible(true);
+
+    @Override
+    public void keyTyped(KeyEvent e)
+    {
+      // Does nothing, only for implementation.
+      
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e)
+    {
+      // Does nothing, only for implementation.
+      
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e)
+    {
+      if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        Window.layout.show(Window.layoutPane, "dogdisplay");
+      }
+      
+    }
   }
 
-  public void show()
-  {
-    this.splitPane.setVisible(true);
-  }
 }

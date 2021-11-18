@@ -43,46 +43,15 @@ public class Window
     layoutPane.add(test.fullScreenImage, "fullscreen");
     layoutPane.add(test.splitPane, "dogdisplay");
     layoutPane.add(home.buttonPad, "homescreen");
-    //test.fullScreenImage.setBounds(0, 0, windowWidth, windowHeight - 50);
-    //test.splitPane.setBounds(0, 0, windowWidth, windowHeight - 50);
-    //home.buttonPad.setBounds(0, 0, windowWidth, windowHeight - 50);
+    
     layout.show(layoutPane, "homescreen");
 
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.add(layoutPane);
     // Display the window.
     frame.setMinimumSize(new Dimension(windowWidth, windowHeight));
-    frame.getContentPane().addKeyListener(new KeyListen());
     frame.pack();
     frame.setVisible(true);
-  }
-
-  private class KeyListen implements KeyListener{
-
-    @Override
-    public void keyTyped(KeyEvent e)
-    {
-      System.out.println("typed");
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e)
-    {
-      System.out.println("pressed");
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e)
-    {
-      System.out.println("released");
-      if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-        Window.layout.show(Window.layoutPane, "dogdisplay");
-      }
-
-    }
-
   }
 
 }

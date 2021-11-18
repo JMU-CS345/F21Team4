@@ -31,7 +31,7 @@ public class HomePage extends JPanel
     {
       choice = e.getActionCommand();
       buttonPad.setVisible(false);
-      Window.test.show();
+      Window.layout.show(Window.layoutPane, "dogdisplay");
     }
 
   }
