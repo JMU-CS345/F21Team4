@@ -1,13 +1,9 @@
-import java.awt.Dimension;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.IOException;
-import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
-import javax.swing.event.ListSelectionListener;
-
 import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.io.IOException;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * This class creates a Jframe that houses the rest of our items and sets initial parameters for frames and such.
