@@ -1,9 +1,11 @@
+import java.awt.Component;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -25,7 +27,7 @@ public class RandomFactPane extends JPanel implements ListSelectionListener {
 
   public RandomFactPane() throws IOException {
 	  getFacts();
-	  
+	  factRandom.add(new JLabel(factList.get(0)));
   }
   
   public void getFacts() throws IOException {
