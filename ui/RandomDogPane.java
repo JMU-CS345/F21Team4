@@ -1,35 +1,77 @@
-import java.net.MalformedURLException;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.URL;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RandomDogPane extends JPanel implements ListSelectionListener {
-
-  String urlString;
   URL urlDogPic;
-  JButton random = new JButton("Random Dog Picture");
-  JPanel dogRandom = new JPanel();
 
+  JButton random = new JButton("Random Dog Picture");
+  public static JPanel dogRandom = new JPanel(new GridLayout(2, 1));
+  JLabel image = new JLabel(" ", JLabel.CENTER);
+
+  private Image currImg = null;
 
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
 
   public RandomDogPane() {
+    dogRandom.setPreferredSize(new Dimension(1024, 760));
+
+    random.addActionListener(new ButtonPress());
+    random.setPreferredSize(new Dimension(100, 100));
+    random.setVisible(true);
+
+    image.setVisible(true);
+    dogRandom.add(image);
+    dogRandom.add(random);
+
+    dogRandom.setVisible(true);
 
   }
 
+  public void getDogImage() throws IOException {
 
-  @Override
-  public void valueChanged(ListSelectionEvent e) {
-    // TODO Auto-generated method stub
-    urlString = "https://dog.ceo/api/breeds/image/random";
-    try {
-      urlDogPic = new URL(urlString);
-    } catch (MalformedURLException e1) {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
+    URL url = new URL("https://dog.ceo/api/breeds/image/random");
+
+
+    ObjectMapper mapper = new ObjectMapper();
+    JsonNode tree = mapper.readTree(url);
+
+    JsonNode breedNode = tree.get(1);
+
+    String urlString = breedNode.get("message").asText();
+
+    urlDogPic = new URL(urlString);
+
+  }
+
+  private class ButtonPress implements ActionListener {
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      // TODO Auto-generated method stub
+      try {
+        getDogImage();
+      } catch (IOException e1) {
+        // TODO Auto-generated catch block
+        e1.printStackTrace();
+      }
+      ImageIcon icon = new ImageIcon(urlDogPic);
+      image.setIcon(icon);
+      // back.setVisible(true);
+
     }
   }
 
