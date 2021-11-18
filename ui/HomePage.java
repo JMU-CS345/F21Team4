@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public class HomePage extends JPanel
 {
-  public JPanel buttonPad;
+  public static JPanel buttonPad;
   private String choice;
 
   public HomePage()

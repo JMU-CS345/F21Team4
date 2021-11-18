@@ -48,9 +48,11 @@ public class DogDisplay extends JPanel implements ListSelectionListener
   private JLabel dogPictureLabel = new JLabel(" ", JLabel.CENTER);
   private JLabel dogInformationLabel = new JLabel(" ", JLabel.CENTER);
   private JButton fullScreenButton;
+  private JButton back;
   private Image currImg = null;
   public JPanel fullScreenImage;
   private JLabel fullScreenLabel;
+  
 
   /**
    * Constructor for all the DogDisplay elements, including the frame, panes, and scrollable-list
@@ -80,12 +82,18 @@ public class DogDisplay extends JPanel implements ListSelectionListener
     fullScreenButton.addActionListener(new ButtonPress());
     fullScreenButton.setPreferredSize(new Dimension(100, 100));
     fullScreenButton.setVisible(false);
+    
+    back = new JButton("Back");
+    back.addActionListener(new ButtonPress());
+    back.setPreferredSize(new Dimension(100, 100));
+    back.setVisible(false);
 
     pictureAndText = new JPanel();
-    pictureAndText.setLayout(new GridLayout(3, 1));
+    pictureAndText.setLayout(new GridLayout(4, 1));
     pictureAndText.add(dogPictureLabel);
     pictureAndText.add(dogInformationLabel);
     pictureAndText.add(fullScreenButton);
+    pictureAndText.add(back);
 
     fullScreenImage = new JPanel();
     fullScreenLabel = new JLabel();
@@ -217,6 +225,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
       ImageIcon icon = new ImageIcon(currImg);
       dogPictureLabel.setIcon(icon);
       fullScreenButton.setVisible(true);
+      back.setVisible(true);
       dogPictureLabel.setVerticalTextPosition(JLabel.BOTTOM);
       dogPictureLabel.setHorizontalTextPosition(JLabel.CENTER);
 
@@ -243,6 +252,8 @@ public class DogDisplay extends JPanel implements ListSelectionListener
       }
       else
       {
+
+        Window.layout.show(Window.layoutPane, "homescreen");
         
       }
     }
