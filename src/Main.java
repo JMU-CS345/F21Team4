@@ -12,12 +12,12 @@ import javax.swing.JFrame;
 public class Main {
   
   public static void main(String[] args) throws IOException {
-    // DogDisplay dd = new DogDisplay();
-    // dd.createAndShowGUI();
-
-    Window mainWindow = new Window();
-    mainWindow.createAndShowGUI();
+    DogApp app = new DogApp();
+    app.run();
   }
+  
+
+    
   private JFrame frame;
 //  /**
 //   * Launch the application.

@@ -36,6 +36,13 @@ public class DogApp implements ListSelectionListener {
 	private JLabel dogInfoLabel;
 	private JLabel dogPicLabel;
 
+			public void run() {
+				try {
+					this.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 
 	/**
 	 * Create the application.
