@@ -94,7 +94,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
     fullScreenLabel.setPreferredSize(new Dimension(1024,768));
     
     fullScreenImage.add(fullScreenLabel);
-    /*Window.frame.addKeyListener(new KeyListener(){
+    Window.frame.addKeyListener(new KeyListener(){
 
       @Override
       public void keyTyped(KeyEvent e)
@@ -115,12 +115,13 @@ public class DogDisplay extends JPanel implements ListSelectionListener
       {
         System.out.println("released");
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-          Window.layout.show(Window.layoutPane, "dogdisplay");
+//          Window.layout.show(Window.layoutPane, "dogdisplay");
+//          fullScreenImage.disable(fullScreenLabel);
         }
         
       }
       
-    });*/
+    });
 
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, pictureAndText);
     splitPane.setVisible(false);
@@ -239,5 +240,6 @@ public class DogDisplay extends JPanel implements ListSelectionListener
   public void show()
   {
     this.splitPane.setVisible(true);
+ 
   }
 }

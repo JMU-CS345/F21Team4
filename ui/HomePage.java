@@ -12,12 +12,18 @@ public class HomePage extends JPanel
 
   public HomePage()
   {
-    buttonPad = new JPanel(new GridLayout(1, 1));
+    buttonPad = new JPanel(new GridLayout(1, 3));
     JButton dogDisplay = new JButton("Dog Display");
+    JButton randomPic = new JButton("Random Dog Picture");
+    JButton randomFact = new JButton("Random Facts");
 
     dogDisplay.addActionListener(new ButtonPress());
+    randomPic.addActionListener(new ButtonPress());
+    randomFact.addActionListener(new ButtonPress());
 
     buttonPad.add(dogDisplay);
+    buttonPad.add(randomPic);
+    buttonPad.add(randomFact);
 
     buttonPad.setVisible(true);
 
@@ -30,10 +36,23 @@ public class HomePage extends JPanel
     public void actionPerformed(ActionEvent e)
     {
       choice = e.getActionCommand();
-      buttonPad.setVisible(false);
-      Window.test.show();
-    }
+      if (choice.equals("Dog Display"))
+      {
 
+        Window.test.show();
+      }
+      else if (choice.equals("Random Dog Picture"))
+      {
+
+        System.out.print("worked");
+      }
+      else
+      {
+        System.out.print("worked1");
+      }
+      buttonPad.setVisible(false);
+
+    }
   }
 
 }
