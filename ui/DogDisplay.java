@@ -24,7 +24,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * A class.
+ * This class hold the components that make up the dog display, including the dog Image displayer,
+ * Dog fact Display, scroll pane and back button.
  * 
  * @author Zack Tucker, Matt Wong, Thomas Mandell, Alex Polivka, Jonathan Wist
  * @version Nov 1, 2021
@@ -52,7 +53,6 @@ public class DogDisplay extends JPanel implements ListSelectionListener
   private Image currImg = null;
   public JPanel fullScreenImage;
   private JLabel fullScreenLabel;
-  
 
   /**
    * Constructor for all the DogDisplay elements, including the frame, panes, and scrollable-list
@@ -82,7 +82,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
     fullScreenButton.addActionListener(new ButtonPress());
     fullScreenButton.setPreferredSize(new Dimension(100, 100));
     fullScreenButton.setVisible(false);
-    
+
     back = new JButton("Back");
     back.addActionListener(new ButtonPress());
     back.setPreferredSize(new Dimension(100, 100));
@@ -126,8 +126,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
         System.out.println("released");
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
         {
-          // Window.layout.show(Window.layoutPane, "dogdisplay");
-          // fullScreenImage.disable(fullScreenLabel);
+
         }
 
       }
@@ -254,7 +253,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
       {
 
         Window.layout.show(Window.layoutPane, "homescreen");
-        
+
       }
     }
 
