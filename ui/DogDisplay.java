@@ -90,7 +90,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
     back.setVisible(false);
 
     pictureAndText = new JPanel();
-    pictureAndText.setLayout(new GridLayout(4, 1));
+    pictureAndText.setLayout(new GridLayout(3, 2));
     pictureAndText.add(dogPictureLabel);
     pictureAndText.add(dogInformationLabel);
     pictureAndText.add(fullScreenButton);
