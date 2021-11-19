@@ -55,7 +55,6 @@ public class DogDisplay extends JPanel implements ListSelectionListener
   private JLabel dogInformationLabel = new JLabel(" ", JLabel.CENTER);
 
   // Declaring all variable and components for full screen mode
-  public JPanel fullPane;
   private Image currImg = null;
   public JPanel fullScreenImage;
   private JLabel fullScreenLabel;

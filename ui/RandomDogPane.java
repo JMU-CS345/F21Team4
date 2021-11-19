@@ -33,7 +33,7 @@ public class RandomDogPane extends JPanel implements ActionListener
   public JPanel randImgPane;
   private JLabel randDogIcon;
 
-  private JSplitPane sp;
+  private JSplitPane splitPane;
 
   // Declaring and initializing all default dimensions
   private final int windowWidth = 1024;
@@ -73,11 +73,11 @@ public class RandomDogPane extends JPanel implements ActionListener
     // buttonPad.add(makeMeme);
 
     // Initializing SplitPane that houses the image buttons and images
-    sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, buttonPad, randDogIcon);
+    splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, buttonPad, randDogIcon);
 
     // Initializing JPanel that hold everything else
     randImgPane = new JPanel();
-    randImgPane.add(sp);
+    randImgPane.add(splitPane);
 
   }
 

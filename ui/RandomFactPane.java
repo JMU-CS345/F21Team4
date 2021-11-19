@@ -1,4 +1,3 @@
-import java.awt.Button;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -37,7 +36,7 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
   private ArrayList<String> factList;
   private JLabel textLabel;
   private JTextArea factTxtArea;
-  private JSplitPane sp;
+  private JSplitPane splitPane;
 
   // Declaring and initializing all default dimensions
   private final int windowWidth = 1024;
@@ -74,12 +73,12 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
     factTxtArea.setSize(windowWidth, windowHeight);
 
     // Initializing SplitPane that houses the buttonPad and fact panel
-    sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, buttonPad, factTxtArea);
-    sp.setPreferredSize(new Dimension(windowWidth, windowHeight));
+    splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, buttonPad, factTxtArea);
+    splitPane.setPreferredSize(new Dimension(windowWidth, windowHeight));
 
     // Initializing and setting up Random Fact JPanel
     factRandom = new JPanel();
-    factRandom.add(sp);
+    factRandom.add(splitPane);
 
   }
 
@@ -122,8 +121,9 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
     choice = e.getActionCommand();
     if (choice.equals("New Fact!"))
     {
-      factTxtArea = new JTextArea(factList.get((int) Math.floor(Math.random() * (100 - 0 + 1) + 0)));
-      sp.setBottomComponent(factTxtArea);
+      factTxtArea = new JTextArea(
+          factList.get((int) Math.floor(Math.random() * (100 - 0 + 1) + 0)));
+      splitPane.setBottomComponent(factTxtArea);
     }
     else if (choice.equals("Back"))
     {
