@@ -35,26 +35,34 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DogDisplay extends JPanel implements ListSelectionListener
 {
-
+  // Declaring all button components and variables
   private String choice;
 
-  private final int windowWidth = 1024;
-  private final int windowHeight = 768;
+  private JButton fullScreenButton;
+  private JButton back;
+  private JButton makeMeme;
+
+  // Declaring all variables and components for the scroll pane
+  private JScrollPane scrollPane;
+  public JSplitPane splitPane;
+  private JPanel pictureAndText;
 
   private List<String> dogBreeds;
   private List<Dog> dogList;
   private JList dogJList;
-  private JScrollPane scrollPane;
-  public JSplitPane splitPane;
-  private JPanel pictureAndText;
-  public JPanel fullPane;
+
   private JLabel dogPictureLabel = new JLabel(" ", JLabel.CENTER);
   private JLabel dogInformationLabel = new JLabel(" ", JLabel.CENTER);
-  private JButton fullScreenButton;
-  private JButton back;
+
+  // Declaring all variable and components for full screen mode
+  public JPanel fullPane;
   private Image currImg = null;
   public JPanel fullScreenImage;
   private JLabel fullScreenLabel;
+
+  // Declaring and initializing all default dimensions
+  private final int windowWidth = 1024;
+  private final int windowHeight = 768;
 
   /**
    * Constructor for all the DogDisplay elements, including the frame, panes, and scrollable-list
@@ -65,6 +73,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
    */
   public DogDisplay() throws IOException
   {
+    // Initializing scroll pane and all necessary information variables
     scrollPane = new JScrollPane();
 
     dogList = new ArrayList<Dog>();
@@ -79,23 +88,25 @@ public class DogDisplay extends JPanel implements ListSelectionListener
     dogJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     dogJList.addListSelectionListener(this);
 
-    fullScreenButton = new JButton("FullScreen");
-    fullScreenButton.addActionListener(new ButtonPress());
-    fullScreenButton.setPreferredSize(new Dimension(100, 100));
-    fullScreenButton.setVisible(false);
-
+    // Initializing "Back" button
     back = new JButton("Back");
     back.addActionListener(new ButtonPress());
     back.setPreferredSize(new Dimension(100, 100));
     back.setVisible(false);
 
-    pictureAndText = new JPanel();
-    pictureAndText.setLayout(new GridLayout(3, 2));
-    pictureAndText.add(dogPictureLabel);
-    pictureAndText.add(dogInformationLabel);
-    pictureAndText.add(fullScreenButton);
-    pictureAndText.add(back);
+    // Initializing "Full Screen" button
+    fullScreenButton = new JButton("Full Screen");
+    fullScreenButton.addActionListener(new ButtonPress());
+    fullScreenButton.setPreferredSize(new Dimension(100, 100));
+    fullScreenButton.setVisible(false);
 
+    // Initializing and setting up "Make a meme!" button
+    makeMeme = new JButton("Make a meme!");
+    makeMeme.addActionListener(new ButtonPress());
+    makeMeme.setPreferredSize(new Dimension(100, 100));
+    makeMeme.setVisible(false);
+
+    // Initializing components and variables necessary for full screen mode
     fullScreenImage = new JPanel();
     fullScreenLabel = new JLabel();
 
@@ -106,13 +117,23 @@ public class DogDisplay extends JPanel implements ListSelectionListener
 
     fullScreenImage.addKeyListener(new ButtonPress());
 
+    // Initializing picture and text pane
+    pictureAndText = new JPanel();
+    pictureAndText.setLayout(new GridLayout(3, 2));
+    pictureAndText.add(dogPictureLabel);
+    pictureAndText.add(dogInformationLabel);
+    pictureAndText.add(fullScreenButton);
+    pictureAndText.add(back);
+    // pictureAndText.add(makeMeme);
+
+    // Initializing split pane that houses all other DigDisplay components
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, pictureAndText);
     splitPane.setVisible(false);
 
   }
 
   /**
-   * Gets the names of the dogs from the API and stores them in an array.
+   * Gets the names of the dogs from the API and stores them in a List
    * 
    * @throws IOException
    *           If the URL to the API is invalid.
@@ -199,14 +220,17 @@ public class DogDisplay extends JPanel implements ListSelectionListener
     }
   }
 
+  /*
+   * Holds the functionality for all buttons in the DogDisplay Pane.
+   */
   private class ButtonPress implements ActionListener, KeyListener
   {
-
     @Override
     public void actionPerformed(ActionEvent e)
     {
       choice = e.getActionCommand();
-      if (choice.equals("FullScreen"))
+
+      if (choice.equals("Full Screen"))
       {
         if (currImg != null)
         {
@@ -216,11 +240,17 @@ public class DogDisplay extends JPanel implements ListSelectionListener
           fullScreenImage.requestFocus();
         }
       }
+      else if (choice.equals("Back"))
+      {
+        Window.layout.show(Window.layoutPane, "homescreen");
+      }
+      else if (choice.equals("Make a meme!"))
+      {
+        System.out.println("Feature not available yet");
+      }
       else
       {
-
-        Window.layout.show(Window.layoutPane, "homescreen");
-
+        System.out.println("Invalid Command");
       }
     }
 

@@ -6,13 +6,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * This class creates a Jframe that houses the rest of our items and sets initial parameters for frames and such.
+ * This class creates a Jframe that houses the rest of our items and sets initial parameters for
+ * frames and such.
  * 
  * @author Zack Tucker, Matt Wong, Thomas Mandell, Alex Polivka, Jonathan Wist
  * @version Nov 1, 2021
  */
 
-public class Window 
+public class Window
 {
   public static JFrame frame = new JFrame("DogDisplay");
   private final int windowWidth = 1024;
@@ -44,11 +45,10 @@ public class Window
     // Create and set up the window.
     layoutPane.add(test.fullScreenImage, "fullscreen");
     layoutPane.add(test.splitPane, "dogdisplay");
-    layoutPane.add(home.buttonPad, "homescreen");
-    layoutPane.add(randDogPage.dogRandom, "randImg");
+    layoutPane.add(home.splitPane, "homescreen");
+    layoutPane.add(randDogPage.randImgPane, "randImg");
     layoutPane.add(randFactPage.factRandom, "randFact");
-    
-    
+
     layout.show(layoutPane, "homescreen");
 
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

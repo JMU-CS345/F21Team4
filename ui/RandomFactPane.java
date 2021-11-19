@@ -1,7 +1,5 @@
 import java.awt.Button;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,8 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -25,47 +21,64 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RandomFactPane extends JPanel implements ListSelectionListener, ActionListener
 {
-
+  // Declaring all button components and variables
   private String choice;
   private JPanel buttonPad = new JPanel();
 
+  private JButton random;
+  private JButton back;
+
+  // Declaring all variables for fact generation
   String urlString;
   URL urlDogPic;
-  JButton back = new JButton("Back");
-  JPanel factRandom = new JPanel();
+
+  // Declaring all components and variables for Random Fact Display
+  JPanel factRandom;
   private ArrayList<String> factList;
   private JLabel textLabel;
-  private JTextArea j;
+  private JTextArea factTxtArea;
   private JSplitPane sp;
-  private Button b;
 
+  // Declaring and initializing all default dimensions
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
 
   public RandomFactPane() throws IOException
   {
-    buttonPad = new JPanel(new GridLayout(1, 2));
-    buttonPad.setPreferredSize(new Dimension(windowWidth, 100));
-    b = new Button("New Fact!");
-    b.setVisible(true);
-    b.addActionListener(this);
+    // Initializing "New Fact!" (random fact generation) button
+    random = new JButton("New Fact!");
+    random.setVisible(true);
+    random.setPreferredSize(new Dimension(100, 100));
+    random.addActionListener(this);
 
+    // Initializing "Back" button
+    back = new JButton("Back");
     back.addActionListener((ActionListener) this);
     back.setPreferredSize(new Dimension(100, 100));
     back.setVisible(true);
 
-    buttonPad.add(b);
+    // Initializing and setting up button Pad
+    buttonPad = new JPanel(new GridLayout(1, 2));
+    buttonPad.setPreferredSize(new Dimension(windowWidth, 100));
+    buttonPad.add(random);
     buttonPad.add(back);
 
+    // Initializing variables and components for fact display
     getFacts();
     textLabel = new JLabel();
-    j = new JTextArea(factList.get(0));
-    j.setVisible(true);
-    j.setLineWrap(true);
-    j.setWrapStyleWord(true);
-    j.setSize(windowWidth, windowHeight);
-    sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, buttonPad, j);
+
+    factTxtArea = new JTextArea(factList.get(0));
+    factTxtArea.setVisible(true);
+    factTxtArea.setLineWrap(true);
+    factTxtArea.setWrapStyleWord(true);
+    factTxtArea.setSize(windowWidth, windowHeight);
+
+    // Initializing SplitPane that houses the buttonPad and fact panel
+    sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, buttonPad, factTxtArea);
     sp.setPreferredSize(new Dimension(windowWidth, windowHeight));
+
+    // Initializing and setting up Random Fact JPanel
+    factRandom = new JPanel();
     factRandom.add(sp);
 
   }
@@ -84,7 +97,6 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
       String fact = factNode.get("fact").asText();
       this.factList.add(fact);
     }
-
   }
 
   @Override
@@ -101,14 +113,17 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
     }
   }
 
+  /*
+   * Holds the functionality for all buttons in the Random Fact Pane.
+   */
   @Override
   public void actionPerformed(ActionEvent e)
   {
     choice = e.getActionCommand();
     if (choice.equals("New Fact!"))
     {
-      j = new JTextArea(factList.get((int) Math.floor(Math.random() * (100 - 0 + 1) + 0)));
-      sp.setBottomComponent(j);
+      factTxtArea = new JTextArea(factList.get((int) Math.floor(Math.random() * (100 - 0 + 1) + 0)));
+      sp.setBottomComponent(factTxtArea);
     }
     else if (choice.equals("Back"))
     {
