@@ -45,7 +45,7 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
   public RandomFactPane() throws IOException
   {
     buttonPad = new JPanel(new GridLayout(1, 2));
-
+    buttonPad.setPreferredSize(new Dimension(windowWidth, 100));
     b = new Button("New Fact!");
     b.setVisible(true);
     b.addActionListener(this);

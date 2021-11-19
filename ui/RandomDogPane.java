@@ -18,7 +18,7 @@ public class RandomDogPane extends JPanel implements ActionListener
 {
 
   private String choice;
-  
+
   private JButton back = new JButton("Back");
   private JPanel buttonPad = new JPanel();
 
@@ -33,18 +33,19 @@ public class RandomDogPane extends JPanel implements ActionListener
 
   public RandomDogPane()
   {
+    buttonPad.setPreferredSize(new Dimension(windowWidth, 100));
     buttonPad = new JPanel(new GridLayout(1, 2));
-    
+
     random.setVisible(true);
     random.addActionListener((ActionListener) this);
-    
+
     back.addActionListener((ActionListener) this);
     back.setPreferredSize(new Dimension(100, 100));
     back.setVisible(true);
-    
+
     dogPic.setVisible(true);
     dogPic.setPreferredSize(new Dimension(windowWidth, windowHeight));
-    
+
     buttonPad.add(random);
     buttonPad.add(back);
     sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, buttonPad, dogPic);
