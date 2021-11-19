@@ -54,6 +54,7 @@ public class HomePage extends JPanel
       else
       {
         Window.layout.show(Window.layoutPane, "randFact");
+        
       }
       buttonPad.setVisible(false);
 

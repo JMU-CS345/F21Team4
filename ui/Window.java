@@ -19,7 +19,7 @@ public class Window
   private final int windowHeight = 768;
   public static DogDisplay test;
   public static RandomDogPane randDogPage;
-  //public static RandomFactPane randFactPage;
+  public static RandomFactPane randFactPage;
   private HomePage home = new HomePage();
   public static CardLayout layout;
 
@@ -36,7 +36,7 @@ public class Window
     randDogPage = new RandomDogPane();
 
     randDogPage = new RandomDogPane();
-    //randFactPage = new RandomFactPane();
+    randFactPage = new RandomFactPane();
   }
 
   public void createAndShowGUI()
@@ -46,7 +46,7 @@ public class Window
     layoutPane.add(test.splitPane, "dogdisplay");
     layoutPane.add(home.buttonPad, "homescreen");
     layoutPane.add(randDogPage.dogRandom, "randImg");
-    //layoutPane.add(randFactPage.factRandom, "randFact");
+    layoutPane.add(randFactPage.factRandom, "randFact");
     
     
     layout.show(layoutPane, "homescreen");
