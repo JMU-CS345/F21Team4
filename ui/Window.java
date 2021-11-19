@@ -21,7 +21,7 @@ public class Window
   public static DogDisplay test;
   public static RandomDogPane randDogPage;
   public static RandomFactPane randFactPage;
-  private HomePage home = new HomePage();
+  public static HomePage home;
   public static CardLayout layout;
 
   public static JPanel layoutPane;
@@ -36,6 +36,8 @@ public class Window
     test.setPreferredSize(new Dimension(windowWidth, windowHeight));
     randDogPage = new RandomDogPane();
 
+    home = new HomePage();
+    
     randDogPage = new RandomDogPane();
     randFactPage = new RandomFactPane();
   }
