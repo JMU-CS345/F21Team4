@@ -89,7 +89,7 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
 
     ObjectMapper mapper = new ObjectMapper();
     JsonNode tree = mapper.readTree(url);
-    // tree.asText();
+
     for (int x = 0; x < tree.size(); x++)
     {
       JsonNode factNode = tree.get(x);
