@@ -99,8 +99,8 @@ public class DogDisplay extends JPanel implements ListSelectionListener
     fullScreenImage = new JPanel();
     fullScreenLabel = new JLabel();
 
-    fullScreenImage.setPreferredSize(new Dimension(1024, 768));
-    fullScreenLabel.setPreferredSize(new Dimension(1024, 768));
+    fullScreenImage.setPreferredSize(new Dimension(windowWidth, windowHeight));
+    fullScreenLabel.setPreferredSize(new Dimension(windowWidth, windowHeight));
 
     fullScreenImage.add(fullScreenLabel);
 
