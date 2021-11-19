@@ -65,6 +65,7 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
     j.setWrapStyleWord(true);
     j.setSize(windowWidth, windowHeight);
     sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, buttonPad, j);
+    sp.setPreferredSize(new Dimension(windowWidth, windowHeight));
     factRandom.add(sp);
 
   }
