@@ -23,7 +23,7 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
 {
   // Declaring all button components and variables
   private String choice;
-  private JPanel buttonPad = new JPanel();
+  private JPanel buttonPad;
 
   private JButton random;
   private JButton back;
