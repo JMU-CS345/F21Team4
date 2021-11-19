@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,7 +20,6 @@ import javax.swing.JSplitPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -33,8 +31,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @version Nov 1, 2021
  */
 
-public class DogDisplay extends JPanel implements ListSelectionListener
-{
+public class DogDisplay extends JPanel implements ListSelectionListener {
   // Declaring all button components and variables
   private String choice;
 
@@ -67,11 +64,9 @@ public class DogDisplay extends JPanel implements ListSelectionListener
    * Constructor for all the DogDisplay elements, including the frame, panes, and scrollable-list
    * along with the dog picture URLs and names.
    * 
-   * @throws IOException
-   *           If getting the names or photo URLs fail to pull from the API.
+   * @throws IOException If getting the names or photo URLs fail to pull from the API.
    */
-  public DogDisplay() throws IOException
-  {
+  public DogDisplay() throws IOException {
     // Initializing scroll pane and all necessary information variables
     scrollPane = new JScrollPane();
 
@@ -134,26 +129,21 @@ public class DogDisplay extends JPanel implements ListSelectionListener
   /**
    * Gets the names of the dogs from the API and stores them in a List
    * 
-   * @throws IOException
-   *           If the URL to the API is invalid.
+   * @throws IOException If the URL to the API is invalid.
    */
-  public void getDogNames() throws IOException
-  {
-    for (Dog dog : dogList)
-    {
+  public void getDogNames() throws IOException {
+    for (Dog dog : dogList) {
       this.dogBreeds.add(dog.getName());
     }
   }
 
-  public void getDogList() throws IOException
-  {
+  public void getDogList() throws IOException {
     URL url = new URL("https://api.thedogapi.com/v1/breeds");
 
     ObjectMapper mapper = new ObjectMapper();
     JsonNode tree = mapper.readTree(url);
 
-    for (int x = 0; x < tree.size(); x++)
-    {
+    for (int x = 0; x < tree.size(); x++) {
       JsonNode breedNode = tree.get(x);
 
       String dogBreed = breedNode.get("name").asText();
@@ -178,21 +168,15 @@ public class DogDisplay extends JPanel implements ListSelectionListener
   /**
    * Updates the state of the panel when the user clicks on an element of the scrollable-list.
    * 
-   * @param e
-   *          scrollable list selection.
+   * @param e scrollable list selection.
    */
-  public void valueChanged(ListSelectionEvent e)
-  {
-    if (!e.getValueIsAdjusting())
-    {
+  public void valueChanged(ListSelectionEvent e) {
+    if (!e.getValueIsAdjusting()) {
       currImg = null;
-      try
-      {
+      try {
         int index = -1;
-        for (Dog dog : dogList)
-        {
-          if (dog.getName().equals(dogJList.getSelectedValue()))
-          {
+        for (Dog dog : dogList) {
+          if (dog.getName().equals(dogJList.getSelectedValue())) {
             index = dogList.indexOf(dog);
             break;
           }
@@ -204,10 +188,9 @@ public class DogDisplay extends JPanel implements ListSelectionListener
             + "<br/>" + " Dog Height: " + dogList.get(index).getHeight() + " inches<br/>"
             + " Dog Weight: " + dogList.get(index).getWeight() + "lbs<br/>" + " Dog Lifespan: "
             + dogList.get(index).getLifespan() + "<br/>" + " Dog Tempermant: "
-            + dogList.get(index).getTemperament() + "<html/>");
-      }
-      catch (IOException exception)
-      {
+            + dogList.get(index).getTemperament() + "<br/>" + "Press ESC to exit fullscreen"
+            + "<html/>");
+      } catch (IOException exception) {
         exception.printStackTrace();
       }
       ImageIcon icon = new ImageIcon(currImg);
@@ -222,54 +205,40 @@ public class DogDisplay extends JPanel implements ListSelectionListener
   /*
    * Holds the functionality for all buttons in the DogDisplay Pane.
    */
-  private class ButtonPress implements ActionListener, KeyListener
-  {
+  private class ButtonPress implements ActionListener, KeyListener {
     @Override
-    public void actionPerformed(ActionEvent e)
-    {
+    public void actionPerformed(ActionEvent e) {
       choice = e.getActionCommand();
 
-      if (choice.equals("Full Screen"))
-      {
-        if (currImg != null)
-        {
+      if (choice.equals("Full Screen")) {
+        if (currImg != null) {
           fullScreenLabel.setIcon(new ImageIcon(
               currImg.getScaledInstance(windowWidth, windowHeight, Image.SCALE_SMOOTH)));
           Window.layout.show(Window.layoutPane, "fullscreen");
           fullScreenImage.requestFocus();
         }
-      }
-      else if (choice.equals("Back"))
-      {
+      } else if (choice.equals("Back")) {
         Window.layout.show(Window.layoutPane, "homescreen");
-      }
-      else if (choice.equals("Make a meme!"))
-      {
+      } else if (choice.equals("Make a meme!")) {
         System.out.println("Feature not available yet");
-      }
-      else
-      {
+      } else {
         System.out.println("Invalid Command");
       }
     }
 
     @Override
-    public void keyTyped(KeyEvent e)
-    {
+    public void keyTyped(KeyEvent e) {
       // Does nothing, only for implementation.
     }
 
     @Override
-    public void keyPressed(KeyEvent e)
-    {
+    public void keyPressed(KeyEvent e) {
       // Does nothing, only for implementation.
     }
 
     @Override
-    public void keyReleased(KeyEvent e)
-    {
-      if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
-      {
+    public void keyReleased(KeyEvent e) {
+      if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
         Window.layout.show(Window.layoutPane, "dogdisplay");
       }
     }
