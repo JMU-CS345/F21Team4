@@ -4,69 +4,71 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class RandomDogPane extends JPanel {
-  URL urlDogPic;
+public class RandomDogPane extends JPanel implements ActionListener {
 
-  JButton random = new JButton("Random Dog Picture");
-  public static JPanel dogRandom = new JPanel();
-  JLabel image = new JLabel(" ", JLabel.CENTER);
-
-  private Image currImg = null;
+  public JPanel dogRandom = new JPanel();
+  private JLabel dogPic = new JLabel(" ", JLabel.CENTER);
+  private JButton random = new JButton("New Dog Picture");
+  private JSplitPane sp;
+  URL dogImage;
 
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
 
   public RandomDogPane() {
-    dogRandom.setPreferredSize(new Dimension(1024, 760));
-
-    random.addActionListener(new ButtonPress());
-    random.setPreferredSize(new Dimension(100, 100));
     random.setVisible(true);
-
-    image.setVisible(true);
-    dogRandom.add(image);
-    dogRandom.add(random);
-
-    dogRandom.setVisible(true);
+    random.addActionListener((ActionListener) this);
+    dogPic.setVisible(true);
+    dogPic.setPreferredSize(new Dimension(windowWidth, windowHeight));
+    sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, random, dogPic);
+    dogRandom.add(sp);
 
   }
 
   public void getDogImage() throws IOException {
-
     URL url = new URL("https://dog.ceo/api/breeds/image/random");
-
 
     ObjectMapper mapper = new ObjectMapper();
     JsonNode tree = mapper.readTree(url);
 
-    JsonNode breedNode = tree.get(0);
 
-    String urlString = breedNode.get("message").asText();
+    String urlString = tree.get("message").asText();
+    URL urlDogPics = new URL(urlString);
 
-    urlDogPic = new URL(urlString);
+
+    Image currImg;
+    currImg = ImageIO.read(urlDogPics);
+    ImageIcon icon = new ImageIcon(currImg);
+    dogPic.setIcon(icon);
 
   }
 
-  private class ButtonPress implements ActionListener {
 
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-      // TODO Auto-generated method stub
+  public void actionPerformed(ActionEvent e) {
+    // TODO Auto-generated method stub
 
-      ImageIcon icon = new ImageIcon(urlDogPic);
-      image.setIcon(icon);
-      // back.setVisible(true);
-
+    try {
+      this.getDogImage();
+    } catch (IOException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
     }
+    // j = new JTextArea(factList.get((int) Math.floor(Math.random() * (100 - 0 + 1) + 0)));
+    // sp.setBottomComponent(j);
+
+
   }
+
 
 
 }
