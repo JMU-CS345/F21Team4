@@ -1,0 +1,804 @@
+[
+	{
+		"first": "Tommy",
+		"last": "Tuberville",
+		"state": "AL",
+		"party": "R",
+		"photo_url": "https://upload.wikimedia.org/wikipedia/commons/2/2a/TommyTuberville.jpg"
+	},
+	
+	{
+		"first": "Richard",
+		"last": "Shelby",
+		"state": "AL",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/richard-shelby.jpg"
+	},
+	
+	{
+		"first": "Dan",
+		"last": "Sullivan",
+		"state": "AK",
+		"party": "R",
+		"photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/daniel-sullivan.jpg"
+	},
+	
+	{
+		"first": "Lisa",
+		"last": "Murkowski",
+		"state": "AK",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/lisa-murkowski.jpg"
+	},
+	
+	{
+		"first": "Kyrsten",
+		"last": "Sinema",
+		"state": "AZ",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/kyrsten-sinema.jpg"
+	},
+	
+	{
+		"first": "Mark",
+		"last": "Kelly",
+		"state": "AZ",
+		"party": "D",
+		"photo_url": "https://en.wikipedia.org/wiki/Mark_Kelly#/media/File:Mark_Kelly_by_Gage_Skidmore_(1).jpg"
+	},
+	
+	{
+		"first": "Tom",
+		"last": "Cotton",
+		"state": "AR",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/tom-cotton.jpg"
+	},
+	
+	{
+		"first": "John",
+		"last": "Boozman",
+		"state": "AR",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/john-boozman.jpg"
+	},
+	
+	{
+		"first": "Dianne",
+		"last": "Feinstein",
+		"state": "CA",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/dianne-feinstein.jpg"
+	},
+	
+	{
+		"first": "Alex",
+		"last": "Padilla",
+		"state": "CA",
+		"party": "D",
+		"photo_url": "https://upload.wikimedia.org/wikipedia/commons/8/81/Alex_Padilla_official_photo.jpg"
+	},
+	
+	{
+		"first": "John",
+		"last": "Hickenlooper",
+		"state": "CO",
+		"party": "D",
+		"photo_url": "https://en.wikipedia.org/wiki/John_Hickenlooper#/media/File:John_Hickenlooper_June_2019.jpg"
+	},
+	
+	{
+		"first": "Michael",
+		"last": "Bennet",
+		"state": "CO",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/michael-bennet.jpg"
+	},
+	
+	{
+		"first": "Chris",
+		"last": "Murphy",
+		"state": "CT",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/christopher-murphy.jpg"
+	},
+	
+	{
+		"first": "Richard",
+		"last": "Blumenthal",
+		"state": "CT",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/richard-blumenthal.jpg"
+	},
+	
+	{
+		"first": "Tom",
+		"last": "Carper",
+		"state": "DE",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/thomas-carper.jpg"
+	},
+	
+	{
+		"first": "Chris",
+		"last": "Coons",
+		"state": "DE",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/christopher-coons.jpg"
+	},
+	
+	{
+		"first": "Rick",
+		"last": "Scott",
+		"state": "FL",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/rick-scott.jpg"
+	},
+	
+	{
+		"first": "Marco",
+		"last": "Rubio",
+		"state": "FL",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/marco-rubio.jpg"
+	},
+	
+	{
+		"first": "TBD",
+		"last": "TBD",
+		"state": "GA",
+		"party": "TBD"
+	},
+	
+	{
+		"first": "TBD",
+		"last": "TBD",
+		"state": "GA",
+		"party": "TBD"
+	},
+	
+	{
+		"first": "Mazie",
+		"last": "Hirono",
+		"state": "HI",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/mazie-hirono.jpg"
+	},
+	
+	{
+		"first": "Brian",
+		"last": "Schatz",
+		"state": "HI",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/brian-schatz.jpg"
+	},
+	
+	{
+		"first": "Jim",
+		"last": "Risch",
+		"state": "ID",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/james-risch.jpg"
+	},
+	
+	{
+		"first": "Mike",
+		"last": "Crapo",
+		"state": "ID",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/mike-crapo.jpg"
+	},
+	
+	{
+		"first": "Dick",
+		"last": "Durbin",
+		"state": "IL",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/richard-durbin.jpg"
+	},
+	
+	{
+		"first": "Tammy",
+		"last": "Duckworth",
+		"state": "IL",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/tammy-duckworth.jpg"
+	},
+	
+	{
+		"first": "Mike",
+		"last": "Braun",
+		"state": "IN",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/mike-braun.jpg"
+	},
+	
+	{ 
+		"first": "Todd",
+		"last": "Young",
+		"state": "IN",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/todd-young.jpg"
+	},
+	
+	{
+		"first": "Joni",
+		"last": "Ernst",
+		"state": "IA",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/joni-ernst.jpg"
+	},
+	
+	{
+		"first": "Chuck",
+		"last": "Grassley",
+		"state": "IA",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/charles-grassley.jpg"
+	},
+	
+	{
+		"first": "Roger",
+		"last": "Marshall",
+		"state": "KS",
+		"party": "R",
+		"photo_url": "https://en.wikipedia.org/wiki/Roger_Marshall_(politician)#/media/File:Roger_Marshall_official_portrait.jpg"
+	},
+	
+	{
+		"first": "Jerry",
+		"last": "Moran",
+		"state": "KS",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/jerry-moran.jpg"
+	},
+	
+	{
+		"first": "Mitch",
+		"last": "McConnell",
+		"state": "KY",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/mitch-mcconnell.jpg"
+	},
+	
+	{
+		"first": "Rand",
+		"last": "Paul",
+		"state": "KY",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/rand-paul.jpg"
+	},
+	
+	{
+		"first": "Bill",
+		"last": "Cassidy",
+		"state": "LA",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/bill-cassidy.jpg"
+	},
+	
+	{
+		"first": "John",
+		"last": "Kennedy",
+		"state": "LA",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/john-kennedy.jpg"
+	},
+	
+	{
+		"first": "Angus",
+		"last": "King",
+		"state": "ME",
+		"party": "I",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/angus-king.jpg"
+	},
+	
+	{
+		"first": "Susan",
+		"last": "Collins",
+		"state": "ME",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/susan-collins.jpg"
+	},
+	
+	{
+		"first": "Ben",
+		"last": "Cardin",
+		"state": "MD",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/benjamin-cardin.jpg"
+	},
+	
+	{
+		"first": "Chris",
+		"last": "Van Hollen",
+		"state": "MD",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/chris-van-hollen.jpg"
+	},
+	
+	{
+		"first": "Elizabeth",
+		"last": "Warren",
+		"state": "MA",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/elizabeth-warren.jpg"
+	},
+	
+	{
+		"first": "Ed",
+		"last": "Markey",
+		"state": "MA",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/edward-markey.jpg"
+	},
+	
+	{
+		"first": "Debbie",
+		"last": "Stabenow",
+		"state": "MI",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/debbie-stabenow.jpg"
+	},
+	
+	{
+		"first": "Gary",
+		"last": "Peters",
+		"state": "MI",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/gary-peters.jpg"
+	},
+	
+	{
+		"first": "Amy",
+		"last": "Klobuchar",
+		"state": "MN",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/amy-klobuchar.jpg"
+	},
+	
+	{
+		"name": "Tina Smith",
+		"first": "Tina",
+		"last": "Smith",
+		"state": "MN",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/tina-smith.jpg"
+	},
+	
+	{
+		"name": "Roger Wicker",
+		"first": "Roger",
+		"last": "Wicker",
+		"state": "MS",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/roger-wicker.jpg"
+	},
+	
+	{
+		"first": "Cindy",
+		"last": "Hyde-Smith",
+		"state": "MS",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/cindy-hyde-smith.jpg"
+	},
+	
+	{
+		"first": "Josh",
+		"last": "Hawley",
+		"state": "MO",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/josh-hawley.jpg"
+	},
+	
+	{
+		"first": "Roy",
+		"last": "Blunt",
+		"state": "MO",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/roy-blunt.jpg"
+	},
+	
+	{
+		"first": "Jon",
+		"last": "Tester",
+		"state": "MT",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/jon-tester.jpg"
+	},
+	
+	{
+		"first": "Steve",
+		"last": "Daines",
+		"state": "MT",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/steve-daines.jpg"
+	},
+	
+	{
+		"first": "Deb",
+		"last": "Fischer",
+		"state": "NE",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/deb-fischer.jpg"
+	},
+	
+	{
+		"first": "Ben",
+		"last": "Sasse",
+		"state": "NE",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/ben-sasse.jpg"
+	},
+	
+	{
+		"first": "Jacky",
+		"last": "Rosen",
+		"state": "NV",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/jacky-rosen.jpg"
+	},
+	
+	{
+		"first": "Catherine",
+		"last": "Cortez Masto",
+		"state": "NV",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/catherine-cortez-masto.jpg"
+	},
+	
+	{
+		"first": "Jeanne",
+		"last": "Shaheen",
+		"state": "NH",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/jeanne-shaheen.jpg"
+	},
+	
+	{
+		"first": "Maggie",
+		"last": "Hassan",
+		"state": "NH",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/margaret-hassan.jpg"
+	},
+	
+	{
+		"first": "Bob",
+		"last": "Menendez",
+		"state": "NJ",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/robert-menendez.jpg"
+	},
+	
+	{ 
+		"first": "Cory",
+		"last": "Booker",
+		"state": "NJ",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/cory-booker.jpg"
+	},
+	
+	{
+		"first": "Martin",
+		"last": "Heinrich",
+		"state": "NM",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/martin-heinrich.jpg"
+	},
+	
+	{
+		"first": "Ben Ray",
+		"last": "Luján",
+		"state": "NM",
+		"party": "D",
+		"photo_url": "https://en.wikipedia.org/wiki/Ben_Ray_Luj%C3%A1n#/media/File:BenLujan2016_(cropped).jpg"
+	},
+	
+	{
+		"first": "Kirsten",
+		"last": "Gillibrand",
+		"state": "NY",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/kirsten-gillibrand.jpg"
+	},
+	
+	{
+		"first": "Chuck",
+		"last": "Schumer",
+		"state": "NY",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/charles-schumer.jpg"
+	},
+	
+	{
+		"first": "Thom",
+		"last": "Tillis",
+		"state": "NC",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/thom-tillis.jpg"
+	},
+	
+	{
+		"first": "Richard",
+		"last": "Burr",
+		"state": "NC",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/richard-burr.jpg"
+	},
+	
+	{
+		"first": "Kevin",
+		"last": "Cramer",
+		"state": "ND",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/kevin-cramer.jpg"
+	},
+	
+	{
+		"first": "John",
+		"last": "Hoeven",
+		"state": "ND",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/john-hoeven.jpg"
+	},
+	
+	{
+		"first": "Sherrod",
+		"last": "Brown",
+		"state": "OH",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/sherrod-brown.jpg"
+	},
+	
+	{
+		"first": "Rob",
+		"last": "Portman",
+		"state": "OH",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/rob-portman.jpg"
+	},
+	
+	{
+		"first": "Jim",
+		"last": "Inhofe",
+		"state": "OK",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/james-inhofe.jpg"
+	},
+	
+	{
+		"first": "James",
+		"last": "Lankford",
+		"state": "OK",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/james-lankford.jpg"
+	},
+	
+	{
+		"first": "Jeff",
+		"last": "Merkley",
+		"state": "OR",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/jeff-merkley.jpg"
+	},
+	
+	{
+		"first": "Ron",
+		"last": "Wyden",
+		"state": "OR",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/ron-wyden.jpg"
+	},
+	
+	{
+		"first": "Bob",
+		"last": "Casey",
+		"state": "PA",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/robert-casey.jpg"
+	},
+	
+	{
+		"first": "Pat",
+		"last": "Toomey",
+		"state": "PA",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/patrick-toomey.jpg"
+	},
+	
+	{
+		"first": "Sheldon",
+		"last": "Whitehouse",
+		"state": "RI",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/sheldon-whitehouse.jpg"
+	},
+	
+	{
+		"first": "Jack",
+		"last": "Reed",
+		"state": "RI",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/jack-reed.jpg"
+	},
+	
+	{
+		"first": "Lindsey",
+		"last": "Graham",
+		"state": "SC",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/lindsey-graham.jpg"
+	},
+	
+	{
+		"first": "Tim",
+		"last": "Scott",
+		"state": "SC",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/tim-scott.jpg"
+	},
+	
+	{
+		"first": "Mike",
+		"last": "Rounds",
+		"state": "SD",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/mike-rounds.jpg"
+	},
+	
+	{
+		"first": "John",
+		"last": "Thune",
+		"state": "SD",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/john-thune.jpg"
+	},
+	
+	{
+		"first": "Marsha",
+		"last": "Blackburn",
+		"state": "TN",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/marsha-blackburn.jpg"
+	},
+	
+	{
+		"first": "Bill",
+		"last": "Hagerty",
+		"state": "TN",
+		"party": "R",
+		"photo_url": "https://en.wikipedia.org/wiki/Bill_Hagerty_(politician)#/media/File:Ambassador_Hagerty.jpg"
+	},
+	
+	{
+		"first": "Ted",
+		"last": "Cruz",
+		"state": "TX",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/ted-cruz.jpg"
+	},
+	
+	{
+		"first": "John",
+		"last": "Cornyn",
+		"state": "TX",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/john-cornyn.jpg"
+	},
+	
+	{
+		"first": "Mitt",
+		"last": "Romney",
+		"state": "UT",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/mitt-romney.jpg"
+	},
+	
+	{
+		"first": "Mike",
+		"last": "Lee",
+		"state": "UT",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/mike-lee.jpg"
+	},
+	
+	{
+		"first": "Bernie",
+		"last": "Sanders",
+		"state": "VT",
+		"party": "I",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/bernard-sanders.jpg"
+	},
+	
+	{
+		"first": "Patrick",
+		"last": "Leahy",
+		"state": "VT",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/patrick-leahy.jpg"
+	},
+	
+	{
+		"first": "Tim",
+		"last": "Kaine",
+		"state": "VA",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/tim-kaine.jpg"
+	},
+	
+	{
+		"first": "Mark",
+		"last": "Warner",
+		"state": "VA",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/mark-warner.jpg"
+	},
+	
+	{
+		"first": "Maria",
+		"last": "Cantwell",
+		"state": "WA",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/maria-cantwell.jpg"
+	},
+	
+	{
+		"first": "Patty",
+		"last": "Murray",
+		"state": "WA",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/patty-murray.jpg"
+	},
+	
+	{
+		"first": "Joe",
+		"last": "Manchin",
+		"state": "WV",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/joe-manchin.jpg"
+	},
+	
+	{
+		"first": "Shelley Moore",
+		"last": "Capito",
+		"state": "WV",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/shelley-capito.jpg"
+	},
+	
+	{
+		"first": "Tammy",
+		"last": "Baldwin",
+		"state": "WI",
+		"party": "D",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/tammy-baldwin.jpg"
+	},
+	
+	{
+		"first": "Ron",
+		"last": "Johnson",
+		"state": "WI",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/ron-johnson.jpg"
+	},
+	
+	{
+		"first": "John",
+		"last": "Barrasso",
+		"state": "WY",
+		"party": "R",
+        "photo_url": "https://cdn.civil.services/us-senate/headshots/512x512/john-barrasso.jpg"
+	},
+	
+	{
+		"first": "Cynthia",
+		"last": "Lummis",
+		"state": "WY",
+		"party": "R",
+		"photo_url": "https://en.wikipedia.org/wiki/Cynthia_Lummis#/media/File:CynthiaLummis.jpg"
+	}
+	
+
+
+]

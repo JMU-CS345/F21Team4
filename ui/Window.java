@@ -37,7 +37,7 @@ public class Window
     randDogPage = new RandomDogPane();
 
     home = new HomePage();
-    
+
     randDogPage = new RandomDogPane();
     randFactPage = new RandomFactPane();
   }
@@ -55,6 +55,7 @@ public class Window
 
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.add(layoutPane);
+
     // Display the window.
     frame.setMinimumSize(new Dimension(windowWidth, windowHeight));
     frame.pack();

@@ -2,7 +2,9 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -84,6 +86,8 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
 
   public void getFacts() throws IOException
   {
+    /*
+    DO NOT DELETE
     factList = new ArrayList<String>();
     URL url = new URL("https://dog-facts-api.herokuapp.com/api/v1/resources/dogs/all");
 
@@ -94,6 +98,20 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
     {
       JsonNode factNode = tree.get(x);
       String fact = factNode.get("fact").asText();
+      this.factList.add(fact);
+    }
+    */
+    
+    // Temporary fix until the API is back online
+    factList = new ArrayList<String>();
+    InputStream in = new FileInputStream("senators.json");
+    ObjectMapper mapper = new ObjectMapper();
+    JsonNode tree = mapper.readTree(in);
+
+    for (int x = 0; x < tree.size(); x++)
+    {
+      JsonNode factNode = tree.get(x);
+      String fact = factNode.get("first").asText();
       this.factList.add(fact);
     }
   }
