@@ -37,7 +37,6 @@ public class MemeMaker extends JFrame implements ActionListener
         DogDisplay.openAlready = false;
       }
     });
-
   }
 
   protected JMenuBar createMenuBar()
