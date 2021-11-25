@@ -118,6 +118,7 @@ public class RandomDogPane extends JPanel implements ActionListener
     else if (choice.equals("Back"))
     {
       Window.layout.show(Window.layoutPane, "homescreen");
+      Window.frame.setTitle("Dog App");
     }
     else if (choice.equals("Make a meme!"))
     {

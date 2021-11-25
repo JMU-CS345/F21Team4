@@ -19,14 +19,11 @@ public class MemeMaker extends JFrame implements ActionListener
   private JMenuItem menuItem;
   private JMenuBar menuBar;
 
-  String choice;
-
   public MemeMaker()
   {
     memeMakeFrame = new JFrame();
     memeMakeFrame.setSize(new Dimension(750, 750));
 
-    // test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     memeMakeFrame.setVisible(true);
     memeMakeFrame.setJMenuBar(createMenuBar());
 
@@ -39,6 +36,9 @@ public class MemeMaker extends JFrame implements ActionListener
     });
   }
 
+  /*
+   * This creates the menu bar at the top of the meme editor
+   */
   protected JMenuBar createMenuBar()
   {
     menuBar = new JMenuBar();
@@ -49,6 +49,9 @@ public class MemeMaker extends JFrame implements ActionListener
     return menuBar;
   }
 
+  /*
+   * This method sets up the "Edit" menu and its items for the menu bar in the meme editor
+   */
   private void setUpMenuEdit()
   {
     // Sets up the "Edit" menu and adds it to the menu bar
@@ -65,6 +68,9 @@ public class MemeMaker extends JFrame implements ActionListener
     menuEdit.add(menuItem);
   }
 
+  /*
+   * This method sets up the "File" menu and its items for the menu bar in the meme editor
+   */
   private void setUpMenuFile()
   {
     // Sets up the "File" menu and adds it to the menu bar
@@ -99,7 +105,6 @@ public class MemeMaker extends JFrame implements ActionListener
   @Override
   public void actionPerformed(ActionEvent e)
   {
-    // choice = e.getActionCommand();
     if ("save".equals(e.getActionCommand()))
     {
       System.out.println("Feature not available yet");

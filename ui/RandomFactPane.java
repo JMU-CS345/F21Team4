@@ -86,21 +86,15 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
   public void getFacts() throws IOException
   {
     /*
-    DO NOT DELETE
-    factList = new ArrayList<String>();
-    URL url = new URL("https://dog-facts-api.herokuapp.com/api/v1/resources/dogs/all");
+     * DO NOT DELETE factList = new ArrayList<String>(); URL url = new
+     * URL("https://dog-facts-api.herokuapp.com/api/v1/resources/dogs/all");
+     * 
+     * ObjectMapper mapper = new ObjectMapper(); JsonNode tree = mapper.readTree(url);
+     * 
+     * for (int x = 0; x < tree.size(); x++) { JsonNode factNode = tree.get(x); String fact =
+     * factNode.get("fact").asText(); this.factList.add(fact); }
+     */
 
-    ObjectMapper mapper = new ObjectMapper();
-    JsonNode tree = mapper.readTree(url);
-
-    for (int x = 0; x < tree.size(); x++)
-    {
-      JsonNode factNode = tree.get(x);
-      String fact = factNode.get("fact").asText();
-      this.factList.add(fact);
-    }
-    */
-    
     // Temporary fix until the API is back online
     factList = new ArrayList<String>();
     InputStream in = new FileInputStream("senators.json");
@@ -145,6 +139,7 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
     else if (choice.equals("Back"))
     {
       Window.layout.show(Window.layoutPane, "homescreen");
+      Window.frame.setTitle("Dog App");
     }
     else
     {

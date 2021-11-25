@@ -84,14 +84,17 @@ public class HomePage extends JPanel
       if (choice.equals("Dog Display"))
       {
         Window.layout.show(Window.layoutPane, "dogdisplay");
+        Window.frame.setTitle("Dog Display");
       }
       else if (choice.equals("Random Dog Picture"))
       {
         Window.layout.show(Window.layoutPane, "randImg");
+        Window.frame.setTitle("Random Dog Picture");
       }
       else
       {
         Window.layout.show(Window.layoutPane, "randFact");
+        Window.frame.setTitle("Random Dog Fact");
       }
     }
   }

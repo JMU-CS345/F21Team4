@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 public class Window
 {
-  public static JFrame frame = new JFrame("DogDisplay");
+  public static JFrame frame = new JFrame("Dog App");
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
   public static DogDisplay test;
