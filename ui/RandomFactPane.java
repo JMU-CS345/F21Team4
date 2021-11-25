@@ -36,7 +36,7 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
   // Declaring all components and variables for Random Fact Display
   JPanel factRandom;
   private ArrayList<String> factList;
-  private JLabel textLabel;
+
   private JTextArea factTxtArea;
   private JSplitPane splitPane;
 
@@ -66,7 +66,6 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
 
     // Initializing variables and components for fact display
     getFacts();
-    textLabel = new JLabel();
 
     factTxtArea = new JTextArea(factList.get(0));
     factTxtArea.setVisible(true);
