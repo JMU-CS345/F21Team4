@@ -4,13 +4,21 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Stack;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
+/**
+ * This class sets up the Meme Makers UI.
+ * 
+ * @author Matt Wong, Zach Tucker, Thomas Mandell, Alex Polivka, Jonathan Wist
+ *
+ */
 public class MemeMaker extends JFrame implements ActionListener
 {
   private JFrame memeMakeFrame;
@@ -19,6 +27,8 @@ public class MemeMaker extends JFrame implements ActionListener
   private JMenuItem menuItem;
   private JMenuBar menuBar;
 
+  public Stack changeHistory;
+
   public MemeMaker()
   {
     memeMakeFrame = new JFrame();
@@ -26,6 +36,10 @@ public class MemeMaker extends JFrame implements ActionListener
 
     memeMakeFrame.setVisible(true);
     memeMakeFrame.setJMenuBar(createMenuBar());
+
+    // Initializes the change history for each instance of the MemeEditor Effective reseting it upon
+    // each open.
+    changeHistory = new Stack();
 
     memeMakeFrame.addWindowListener(new WindowAdapter()
     {
@@ -37,7 +51,7 @@ public class MemeMaker extends JFrame implements ActionListener
   }
 
   /*
-   * This creates the menu bar at the top of the meme editor
+   * This creates the menu bar at the top of the meme editor.
    */
   protected JMenuBar createMenuBar()
   {
@@ -50,7 +64,7 @@ public class MemeMaker extends JFrame implements ActionListener
   }
 
   /*
-   * This method sets up the "Edit" menu and its items for the menu bar in the meme editor
+   * This method sets up the "Edit" menu and its items for the menu bar in the meme editor.
    */
   private void setUpMenuEdit()
   {
@@ -59,17 +73,25 @@ public class MemeMaker extends JFrame implements ActionListener
     menuEdit.setMnemonic(KeyEvent.VK_D);
     menuBar.add(menuEdit);
 
-    // Sets up the "Quit" option in the "File" menu
-    menuItem = new JMenuItem("Rotate");
+    // Sets up the "Undo" option in the "File" menu
+    menuItem = new JMenuItem("Undo");
     menuItem.setMnemonic(KeyEvent.VK_R);
     menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.ALT_MASK));
-    menuItem.setActionCommand("rotate");
+    menuItem.setActionCommand("undo");
+    menuItem.addActionListener(this);
+    menuEdit.add(menuItem);
+
+    // Sets up the "Redo" option in the "File" menu
+    menuItem = new JMenuItem("Redo");
+    menuItem.setMnemonic(KeyEvent.VK_R);
+    menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.ALT_MASK));
+    menuItem.setActionCommand("redo");
     menuItem.addActionListener(this);
     menuEdit.add(menuItem);
   }
 
   /*
-   * This method sets up the "File" menu and its items for the menu bar in the meme editor
+   * This method sets up the "File" menu and its items for the menu bar in the meme editor.
    */
   private void setUpMenuFile()
   {
@@ -95,6 +117,9 @@ public class MemeMaker extends JFrame implements ActionListener
     menuFile.add(menuItem);
   }
 
+  /*
+   * Closes the Meme Makers frame and sets the openAlready boolean to false.
+   */
   private void close()
   {
     DogDisplay.openAlready = false;
@@ -111,9 +136,20 @@ public class MemeMaker extends JFrame implements ActionListener
     }
     else if ("quit".equals(e.getActionCommand()))
     {
-      close();
+
+      int optionResult = JOptionPane.showConfirmDialog(memeMakeFrame,
+          "If you exit this page without saving, you will lose all progress.\nWould you still like to continue?",
+          "Do not exit yet", JOptionPane.YES_NO_OPTION);
+      if (optionResult == JOptionPane.YES_OPTION)
+      {
+        close();
+      }
     }
-    else if ("rotate".equals(e.getActionCommand()))
+    else if ("undo".equals(e.getActionCommand()))
+    {
+      System.out.println("Feature not available yet");
+    }
+    else if ("redo".equals(e.getActionCommand()))
     {
       System.out.println("Feature not available yet");
     }

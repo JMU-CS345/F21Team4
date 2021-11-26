@@ -86,14 +86,20 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
   public void getFacts() throws IOException
   {
     /*
-     * DO NOT DELETE factList = new ArrayList<String>(); URL url = new
-     * URL("https://dog-facts-api.herokuapp.com/api/v1/resources/dogs/all");
-     * 
-     * ObjectMapper mapper = new ObjectMapper(); JsonNode tree = mapper.readTree(url);
-     * 
-     * for (int x = 0; x < tree.size(); x++) { JsonNode factNode = tree.get(x); String fact =
-     * factNode.get("fact").asText(); this.factList.add(fact); }
+     * DO NOT DELETE
      */
+    // factList = new ArrayList<String>();
+    // URL url = new URL("https://dog-facts-api.herokuapp.com/api/v1/resources/dogs/all");
+    //
+    // ObjectMapper mapper = new ObjectMapper();
+    // JsonNode tree = mapper.readTree(url);
+    //
+    // for (int x = 0; x < tree.size(); x++)
+    // {
+    // JsonNode factNode = tree.get(x);
+    // String fact = factNode.get("fact").asText();
+    // this.factList.add(fact);
+    // }
 
     // Temporary fix until the API is back online
     factList = new ArrayList<String>();
@@ -107,6 +113,7 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
       String fact = factNode.get("first").asText();
       this.factList.add(fact);
     }
+
   }
 
   @Override
@@ -127,9 +134,9 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
    * Holds the functionality for all buttons in the Random Fact Pane.
    */
   @Override
-  public void actionPerformed(ActionEvent e)
+  public void actionPerformed(ActionEvent buttonEvent)
   {
-    choice = e.getActionCommand();
+    choice = buttonEvent.getActionCommand();
     if (choice.equals("New Fact!"))
     {
       factTxtArea = new JTextArea(

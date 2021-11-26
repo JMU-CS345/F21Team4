@@ -140,7 +140,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
   }
 
   /**
-   * Gets the names of the dogs from the API and stores them in a List
+   * Gets the names of the dogs from the API and stores them in a list.
    * 
    * @throws IOException
    *           If the URL to the API is invalid.
@@ -268,7 +268,9 @@ public class DogDisplay extends JPanel implements ListSelectionListener
         }
         else
         {
-          JOptionPane.showMessageDialog(null, "You already have a meme editor open. \nPlease close your current Meme editor window to open a new one, thank you.\n");   
+          JOptionPane.showMessageDialog(Window.frame,
+              "You already have a meme editor open. \nPlease close your current Meme editor window to open a new one, thank you.\n",
+              "Open Window", JOptionPane.WARNING_MESSAGE);
         }
       }
       else

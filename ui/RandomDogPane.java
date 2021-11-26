@@ -100,9 +100,9 @@ public class RandomDogPane extends JPanel implements ActionListener
   /*
    * Holds the functionality for all buttons in the Random Image Pane.
    */
-  public void actionPerformed(ActionEvent e)
+  public void actionPerformed(ActionEvent buttonEvent)
   {
-    choice = e.getActionCommand();
+    choice = buttonEvent.getActionCommand();
 
     if (choice.equals("New Dog Picture"))
     {
