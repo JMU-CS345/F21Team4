@@ -27,6 +27,7 @@ public class HomePage extends JPanel
   private JButton dogDisplay;
   private JButton randomFact;
   private JButton randomPic;
+  private JButton memeCreator;
 
   // Declaring HomePage panel and variables
   public JSplitPane splitPane;
@@ -50,11 +51,16 @@ public class HomePage extends JPanel
     randomFact = new JButton("Random Facts");
     randomFact.addActionListener(new ButtonPress());
 
+    // Initializing "Meme Creator" button
+    //memeCreator = new JButton("Meme Creator");
+    //memeCreator.addActionListener(new ButtonPress());
+
     // Initializing buttonPad
     buttonPad = new JPanel(new GridLayout(1, 3));
     buttonPad.add(dogDisplay);
     buttonPad.add(randomPic);
     buttonPad.add(randomFact);
+    //buttonPad.add(memeCreator);
 
     buttonPad.setPreferredSize(new Dimension(windowWidth, 334));
     buttonPad.setVisible(true);
@@ -91,11 +97,15 @@ public class HomePage extends JPanel
         Window.layout.show(Window.layoutPane, "randImg");
         Window.frame.setTitle("Random Dog Picture");
       }
-      else
+      else if (choice.equals("Random Facts"))
       {
         Window.layout.show(Window.layoutPane, "randFact");
         Window.frame.setTitle("Random Dog Fact");
       }
+      /*else if (choice.equals("Meme Creator"))
+      {
+        Window.layout.show(Window.layoutPane, "memes");
+      }*/
     }
   }
 }

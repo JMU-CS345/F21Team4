@@ -99,7 +99,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
     back = new JButton("Back");
     back.addActionListener(new ButtonPress());
     back.setPreferredSize(new Dimension(100, 100));
-    back.setVisible(false);
+    back.setVisible(true);
 
     // Initializing "Full Screen" button
     fullScreenButton = new JButton("Full Screen");
@@ -222,7 +222,6 @@ public class DogDisplay extends JPanel implements ListSelectionListener
       ImageIcon icon = new ImageIcon(currImg);
       dogPictureLabel.setIcon(icon);
       fullScreenButton.setVisible(true);
-      back.setVisible(true);
       makeMeme.setVisible(true);
       dogPictureLabel.setVerticalTextPosition(JLabel.BOTTOM);
       dogPictureLabel.setHorizontalTextPosition(JLabel.CENTER);
