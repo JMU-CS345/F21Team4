@@ -23,16 +23,23 @@ import javax.swing.KeyStroke;
  */
 public class MemeMaker extends JFrame implements ActionListener
 {
+  // Declaring frames and panels for the meme Maker
   private JFrame memeMakeFrame;
+
   private JSplitPane splitPane;
+
   private JPanel imagePanel;
   private JPanel toolPanel;
 
-  private JMenu menuFile;
-  private JMenu menuEdit;
-  private JMenuItem menuItem;
+  // Declaring the Menu's and Menu Item
   private JMenuBar menuBar;
 
+  private JMenu menuFile;
+  private JMenu menuEdit;
+
+  private JMenuItem menuItem;
+
+  // Declaring the changeHistory stack
   public Stack changeHistory;
 
   public MemeMaker()
@@ -52,8 +59,8 @@ public class MemeMaker extends JFrame implements ActionListener
 
     memeMakeFrame.add(splitPane);
 
-    // Initializes the change history for each instance of the MemeEditor Effective reseting it upon
-    // each open.
+    // Initializes the change history for each instance of the MemeEditor effectively reseting it
+    // upon each open.
     changeHistory = new Stack();
 
     // Listens for to the window to check if it's ever closed.
@@ -107,7 +114,7 @@ public class MemeMaker extends JFrame implements ActionListener
   }
 
   /*
-   * This method sets up the "File" menu and its items for the menu bar in the meme editor.
+   * This method sets up the "File" menu and its items for the menu bar in the MemeMaker frame.
    */
   private void setUpMenuFile()
   {
@@ -131,10 +138,18 @@ public class MemeMaker extends JFrame implements ActionListener
     menuItem.setActionCommand("quit");
     menuItem.addActionListener(this);
     menuFile.add(menuItem);
+
+    //// Sets up the "Upload" option in the "File" menu
+    menuItem = new JMenuItem("Upload");
+    menuItem.setMnemonic(KeyEvent.VK_U);
+    menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, ActionEvent.CTRL_MASK));
+    menuItem.setActionCommand("upload");
+    menuItem.addActionListener(this);
+    menuFile.add(menuItem);
   }
 
   /*
-   * Closes the Meme Makers frame and sets the openAlready boolean to false.
+   * Closes the MemeMaker frame and sets the openAlready boolean to false.
    */
   private void close()
   {
@@ -148,7 +163,7 @@ public class MemeMaker extends JFrame implements ActionListener
   {
     if ("save".equals(e.getActionCommand()))
     {
-      System.out.println("Feature not available yet");
+      System.out.println("Save feature not available yet");
     }
     else if ("quit".equals(e.getActionCommand()))
     {
@@ -163,11 +178,15 @@ public class MemeMaker extends JFrame implements ActionListener
     }
     else if ("undo".equals(e.getActionCommand()))
     {
-      System.out.println("Feature not available yet");
+      System.out.println("Undo feature not available yet");
     }
     else if ("redo".equals(e.getActionCommand()))
     {
-      System.out.println("Feature not available yet");
+      System.out.println("Redo feature not available yet");
+    }
+    else if ("upload".equals(e.getActionCommand()))
+    {
+      System.out.println("Upload feature not available yet");
     }
   }
 }
