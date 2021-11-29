@@ -48,9 +48,7 @@ public class MemeMaker extends JFrame implements ActionListener
     imagePanel = new JPanel();
     toolPanel = new JPanel();
 
-    splitPane = new JSplitPane();
-
-    splitPane.add(imagePanel, toolPanel);
+    splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, imagePanel, toolPanel);
 
     memeMakeFrame.add(splitPane);
 
@@ -94,7 +92,7 @@ public class MemeMaker extends JFrame implements ActionListener
     // Sets up the "Undo" option in the "File" menu
     menuItem = new JMenuItem("Undo");
     menuItem.setMnemonic(KeyEvent.VK_Z);
-    menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.ALT_MASK));
+    menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
     menuItem.setActionCommand("undo");
     menuItem.addActionListener(this);
     menuEdit.add(menuItem);
@@ -102,7 +100,7 @@ public class MemeMaker extends JFrame implements ActionListener
     // Sets up the "Redo" option in the "File" menu
     menuItem = new JMenuItem("Redo");
     menuItem.setMnemonic(KeyEvent.VK_R);
-    menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.ALT_MASK));
+    menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.CTRL_MASK));
     menuItem.setActionCommand("redo");
     menuItem.addActionListener(this);
     menuEdit.add(menuItem);
@@ -121,7 +119,7 @@ public class MemeMaker extends JFrame implements ActionListener
     // Sets up the "Save" option in the "File" menu
     menuItem = new JMenuItem("Save");
     menuItem.setMnemonic(KeyEvent.VK_S);
-    menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK));
+    menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
     menuItem.setActionCommand("save");
     menuItem.addActionListener(this);
     menuFile.add(menuItem);
@@ -129,7 +127,7 @@ public class MemeMaker extends JFrame implements ActionListener
     // Sets up the "Quit" option in the "File" menu
     menuItem = new JMenuItem("Quit");
     menuItem.setMnemonic(KeyEvent.VK_Q);
-    menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.ALT_MASK));
+    menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
     menuItem.setActionCommand("quit");
     menuItem.addActionListener(this);
     menuFile.add(menuItem);
