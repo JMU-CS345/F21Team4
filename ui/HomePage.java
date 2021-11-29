@@ -77,6 +77,7 @@ public class HomePage extends JPanel
 
     // Initializes split pane that houses all other HomePage components
     splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, welcomeText, buttonPad);
+    splitPane.setEnabled(false);
   }
 
   private class ButtonPress implements ActionListener
