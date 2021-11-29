@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
  *
  */
 
-public class MakeMakerFileUtils
+public class MemeMakerFileUtils
 {
 
   /**
