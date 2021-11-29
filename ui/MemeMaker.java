@@ -11,6 +11,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.KeyStroke;
 
 /**
@@ -22,6 +24,10 @@ import javax.swing.KeyStroke;
 public class MemeMaker extends JFrame implements ActionListener
 {
   private JFrame memeMakeFrame;
+  private JSplitPane splitPane;
+  private JPanel imagePanel;
+  private JPanel toolPanel;
+
   private JMenu menuFile;
   private JMenu menuEdit;
   private JMenuItem menuItem;
@@ -31,16 +37,28 @@ public class MemeMaker extends JFrame implements ActionListener
 
   public MemeMaker()
   {
+    // Initializes all the frame components
     memeMakeFrame = new JFrame();
     memeMakeFrame.setSize(new Dimension(750, 750));
 
     memeMakeFrame.setVisible(true);
     memeMakeFrame.setJMenuBar(createMenuBar());
 
+    // Initializes the SplitPane and its components
+    imagePanel = new JPanel();
+    toolPanel = new JPanel();
+
+    splitPane = new JSplitPane();
+
+    splitPane.add(imagePanel, toolPanel);
+
+    memeMakeFrame.add(splitPane);
+
     // Initializes the change history for each instance of the MemeEditor Effective reseting it upon
     // each open.
     changeHistory = new Stack();
 
+    // Listens for to the window to check if it's ever closed.
     memeMakeFrame.addWindowListener(new WindowAdapter()
     {
       public void windowClosing(WindowEvent e)
@@ -70,7 +88,7 @@ public class MemeMaker extends JFrame implements ActionListener
   {
     // Sets up the "Edit" menu and adds it to the menu bar
     menuEdit = new JMenu("Edit");
-    menuEdit.setMnemonic(KeyEvent.VK_D);
+    menuEdit.setMnemonic(KeyEvent.VK_E);
     menuBar.add(menuEdit);
 
     // Sets up the "Undo" option in the "File" menu
@@ -102,8 +120,8 @@ public class MemeMaker extends JFrame implements ActionListener
 
     // Sets up the "Save" option in the "File" menu
     menuItem = new JMenuItem("Save");
-    menuItem.setMnemonic(KeyEvent.VK_N);
-    menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
+    menuItem.setMnemonic(KeyEvent.VK_S);
+    menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK));
     menuItem.setActionCommand("save");
     menuItem.addActionListener(this);
     menuFile.add(menuItem);
