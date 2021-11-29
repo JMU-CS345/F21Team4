@@ -75,8 +75,8 @@ public class MemeMaker extends JFrame implements ActionListener
 
     // Sets up the "Undo" option in the "File" menu
     menuItem = new JMenuItem("Undo");
-    menuItem.setMnemonic(KeyEvent.VK_R);
-    menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.ALT_MASK));
+    menuItem.setMnemonic(KeyEvent.VK_Z);
+    menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.ALT_MASK));
     menuItem.setActionCommand("undo");
     menuItem.addActionListener(this);
     menuEdit.add(menuItem);
