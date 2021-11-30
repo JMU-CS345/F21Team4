@@ -17,8 +17,8 @@ public class ImageUtils {
      * @param bufferedImage The BufferedImage to convert.
      * @return Equivalent Image.
      */
-    public static Image bufferedImageToImage(BufferedImage bufferedImage) {
-        Image newImage = new Image(bufferedImage.getWidth(),
+    public static CustomImage bufferedImageToImage(BufferedImage bufferedImage) {
+        CustomImage newImage = new CustomImage(bufferedImage.getWidth(),
                 bufferedImage.getHeight());
         Color color;
 
@@ -39,7 +39,7 @@ public class ImageUtils {
      * @param image The Image to convert.
      * @return Equivalent BufferedImage
      */
-    public static BufferedImage imageToBufferedImage(Image image) {
+    public static BufferedImage imageToBufferedImage(CustomImage image) {
         BufferedImage bufferedImage = new BufferedImage(image.getWidth(),
                 image.getHeight(), BufferedImage.TYPE_INT_RGB);
         Pixel pixel;

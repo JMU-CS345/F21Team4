@@ -12,7 +12,7 @@
  * @version 2-3-21
  */
 
-public class Image {
+public class CustomImage {
     private Pixel[][] pixels;
 
     /**
@@ -22,7 +22,7 @@ public class Image {
      * @param height height of the image
      */
 
-    public Image(int width, int height) {
+    public CustomImage(int width, int height) {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException(
                     "width & height must be " + "greater than 0");
@@ -48,7 +48,7 @@ public class Image {
      * @param blue the blue value of the image
      */
 
-    public Image(int width, int height, int red, int green, int blue) {
+    public CustomImage(int width, int height, int red, int green, int blue) {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException(
                     "width & height must be " + "greater than 0");
@@ -125,11 +125,11 @@ public class Image {
 
     public boolean equals(Object other) {
         boolean token = false;
-        if (!(other instanceof Image)) {
+        if (!(other instanceof CustomImage)) {
             return false;
         }
 
-        Image otherImage = (Image) other;
+        CustomImage otherImage = (CustomImage) other;
         int count = 0;
         if (otherImage.getHeight() == this.getHeight()
                 && otherImage.getWidth() == this.getWidth()) {

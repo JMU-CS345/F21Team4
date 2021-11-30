@@ -16,16 +16,17 @@ public class MemeMakerEditingUtils
   /**
    * Rotates the image right in the clockwise manner.
    */
-  public static BufferedImage rightRotate(Image image)
+  public static BufferedImage rightRotate(CustomImage image)
   {
 	  
-      Image newImage = new Image(image.getHeight(), image.getWidth());
+      CustomImage newImage = new CustomImage(image.getHeight(), image.getWidth());
       for (int y = 0; y < image.getHeight(); y++) {
           for (int x = 0; x < image.getWidth(); x++) {
               Pixel pixel = image.getPixel(x, y);
               newImage.setPixel(image.getHeight() - y - 1, x, pixel);
           }
       }
+      
       return imageToBufferedImage(newImage);
 
   }
@@ -33,9 +34,9 @@ public class MemeMakerEditingUtils
   /**
    * Rotates the image left in the counter clockwise manner.
    */
-  public static BufferedImage leftRotate(Image image)
+  public static BufferedImage leftRotate(CustomImage image)
   {
-      Image newImage = new Image(image.getHeight(), image.getWidth());
+      CustomImage newImage = new CustomImage(image.getHeight(), image.getWidth());
       for (int y = 0; y < image.getHeight(); y++) {
           for (int x = 0; x < image.getWidth(); x++) {
               Pixel pixel = image.getPixel(x, y);
@@ -49,7 +50,7 @@ public class MemeMakerEditingUtils
   /**
    * Mirrors/Flips the image over the horizontal axis
    */
-  public static BufferedImage horizontalFlip(Image image)
+  public static BufferedImage horizontalFlip(CustomImage image)
   {
 	  return null;
   }
@@ -65,10 +66,10 @@ public class MemeMakerEditingUtils
   /**
    * Converts the image to greyscale.
    */
-  public static BufferedImage greyScale(Image image)
+  public static BufferedImage greyScale(CustomImage image)
   {
 	  
-      Image grayscaled = new Image(image.getWidth(), image.getHeight());
+	  CustomImage grayscaled = new CustomImage(image.getWidth(), image.getHeight());
 
       for (int i = 0; i < image.getWidth(); i++) {
           for (int x = 0; x < image.getHeight(); x++) {
@@ -147,14 +148,8 @@ public class MemeMakerEditingUtils
 	  return null;
   }
   
-  
-  /**
-   * Converts a bufferedImage to an image
-   * @param bufferedImage
-   * @return
-   */
-  public static Image bufferedImageToImage(BufferedImage bufferedImage) {
-      Image newImage = new Image(bufferedImage.getWidth(),
+  public static CustomImage bufferedImageToImage(BufferedImage bufferedImage) {
+      CustomImage newImage = new CustomImage(bufferedImage.getWidth(),
               bufferedImage.getHeight());
       Color color;
 
@@ -168,14 +163,14 @@ public class MemeMakerEditingUtils
       return newImage;
 
   }
-  
-  
+
   /**
+   * Convert from Image to java.awt.image.BufferedImage.
    * 
-   * @param image
-   * @return
+   * @param image The Image to convert.
+   * @return Equivalent BufferedImage
    */
-  public static BufferedImage imageToBufferedImage(Image image) {
+  public static BufferedImage imageToBufferedImage(CustomImage image) {
       BufferedImage bufferedImage = new BufferedImage(image.getWidth(),
               image.getHeight(), BufferedImage.TYPE_INT_RGB);
       Pixel pixel;
@@ -193,3 +188,6 @@ public class MemeMakerEditingUtils
 
   }
 }
+  
+  
+

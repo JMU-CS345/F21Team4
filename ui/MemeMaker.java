@@ -304,8 +304,12 @@ public class MemeMaker extends JFrame implements ActionListener
       }
       else if (choice.equals("Rotate Right"))
       {
-
-        BufferedImage test = MemeMakerEditingUtils.rightRotate(imageIcon.getImage());
+    	BufferedImage b = (BufferedImage) imageIcon.getImage();
+    	CustomImage ci = MemeMakerEditingUtils.bufferedImageToImage(b);
+    	b = MemeMakerEditingUtils.rightRotate(ci);
+    	picLabel.setIcon(new ImageIcon(b));
+    	System.out.println("worked");
+        //BufferedImage test = MemeMakerEditingUtils.rightRotate(i);
       }
       else if (choice.equals("Horizontal Flip"))
       {
