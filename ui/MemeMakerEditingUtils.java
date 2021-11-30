@@ -144,6 +144,12 @@ public class MemeMakerEditingUtils
 	  return null;
   }
   
+  
+  /**
+   * Converts a bufferedImage to an image
+   * @param bufferedImage
+   * @return
+   */
   public static Image bufferedImageToImage(BufferedImage bufferedImage) {
       Image newImage = new Image(bufferedImage.getWidth(),
               bufferedImage.getHeight());
@@ -160,6 +166,12 @@ public class MemeMakerEditingUtils
 
   }
   
+  
+  /**
+   * 
+   * @param image
+   * @return
+   */
   public static BufferedImage imageToBufferedImage(Image image) {
       BufferedImage bufferedImage = new BufferedImage(image.getWidth(),
               image.getHeight(), BufferedImage.TYPE_INT_RGB);
