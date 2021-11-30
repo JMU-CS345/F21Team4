@@ -99,10 +99,10 @@ public class MemeMakerEditingUtils
   /**
    * Raises the brightness of the image by an RGB factor of 15.
    */
-  public static BufferedImage brighten(Image image)
+  public static BufferedImage brighten(CustomImage image)
   {
     int amount = 15;
-    Image adjustedBrightness = new Image(image.getWidth(), image.getHeight());
+    CustomImage adjustedBrightness = new CustomImage(image.getWidth(), image.getHeight());
 
     for (int i = 0; i < image.getWidth(); i++)
     {
@@ -125,11 +125,11 @@ public class MemeMakerEditingUtils
   /**
    * Lowers the brightness of the image by am RGB factor of 15.
    */
-  public static BufferedImage darken(Image image)
+  public static BufferedImage darken(CustomImage image)
   {
 
     int amount = 15;
-    Image adjustedBrightness = new Image(image.getWidth(), image.getHeight());
+    CustomImage adjustedBrightness = new CustomImage(image.getWidth(), image.getHeight());
 
     for (int i = 0; i < image.getWidth(); i++)
     {
