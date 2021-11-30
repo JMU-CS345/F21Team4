@@ -87,22 +87,22 @@ public class MemeMaker extends JFrame implements ActionListener
     rightRotate.addActionListener(new ButtonPress());
 
     horizontalFlip = new JButton("Horizontal Flip");
-    horizontalFlip.addActionListener(this);
+    horizontalFlip.addActionListener(new ButtonPress());
 
     verticalFlip = new JButton("Vertical Flip");
-    verticalFlip.addActionListener(this);
+    verticalFlip.addActionListener(new ButtonPress());
 
     brighten = new JButton("Brighten");
-    brighten.addActionListener(this);
+    brighten.addActionListener(new ButtonPress());
 
     darken = new JButton("Darken");
-    darken.addActionListener(this);
+    darken.addActionListener(new ButtonPress());
 
     greyScale = new JButton("Grey Scale");
-    greyScale.addActionListener(this);
+    greyScale.addActionListener(new ButtonPress());
 
     deepFry = new JButton("Deep Fry");
-    deepFry.addActionListener(this);
+    deepFry.addActionListener(new ButtonPress());
 
     // Initializes buttonPad and adds its JButtons
     buttonPad = new JPanel(new GridLayout(4, 2));
@@ -301,19 +301,22 @@ public class MemeMaker extends JFrame implements ActionListener
 
       if (choice.equals("Rotate Left"))
       {
-        // BufferedImage b = (BufferedImage) imageIcon.getImage();
-        // CustomImage ci = MemeMakerEditingUtils.bufferedImageToImage(b);
-        // b = MemeMakerEditingUtils.leftRotate(ci);
-        // picLabel.setIcon(new ImageIcon(b));
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils
+            .iconToBufferedImage(imageIcon.getImage());
+        CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
+        iconAsBuffer = MemeMakerEditingUtils.leftRotate(iconAsCustom);
+
+        picLabel.setIcon(new ImageIcon(iconAsBuffer));
       }
       else if (choice.equals("Rotate Right"))
       {
-        BufferedImage b = MemeMakerEditingUtils.iconToBufferedImage(imageIcon.getImage());
-        CustomImage ci = MemeMakerEditingUtils.bufferedImageToImage(b);
-        b = MemeMakerEditingUtils.rightRotate(ci);
-        picLabel.setIcon(new ImageIcon(b));
-        System.out.println("worked");
-        // BufferedImage test = MemeMakerEditingUtils.rightRotate(i);
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils
+            .iconToBufferedImage(imageIcon.getImage());
+        CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
+        iconAsBuffer = MemeMakerEditingUtils.rightRotate(iconAsCustom);
+
+        picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        // System.out.println("worked");
       }
       else if (choice.equals("Horizontal Flip"))
       {
