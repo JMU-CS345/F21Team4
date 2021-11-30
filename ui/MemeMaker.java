@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.KeyStroke;
+
 import java.awt.image.BufferedImage;
 
 /**
@@ -80,10 +81,10 @@ public class MemeMaker extends JFrame implements ActionListener
 
     // Initializing JButtons
     leftRotate = new JButton("Rotate Left");
-    leftRotate.addActionListener(this);
+    leftRotate.addActionListener(new ButtonPress());
 
     rightRotate = new JButton("Rotate Right");
-    rightRotate.addActionListener(this);
+    rightRotate.addActionListener(new ButtonPress());
 
     horizontalFlip = new JButton("Horizontal Flip");
     horizontalFlip.addActionListener(this);
@@ -300,15 +301,19 @@ public class MemeMaker extends JFrame implements ActionListener
 
       if (choice.equals("Rotate Left"))
       {
-
+        // BufferedImage b = (BufferedImage) imageIcon.getImage();
+        // CustomImage ci = MemeMakerEditingUtils.bufferedImageToImage(b);
+        // b = MemeMakerEditingUtils.leftRotate(ci);
+        // picLabel.setIcon(new ImageIcon(b));
       }
       else if (choice.equals("Rotate Right"))
       {
-    	BufferedImage b = (BufferedImage) imageIcon.getImage();
-    	CustomImage ci = MemeMakerEditingUtils.bufferedImageToImage(b);
-    	b = MemeMakerEditingUtils.rightRotate(ci);
-    	picLabel.setIcon(new ImageIcon(b));
-    	System.out.println("worked");
+        BufferedImage b = MemeMakerEditingUtils.iconToBufferedImage(imageIcon.getImage());
+        CustomImage ci = MemeMakerEditingUtils.bufferedImageToImage(b);
+        b = MemeMakerEditingUtils.rightRotate(ci);
+        picLabel.setIcon(new ImageIcon(b));
+        System.out.println("worked");
+        // BufferedImage test = MemeMakerEditingUtils.rightRotate(i);
       }
       else if (choice.equals("Horizontal Flip"))
       {
@@ -336,4 +341,5 @@ public class MemeMaker extends JFrame implements ActionListener
       }
     }
   }
+
 }
