@@ -4,9 +4,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.Stack;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -31,6 +35,9 @@ public class MemeMaker extends JFrame implements ActionListener
   private JPanel imagePanel;
   private JPanel toolPanel;
 
+  // Image Editing Components
+  private JLabel picLabel;
+
   // Declaring the Menu's and Menu Item
   private JMenuBar menuBar;
 
@@ -42,7 +49,7 @@ public class MemeMaker extends JFrame implements ActionListener
   // Declaring the changeHistory stack
   public Stack changeHistory;
 
-  public MemeMaker()
+  public MemeMaker(ImageIcon icon)
   {
     // Initializes all the frame components
     memeMakeFrame = new JFrame();
@@ -52,10 +59,16 @@ public class MemeMaker extends JFrame implements ActionListener
     memeMakeFrame.setJMenuBar(createMenuBar());
 
     // Initializes the SplitPane and its components
+
+    picLabel = new JLabel(icon);
     imagePanel = new JPanel();
+    imagePanel.add(picLabel);
+
     toolPanel = new JPanel();
 
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, imagePanel, toolPanel);
+    
+    splitPane.setDividerLocation(680);
 
     memeMakeFrame.add(splitPane);
 
@@ -186,7 +199,22 @@ public class MemeMaker extends JFrame implements ActionListener
     }
     else if ("upload".equals(e.getActionCommand()))
     {
-      System.out.println("Upload feature not available yet");
+      int optionResult = JOptionPane.showConfirmDialog(memeMakeFrame,
+          "If you upload a new image this page without saving, you will lose all progress.\nWould you still like to continue?",
+          "Do not exit yet", JOptionPane.YES_NO_OPTION);
+      if (optionResult == JOptionPane.YES_OPTION)
+      {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+          File selectedFile = fileChooser.getSelectedFile();
+          System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+
+          picLabel.setIcon(new ImageIcon(selectedFile.getAbsolutePath().toString()));
+        }
+      }
     }
   }
 }

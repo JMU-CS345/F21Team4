@@ -60,7 +60,8 @@ public class DogDisplay extends JPanel implements ListSelectionListener
   private JLabel dogInformationLabel = new JLabel(" ", JLabel.CENTER);
 
   // Declaring all variable and components for full screen mode
-  private Image currImg = null;
+  public Image currImg;
+  public ImageIcon icon;
   public JPanel fullScreenImage;
   private JLabel fullScreenLabel;
 
@@ -219,7 +220,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
       {
         exception.printStackTrace();
       }
-      ImageIcon icon = new ImageIcon(currImg);
+      icon = new ImageIcon(currImg);
       dogPictureLabel.setIcon(icon);
       fullScreenButton.setVisible(true);
       makeMeme.setVisible(true);
@@ -262,7 +263,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
         // internalFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         if (!openAlready)
         {
-          new MemeMaker();
+          new MemeMaker(icon);
           openAlready = true;
         }
         else
