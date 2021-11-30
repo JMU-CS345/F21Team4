@@ -5,8 +5,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.Stack;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -46,8 +48,9 @@ public class MemeMaker extends JFrame implements ActionListener
 
   private JMenuItem menuItem;
 
-  // Declaring the changeHistory stack
-  public Stack changeHistory;
+  // Declaring the changeHistory variables
+  private Stack changeHistory;
+  private Stack redoHistory;
 
   public MemeMaker(ImageIcon icon)
   {
@@ -67,14 +70,15 @@ public class MemeMaker extends JFrame implements ActionListener
     toolPanel = new JPanel();
 
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, imagePanel, toolPanel);
-    
+
     splitPane.setDividerLocation(680);
 
     memeMakeFrame.add(splitPane);
 
     // Initializes the change history for each instance of the MemeEditor effectively reseting it
     // upon each open.
-    changeHistory = new Stack();
+    changeHistory = new Stack<ImageIcon>();
+    redoHistory = new Stack<ImageIcon>();
 
     // Listens for to the window to check if it's ever closed.
     memeMakeFrame.addWindowListener(new WindowAdapter()
@@ -176,7 +180,18 @@ public class MemeMaker extends JFrame implements ActionListener
   {
     if ("save".equals(e.getActionCommand()))
     {
-      System.out.println("Save feature not available yet");
+      // System.out.println("Save feature not available yet");
+      JFileChooser fileChooser = new JFileChooser();
+      fileChooser.setDialogTitle("Specify a file to save");
+
+      int userSelection = fileChooser.showSaveDialog(memeMakeFrame);
+
+      if (userSelection == JFileChooser.APPROVE_OPTION)
+      {
+        File fileToSave = fileChooser.getSelectedFile();
+
+        System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+      }
     }
     else if ("quit".equals(e.getActionCommand()))
     {
@@ -191,11 +206,13 @@ public class MemeMaker extends JFrame implements ActionListener
     }
     else if ("undo".equals(e.getActionCommand()))
     {
-      System.out.println("Undo feature not available yet");
+      redoHistory.push(changeHistory.pop());
+      picLabel.setIcon((Icon) changeHistory.peek());
     }
     else if ("redo".equals(e.getActionCommand()))
     {
-      System.out.println("Redo feature not available yet");
+      changeHistory.push(redoHistory.pop());
+      picLabel.setIcon((Icon) changeHistory.peek());
     }
     else if ("upload".equals(e.getActionCommand()))
     {
