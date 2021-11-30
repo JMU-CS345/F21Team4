@@ -102,7 +102,7 @@ public class MemeMakerEditingUtils
   public static BufferedImage brighten(CustomImage image)
   {
     int amount = 15;
-    Image adjustedBrightness = new Image(image.getWidth(), image.getHeight());
+    CustomImage adjustedBrightness = new CustomImage(image.getWidth(), image.getHeight());
 
     for (int i = 0; i < image.getWidth(); i++)
     {
@@ -129,7 +129,7 @@ public class MemeMakerEditingUtils
   {
 
     int amount = 15;
-    Image adjustedBrightness = new Image(image.getWidth(), image.getHeight());
+    CustomImage adjustedBrightness = new CustomImage(image.getWidth(), image.getHeight());
 
     for (int i = 0; i < image.getWidth(); i++)
     {
