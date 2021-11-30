@@ -306,6 +306,7 @@ public class MemeMaker extends JFrame implements ActionListener
         CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
         iconAsBuffer = MemeMakerEditingUtils.leftRotate(iconAsCustom);
 
+        imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
       }
       else if (choice.equals("Rotate Right"))
@@ -315,32 +316,68 @@ public class MemeMaker extends JFrame implements ActionListener
         CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
         iconAsBuffer = MemeMakerEditingUtils.rightRotate(iconAsCustom);
 
+        imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
-        // System.out.println("worked");
       }
       else if (choice.equals("Horizontal Flip"))
       {
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils
+            .iconToBufferedImage(imageIcon.getImage());
+        CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
+        iconAsBuffer = MemeMakerEditingUtils.horizontalFlip(iconAsCustom);
 
+        imageIcon.setImage(iconAsBuffer);
+        picLabel.setIcon(new ImageIcon(iconAsBuffer));
       }
       else if (choice.equals("Vertical Flip"))
       {
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils
+            .iconToBufferedImage(imageIcon.getImage());
+        CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
+        iconAsBuffer = MemeMakerEditingUtils.verticalFlip(iconAsCustom);
 
+        imageIcon.setImage(iconAsBuffer);
+        picLabel.setIcon(new ImageIcon(iconAsBuffer));
       }
       else if (choice.equals("Brighten"))
       {
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils
+            .iconToBufferedImage(imageIcon.getImage());
+        CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
+        iconAsBuffer = MemeMakerEditingUtils.brighten(iconAsCustom);
 
+        imageIcon.setImage(iconAsBuffer);
+        picLabel.setIcon(new ImageIcon(iconAsBuffer));
       }
       else if (choice.equals("Darken"))
       {
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils
+            .iconToBufferedImage(imageIcon.getImage());
+        CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
+        iconAsBuffer = MemeMakerEditingUtils.darken(iconAsCustom);
 
+        imageIcon.setImage(iconAsBuffer);
+        picLabel.setIcon(new ImageIcon(iconAsBuffer));
       }
       else if (choice.equals("Grey Scale"))
       {
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils
+            .iconToBufferedImage(imageIcon.getImage());
+        CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
+        iconAsBuffer = MemeMakerEditingUtils.greyScale(iconAsCustom);
 
+        imageIcon.setImage(iconAsBuffer);
+        picLabel.setIcon(new ImageIcon(iconAsBuffer));
       }
       else if (choice.equals("Deep Fry"))
       {
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils
+            .iconToBufferedImage(imageIcon.getImage());
+        CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
+        iconAsBuffer = MemeMakerEditingUtils.dEePfRy(iconAsCustom);
 
+        imageIcon.setImage(iconAsBuffer);
+        picLabel.setIcon(new ImageIcon(iconAsBuffer));
       }
     }
   }

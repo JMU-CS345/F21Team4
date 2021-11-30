@@ -65,7 +65,7 @@ public class MemeMakerEditingUtils
   /**
    * Mirrors/Flips the image over the vertical axis
    */
-  public static BufferedImage verticalFlip(Image image)
+  public static BufferedImage verticalFlip(CustomImage image)
   {
     return null;
   }
@@ -99,7 +99,7 @@ public class MemeMakerEditingUtils
   /**
    * Raises the brightness of the image by an RGB factor of 15.
    */
-  public static BufferedImage brighten(Image image)
+  public static BufferedImage brighten(CustomImage image)
   {
     int amount = 15;
     Image adjustedBrightness = new Image(image.getWidth(), image.getHeight());
@@ -125,7 +125,7 @@ public class MemeMakerEditingUtils
   /**
    * Lowers the brightness of the image by am RGB factor of 15.
    */
-  public static BufferedImage darken(Image image)
+  public static BufferedImage darken(CustomImage image)
   {
 
     int amount = 15;
@@ -153,7 +153,7 @@ public class MemeMakerEditingUtils
    * "Deep Fries"/distorts an image by tinting the image red and yellow, lowers the image quality,
    * and runs the image through a series of filters.
    */
-  public static BufferedImage dEePfRy(Image image)
+  public static BufferedImage dEePfRy(CustomImage image)
   {
     return null;
   }
