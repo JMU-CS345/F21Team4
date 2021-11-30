@@ -1,15 +1,16 @@
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.Stack;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.KeyStroke;
+import java.awt.image.BufferedImage;
 
 /**
  * This class sets up the Meme Makers UI.
@@ -29,6 +31,7 @@ import javax.swing.KeyStroke;
  */
 public class MemeMaker extends JFrame implements ActionListener
 {
+
   // Declaring frames and panels for the meme Maker
   private JFrame memeMakeFrame;
 
@@ -37,8 +40,22 @@ public class MemeMaker extends JFrame implements ActionListener
   private JPanel imagePanel;
   private JPanel toolPanel;
 
-  // Image Editing Components
+  // Declaring image editing components
   private JLabel picLabel;
+  private ImageIcon imageIcon;
+
+  private JPanel buttonPad;
+
+  private JButton leftRotate;
+  private JButton rightRotate;
+  private JButton horizontalFlip;
+  private JButton verticalFlip;
+  private JButton greyScale;
+  private JButton brighten;
+  private JButton darken;
+  private JButton deepFry;
+
+  private String choice;
 
   // Declaring the Menu's and Menu Item
   private JMenuBar menuBar;
@@ -61,17 +78,55 @@ public class MemeMaker extends JFrame implements ActionListener
     memeMakeFrame.setVisible(true);
     memeMakeFrame.setJMenuBar(createMenuBar());
 
-    // Initializes the SplitPane and its components
+    // Initializing JButtons
+    leftRotate = new JButton("Rotate Left");
+    leftRotate.addActionListener(this);
 
-    picLabel = new JLabel(icon);
+    rightRotate = new JButton("Rotate Right");
+    rightRotate.addActionListener(this);
+
+    horizontalFlip = new JButton("Horizontal Flip");
+    horizontalFlip.addActionListener(this);
+
+    verticalFlip = new JButton("Vertical Flip");
+    verticalFlip.addActionListener(this);
+
+    brighten = new JButton("Brighten");
+    brighten.addActionListener(this);
+
+    darken = new JButton("Darken");
+    darken.addActionListener(this);
+
+    greyScale = new JButton("Grey Scale");
+    greyScale.addActionListener(this);
+
+    deepFry = new JButton("Deep Fry");
+    deepFry.addActionListener(this);
+
+    // Initializes buttonPad and adds its JButtons
+    buttonPad = new JPanel(new GridLayout(4, 2));
+
+    buttonPad.add(leftRotate);
+    buttonPad.add(rightRotate);
+    buttonPad.add(horizontalFlip);
+    buttonPad.add(verticalFlip);
+    buttonPad.add(brighten);
+    buttonPad.add(darken);
+    buttonPad.add(greyScale);
+    buttonPad.add(deepFry);
+
+    // Initializes the SplitPane and its components
+    imageIcon = icon;
+    picLabel = new JLabel(imageIcon);
     imagePanel = new JPanel();
     imagePanel.add(picLabel);
 
     toolPanel = new JPanel();
+    toolPanel.add(buttonPad);
 
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, imagePanel, toolPanel);
 
-    splitPane.setDividerLocation(680);
+    // splitPane.setDividerLocation(600);
 
     memeMakeFrame.add(splitPane);
 
@@ -231,6 +286,50 @@ public class MemeMaker extends JFrame implements ActionListener
 
           picLabel.setIcon(new ImageIcon(selectedFile.getAbsolutePath().toString()));
         }
+      }
+    }
+  }
+
+  private class ButtonPress implements ActionListener
+  {
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+      choice = e.getActionCommand();
+
+      if (choice.equals("Rotate Left"))
+      {
+
+      }
+      else if (choice.equals("Rotate Right"))
+      {
+
+        BufferedImage test = MemeMakerEditingUtils.rightRotate(imageIcon.getImage());
+      }
+      else if (choice.equals("Horizontal Flip"))
+      {
+
+      }
+      else if (choice.equals("Vertical Flip"))
+      {
+
+      }
+      else if (choice.equals("Brighten"))
+      {
+
+      }
+      else if (choice.equals("Darken"))
+      {
+
+      }
+      else if (choice.equals("Grey Scale"))
+      {
+
+      }
+      else if (choice.equals("Deep Fry"))
+      {
+
       }
     }
   }
