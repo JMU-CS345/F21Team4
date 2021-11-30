@@ -1,5 +1,8 @@
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.awt.Image;
+
+
 
 /**
  * This class contains all of the editing functionality for the memeMaker.
@@ -87,7 +90,7 @@ public class MemeMakerEditingUtils
   /**
    * Raises the brightness of the image by an RGB factor of 15.
    */
-  public static BufferedImage brighter(Image image)
+  public static BufferedImage brighten(Image image)
   {
 	  int amount = 15;
       Image adjustedBrightness = new Image(image.getWidth(),

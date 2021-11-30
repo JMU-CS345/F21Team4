@@ -9,24 +9,20 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -60,7 +56,8 @@ public class DogDisplay extends JPanel implements ListSelectionListener
   private JLabel dogInformationLabel = new JLabel(" ", JLabel.CENTER);
 
   // Declaring all variable and components for full screen mode
-  private Image currImg = null;
+  public Image currImg;
+  public ImageIcon icon;
   public JPanel fullScreenImage;
   private JLabel fullScreenLabel;
 
@@ -219,7 +216,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
       {
         exception.printStackTrace();
       }
-      ImageIcon icon = new ImageIcon(currImg);
+      icon = new ImageIcon(currImg);
       dogPictureLabel.setIcon(icon);
       fullScreenButton.setVisible(true);
       makeMeme.setVisible(true);
@@ -262,7 +259,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
         // internalFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         if (!openAlready)
         {
-          new MemeMaker();
+          new MemeMaker(icon);
           openAlready = true;
         }
         else

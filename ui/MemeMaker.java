@@ -1,12 +1,19 @@
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.Stack;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -14,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.KeyStroke;
+import java.awt.image.BufferedImage;
 
 /**
  * This class sets up the Meme Makers UI.
@@ -23,6 +31,7 @@ import javax.swing.KeyStroke;
  */
 public class MemeMaker extends JFrame implements ActionListener
 {
+
   // Declaring frames and panels for the meme Maker
   private JFrame memeMakeFrame;
 
@@ -30,6 +39,23 @@ public class MemeMaker extends JFrame implements ActionListener
 
   private JPanel imagePanel;
   private JPanel toolPanel;
+
+  // Declaring image editing components
+  private JLabel picLabel;
+  private ImageIcon imageIcon;
+
+  private JPanel buttonPad;
+
+  private JButton leftRotate;
+  private JButton rightRotate;
+  private JButton horizontalFlip;
+  private JButton verticalFlip;
+  private JButton greyScale;
+  private JButton brighten;
+  private JButton darken;
+  private JButton deepFry;
+
+  private String choice;
 
   // Declaring the Menu's and Menu Item
   private JMenuBar menuBar;
@@ -39,10 +65,11 @@ public class MemeMaker extends JFrame implements ActionListener
 
   private JMenuItem menuItem;
 
-  // Declaring the changeHistory stack
-  public Stack changeHistory;
+  // Declaring the changeHistory variables
+  private Stack changeHistory;
+  private Stack redoHistory;
 
-  public MemeMaker()
+  public MemeMaker(ImageIcon icon)
   {
     // Initializes all the frame components
     memeMakeFrame = new JFrame();
@@ -51,17 +78,62 @@ public class MemeMaker extends JFrame implements ActionListener
     memeMakeFrame.setVisible(true);
     memeMakeFrame.setJMenuBar(createMenuBar());
 
+    // Initializing JButtons
+    leftRotate = new JButton("Rotate Left");
+    leftRotate.addActionListener(this);
+
+    rightRotate = new JButton("Rotate Right");
+    rightRotate.addActionListener(this);
+
+    horizontalFlip = new JButton("Horizontal Flip");
+    horizontalFlip.addActionListener(this);
+
+    verticalFlip = new JButton("Vertical Flip");
+    verticalFlip.addActionListener(this);
+
+    brighten = new JButton("Brighten");
+    brighten.addActionListener(this);
+
+    darken = new JButton("Darken");
+    darken.addActionListener(this);
+
+    greyScale = new JButton("Grey Scale");
+    greyScale.addActionListener(this);
+
+    deepFry = new JButton("Deep Fry");
+    deepFry.addActionListener(this);
+
+    // Initializes buttonPad and adds its JButtons
+    buttonPad = new JPanel(new GridLayout(4, 2));
+
+    buttonPad.add(leftRotate);
+    buttonPad.add(rightRotate);
+    buttonPad.add(horizontalFlip);
+    buttonPad.add(verticalFlip);
+    buttonPad.add(brighten);
+    buttonPad.add(darken);
+    buttonPad.add(greyScale);
+    buttonPad.add(deepFry);
+
     // Initializes the SplitPane and its components
+    imageIcon = icon;
+    picLabel = new JLabel(imageIcon);
     imagePanel = new JPanel();
+    imagePanel.add(picLabel);
+
     toolPanel = new JPanel();
+    toolPanel.add(buttonPad);
 
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, imagePanel, toolPanel);
+
+    // splitPane.setDividerLocation(600);
 
     memeMakeFrame.add(splitPane);
 
     // Initializes the change history for each instance of the MemeEditor effectively reseting it
     // upon each open.
-    changeHistory = new Stack();
+    changeHistory = new Stack<ImageIcon>();
+    redoHistory = new Stack<ImageIcon>();
 
     // Listens for to the window to check if it's ever closed.
     memeMakeFrame.addWindowListener(new WindowAdapter()
@@ -163,7 +235,18 @@ public class MemeMaker extends JFrame implements ActionListener
   {
     if ("save".equals(e.getActionCommand()))
     {
-      System.out.println("Save feature not available yet");
+      // System.out.println("Save feature not available yet");
+      JFileChooser fileChooser = new JFileChooser();
+      fileChooser.setDialogTitle("Specify a file to save");
+
+      int userSelection = fileChooser.showSaveDialog(memeMakeFrame);
+
+      if (userSelection == JFileChooser.APPROVE_OPTION)
+      {
+        File fileToSave = fileChooser.getSelectedFile();
+
+        System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+      }
     }
     else if ("quit".equals(e.getActionCommand()))
     {
@@ -178,15 +261,76 @@ public class MemeMaker extends JFrame implements ActionListener
     }
     else if ("undo".equals(e.getActionCommand()))
     {
-      System.out.println("Undo feature not available yet");
+      redoHistory.push(changeHistory.pop());
+      picLabel.setIcon((Icon) changeHistory.peek());
     }
     else if ("redo".equals(e.getActionCommand()))
     {
-      System.out.println("Redo feature not available yet");
+      changeHistory.push(redoHistory.pop());
+      picLabel.setIcon((Icon) changeHistory.peek());
     }
     else if ("upload".equals(e.getActionCommand()))
     {
-      System.out.println("Upload feature not available yet");
+      int optionResult = JOptionPane.showConfirmDialog(memeMakeFrame,
+          "If you upload a new image this page without saving, you will lose all progress.\nWould you still like to continue?",
+          "Do not exit yet", JOptionPane.YES_NO_OPTION);
+      if (optionResult == JOptionPane.YES_OPTION)
+      {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+          File selectedFile = fileChooser.getSelectedFile();
+          System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+
+          picLabel.setIcon(new ImageIcon(selectedFile.getAbsolutePath().toString()));
+        }
+      }
+    }
+  }
+
+  private class ButtonPress implements ActionListener
+  {
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+      choice = e.getActionCommand();
+
+      if (choice.equals("Rotate Left"))
+      {
+
+      }
+      else if (choice.equals("Rotate Right"))
+      {
+
+        BufferedImage test = MemeMakerEditingUtils.rightRotate(imageIcon.getImage());
+      }
+      else if (choice.equals("Horizontal Flip"))
+      {
+
+      }
+      else if (choice.equals("Vertical Flip"))
+      {
+
+      }
+      else if (choice.equals("Brighten"))
+      {
+
+      }
+      else if (choice.equals("Darken"))
+      {
+
+      }
+      else if (choice.equals("Grey Scale"))
+      {
+
+      }
+      else if (choice.equals("Deep Fry"))
+      {
+
+      }
     }
   }
 }
