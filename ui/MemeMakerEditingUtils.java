@@ -1,8 +1,11 @@
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
 import java.awt.Image;
-
-
+import java.awt.Graphics;
 
 /**
  * This class contains all of the editing functionality for the memeMaker.
@@ -18,16 +21,18 @@ public class MemeMakerEditingUtils
    */
   public static BufferedImage rightRotate(CustomImage image)
   {
-	  
-      CustomImage newImage = new CustomImage(image.getHeight(), image.getWidth());
-      for (int y = 0; y < image.getHeight(); y++) {
-          for (int x = 0; x < image.getWidth(); x++) {
-              Pixel pixel = image.getPixel(x, y);
-              newImage.setPixel(image.getHeight() - y - 1, x, pixel);
-          }
+
+    CustomImage newImage = new CustomImage(image.getHeight(), image.getWidth());
+    for (int y = 0; y < image.getHeight(); y++)
+    {
+      for (int x = 0; x < image.getWidth(); x++)
+      {
+        Pixel pixel = image.getPixel(x, y);
+        newImage.setPixel(image.getHeight() - y - 1, x, pixel);
       }
-      
-      return imageToBufferedImage(newImage);
+    }
+
+    return imageToBufferedImage(newImage);
 
   }
 
@@ -36,14 +41,16 @@ public class MemeMakerEditingUtils
    */
   public static BufferedImage leftRotate(CustomImage image)
   {
-      CustomImage newImage = new CustomImage(image.getHeight(), image.getWidth());
-      for (int y = 0; y < image.getHeight(); y++) {
-          for (int x = 0; x < image.getWidth(); x++) {
-              Pixel pixel = image.getPixel(x, y);
-              newImage.setPixel(y, image.getWidth() - x - 1, pixel);
-          }
+    CustomImage newImage = new CustomImage(image.getHeight(), image.getWidth());
+    for (int y = 0; y < image.getHeight(); y++)
+    {
+      for (int x = 0; x < image.getWidth(); x++)
+      {
+        Pixel pixel = image.getPixel(x, y);
+        newImage.setPixel(y, image.getWidth() - x - 1, pixel);
       }
-      return imageToBufferedImage(newImage);
+    }
+    return imageToBufferedImage(newImage);
 
   }
 
@@ -52,7 +59,7 @@ public class MemeMakerEditingUtils
    */
   public static BufferedImage horizontalFlip(CustomImage image)
   {
-	  return null;
+    return null;
   }
 
   /**
@@ -60,7 +67,7 @@ public class MemeMakerEditingUtils
    */
   public static BufferedImage verticalFlip(Image image)
   {
-	  return null;
+    return null;
   }
 
   /**
@@ -68,23 +75,24 @@ public class MemeMakerEditingUtils
    */
   public static BufferedImage greyScale(CustomImage image)
   {
-	  
-	  CustomImage grayscaled = new CustomImage(image.getWidth(), image.getHeight());
 
-      for (int i = 0; i < image.getWidth(); i++) {
-          for (int x = 0; x < image.getHeight(); x++) {
-              Pixel p = image.getPixel(i, x);
-              int red = p.getRed();
-              int green = p.getGreen();
-              int blue = p.getBlue();
-              int luminosity = (int) ((0.299 * red) + (0.587 * green)
-                      + (0.114 * blue));
-              Pixel grayP = new Pixel(luminosity, luminosity, luminosity);
-              grayscaled.setPixel(i, x, grayP);
-          }
+    CustomImage grayscaled = new CustomImage(image.getWidth(), image.getHeight());
+
+    for (int i = 0; i < image.getWidth(); i++)
+    {
+      for (int x = 0; x < image.getHeight(); x++)
+      {
+        Pixel p = image.getPixel(i, x);
+        int red = p.getRed();
+        int green = p.getGreen();
+        int blue = p.getBlue();
+        int luminosity = (int) ((0.299 * red) + (0.587 * green) + (0.114 * blue));
+        Pixel grayP = new Pixel(luminosity, luminosity, luminosity);
+        grayscaled.setPixel(i, x, grayP);
       }
+    }
 
-      return imageToBufferedImage(grayscaled);
+    return imageToBufferedImage(grayscaled);
 
   }
 
@@ -93,23 +101,24 @@ public class MemeMakerEditingUtils
    */
   public static BufferedImage brighten(Image image)
   {
-	  int amount = 15;
-      Image adjustedBrightness = new Image(image.getWidth(),
-              image.getHeight());
+    int amount = 15;
+    Image adjustedBrightness = new Image(image.getWidth(), image.getHeight());
 
-      for (int i = 0; i < image.getWidth(); i++) {
-          for (int x = 0; x < image.getHeight(); x++) {
-              Pixel p = image.getPixel(i, x);
-              int red = p.getRed() + amount;
-              int green = p.getGreen() + amount;
-              int blue = p.getBlue() + amount;
+    for (int i = 0; i < image.getWidth(); i++)
+    {
+      for (int x = 0; x < image.getHeight(); x++)
+      {
+        Pixel p = image.getPixel(i, x);
+        int red = p.getRed() + amount;
+        int green = p.getGreen() + amount;
+        int blue = p.getBlue() + amount;
 
-              Pixel adjustedP = new Pixel(red, green, blue);
-              adjustedBrightness.setPixel(i, x, adjustedP);
-          }
+        Pixel adjustedP = new Pixel(red, green, blue);
+        adjustedBrightness.setPixel(i, x, adjustedP);
       }
+    }
 
-      return imageToBufferedImage(adjustedBrightness);
+    return imageToBufferedImage(adjustedBrightness);
 
   }
 
@@ -118,24 +127,25 @@ public class MemeMakerEditingUtils
    */
   public static BufferedImage darken(Image image)
   {
-	  
-	  int amount = 15;
-      Image adjustedBrightness = new Image(image.getWidth(),
-              image.getHeight());
 
-      for (int i = 0; i < image.getWidth(); i++) {
-          for (int x = 0; x < image.getHeight(); x++) {
-              Pixel p = image.getPixel(i, x);
-              int red = p.getRed() - amount;
-              int green = p.getGreen() - amount;
-              int blue = p.getBlue() - amount;
+    int amount = 15;
+    Image adjustedBrightness = new Image(image.getWidth(), image.getHeight());
 
-              Pixel adjustedP = new Pixel(red, green, blue);
-              adjustedBrightness.setPixel(i, x, adjustedP);
-          }
+    for (int i = 0; i < image.getWidth(); i++)
+    {
+      for (int x = 0; x < image.getHeight(); x++)
+      {
+        Pixel p = image.getPixel(i, x);
+        int red = p.getRed() - amount;
+        int green = p.getGreen() - amount;
+        int blue = p.getBlue() - amount;
+
+        Pixel adjustedP = new Pixel(red, green, blue);
+        adjustedBrightness.setPixel(i, x, adjustedP);
       }
+    }
 
-      return imageToBufferedImage(adjustedBrightness);
+    return imageToBufferedImage(adjustedBrightness);
 
   }
 
@@ -145,49 +155,60 @@ public class MemeMakerEditingUtils
    */
   public static BufferedImage dEePfRy(Image image)
   {
-	  return null;
+    return null;
   }
-  
-  public static CustomImage bufferedImageToImage(BufferedImage bufferedImage) {
-      CustomImage newImage = new CustomImage(bufferedImage.getWidth(),
-              bufferedImage.getHeight());
-      Color color;
 
-      for (int y = 0; y < bufferedImage.getHeight(); y++) {
-          for (int x = 0; x < bufferedImage.getWidth(); x++) {
-              color = new Color(bufferedImage.getRGB(x, y));
-              newImage.setPixel(x, y, new Pixel(color.getRed(),
-                      color.getGreen(), color.getBlue()));
-          }
+  public static CustomImage bufferedImageToImage(BufferedImage bufferedImage)
+  {
+    CustomImage newImage = new CustomImage(bufferedImage.getWidth(), bufferedImage.getHeight());
+    Color color;
+
+    for (int y = 0; y < bufferedImage.getHeight(); y++)
+    {
+      for (int x = 0; x < bufferedImage.getWidth(); x++)
+      {
+        color = new Color(bufferedImage.getRGB(x, y));
+        newImage.setPixel(x, y, new Pixel(color.getRed(), color.getGreen(), color.getBlue()));
       }
-      return newImage;
+    }
+    return newImage;
 
   }
 
   /**
    * Convert from Image to java.awt.image.BufferedImage.
    * 
-   * @param image The Image to convert.
+   * @param image
+   *          The Image to convert.
    * @return Equivalent BufferedImage
    */
-  public static BufferedImage imageToBufferedImage(CustomImage image) {
-      BufferedImage bufferedImage = new BufferedImage(image.getWidth(),
-              image.getHeight(), BufferedImage.TYPE_INT_RGB);
-      Pixel pixel;
-      Color color;
+  public static BufferedImage imageToBufferedImage(CustomImage image)
+  {
+    BufferedImage bufferedImage = new BufferedImage(image.getWidth(), image.getHeight(),
+        BufferedImage.TYPE_INT_RGB);
+    Pixel pixel;
+    Color color;
 
-      for (int y = 0; y < bufferedImage.getHeight(); y++) {
-          for (int x = 0; x < bufferedImage.getWidth(); x++) {
-              pixel = image.getPixel(x, y);
-              color = new Color(pixel.getRed(), pixel.getGreen(),
-                      pixel.getBlue());
-              bufferedImage.setRGB(x, y, color.getRGB());
-          }
+    for (int y = 0; y < bufferedImage.getHeight(); y++)
+    {
+      for (int x = 0; x < bufferedImage.getWidth(); x++)
+      {
+        pixel = image.getPixel(x, y);
+        color = new Color(pixel.getRed(), pixel.getGreen(), pixel.getBlue());
+        bufferedImage.setRGB(x, y, color.getRGB());
       }
-      return bufferedImage;
+    }
+    return bufferedImage;
 
   }
-}
-  
-  
 
+  public static BufferedImage iconToBufferedImage(Image im)
+  {
+    BufferedImage bi = new BufferedImage(im.getWidth(null), im.getHeight(null),
+        BufferedImage.TYPE_INT_RGB);
+    Graphics bg = bi.getGraphics();
+    bg.drawImage(im, 0, 0, null);
+    bg.dispose();
+    return bi;
+  }
+}
