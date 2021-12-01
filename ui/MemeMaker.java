@@ -6,8 +6,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.Stack;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -44,6 +46,7 @@ public class MemeMaker extends JFrame implements ActionListener
   // Declaring image editing components
   private JLabel picLabel;
   private ImageIcon imageIcon;
+  private BufferedImage initImg;
 
   private JPanel buttonPad;
 
@@ -70,8 +73,6 @@ public class MemeMaker extends JFrame implements ActionListener
   private Stack<ImageIcon> changeHistory;
   private Stack<ImageIcon> redoHistory;
 
-  private ImageIcon tempIcon;
-  
   public MemeMaker(ImageIcon icon)
   {
     // Initializes all the frame components
@@ -119,10 +120,10 @@ public class MemeMaker extends JFrame implements ActionListener
     buttonPad.add(deepFry);
 
     // Initializes the SplitPane and its components
-
     imageIcon = icon;
-    tempIcon = icon;
     picLabel = new JLabel(imageIcon);
+    picLabel.setPreferredSize(new Dimension(600, 600));
+
     imagePanel = new JPanel();
     imagePanel.add(picLabel);
 
@@ -131,14 +132,14 @@ public class MemeMaker extends JFrame implements ActionListener
 
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, imagePanel, toolPanel);
 
-    // splitPane.setDividerLocation(600);
-
     memeMakeFrame.add(splitPane);
 
     // Initializes the change history for each instance of the MemeEditor effectively reseting it
     // upon each open.
     changeHistory = new Stack<ImageIcon>();
-    changeHistory.push(imageIcon);
+
+    initImg = MemeMakerEditingUtils.iconToBufferedImage(icon.getImage());
+    changeHistory.push(new ImageIcon(initImg));
 
     redoHistory = new Stack<ImageIcon>();
 
@@ -148,6 +149,8 @@ public class MemeMaker extends JFrame implements ActionListener
       public void windowClosing(WindowEvent e)
       {
         DogDisplay.openAlready = false;
+        imageIcon.setImage(initImg);
+        picLabel.setIcon(imageIcon);
       }
     });
   }
@@ -235,6 +238,9 @@ public class MemeMaker extends JFrame implements ActionListener
     DogDisplay.openAlready = false;
     memeMakeFrame.setVisible(false);
     memeMakeFrame.dispose();
+
+    imageIcon.setImage(initImg);
+    picLabel.setIcon(imageIcon);
   }
 
   @Override
@@ -250,9 +256,24 @@ public class MemeMaker extends JFrame implements ActionListener
 
       if (userSelection == JFileChooser.APPROVE_OPTION)
       {
-        File fileToSave = fileChooser.getSelectedFile();
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils
+            .iconToBufferedImage(imageIcon.getImage());
+        String name = fileChooser.getSelectedFile().toString();
+        // String name = fileChooser.getSelectedFile().toString() +"png";
+        File file = new File(name);
+        try
+        {
+          ImageIO.write(iconAsBuffer, "png", file);
+        }
+        catch (IOException e1)
+        {
+          // TODO Auto-generated catch block
+          e1.printStackTrace();
+        }
 
-        System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+        // File fileToSave = fileChooser.getSelectedFile();
+        // File desktop = new File(System.getProperty("user.home"), "Desktop");
+        // System.out.println("Save as file: " + fileToSave.getAbsolutePath());
       }
     }
     else if ("quit".equals(e.getActionCommand()))
@@ -268,15 +289,12 @@ public class MemeMaker extends JFrame implements ActionListener
     }
     else if ("undo".equals(e.getActionCommand()))
     {
-        if (changeHistory.size() > 1)
+      if (changeHistory.size() > 1)
       {
-        // picLabel.setIcon((Icon) changeHistory.peek());
         redoHistory.push(changeHistory.pop());
 
         imageIcon.setImage(changeHistory.peek().getImage());
         picLabel.setIcon(changeHistory.peek());
-        System.out.println("change: " + changeHistory.size());
-        System.out.println("redo: " + redoHistory.size());
       }
     }
     else if ("redo".equals(e.getActionCommand()))
@@ -287,8 +305,6 @@ public class MemeMaker extends JFrame implements ActionListener
 
         imageIcon.setImage(changeHistory.peek().getImage());
         picLabel.setIcon(changeHistory.peek());
-        System.out.println("change: " + changeHistory.size());
-        System.out.println("redo: " + redoHistory.size());
       }
     }
     else if ("upload".equals(e.getActionCommand()))
@@ -330,7 +346,6 @@ public class MemeMaker extends JFrame implements ActionListener
         imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
         changeHistory.push(new ImageIcon(iconAsBuffer));
-        System.out.println(changeHistory.size());
       }
       else if (choice.equals("Rotate Right"))
       {
