@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
@@ -39,6 +40,11 @@ public class RandomDogPane extends JPanel implements ActionListener
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
 
+  // Meme Editor stuff
+  private ImageIcon icon;
+  public static boolean openAlready = false;
+  public boolean clicked = false;
+
   public RandomDogPane()
   {
     // Initializing and setting up "New Dog Picture" button
@@ -57,7 +63,7 @@ public class RandomDogPane extends JPanel implements ActionListener
     makeMeme = new JButton("Make a meme!");
     makeMeme.addActionListener((ActionListener) this);
     makeMeme.setPreferredSize(new Dimension(100, 100));
-    makeMeme.setVisible(false);
+    makeMeme.setVisible(true);
 
     // Initializing and setting up
     randDogIcon = new JLabel(" ", JLabel.CENTER);
@@ -67,10 +73,10 @@ public class RandomDogPane extends JPanel implements ActionListener
     // Initializing and setting up buttonPad
     buttonPad = new JPanel();
     buttonPad.setPreferredSize(new Dimension(windowWidth, 100));
-    buttonPad = new JPanel(new GridLayout(1, 2));
+    buttonPad = new JPanel(new GridLayout(1, 3));
     buttonPad.add(random);
     buttonPad.add(back);
-    // buttonPad.add(makeMeme);
+    buttonPad.add(makeMeme);
 
     // Initializing SplitPane that houses the image buttons and images
     splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, buttonPad, randDogIcon);
@@ -93,7 +99,7 @@ public class RandomDogPane extends JPanel implements ActionListener
 
     Image currImg;
     currImg = ImageIO.read(urlDogPics);
-    ImageIcon icon = new ImageIcon(currImg);
+    icon = new ImageIcon(currImg);
     randDogIcon.setIcon(icon);
   }
 
@@ -106,6 +112,7 @@ public class RandomDogPane extends JPanel implements ActionListener
 
     if (choice.equals("New Dog Picture"))
     {
+      clicked = true;
       try
       {
         this.getDogImage();
@@ -117,12 +124,34 @@ public class RandomDogPane extends JPanel implements ActionListener
     }
     else if (choice.equals("Back"))
     {
-      Window.layout.show(Window.layoutPane, "homescreen");
-      Window.frame.setTitle("Dog App");
+      if (!openAlready)
+      {
+        Window.layout.show(Window.layoutPane, "homescreen");
+        Window.frame.setTitle("Dog App");
+      }
+      else
+      {
+        JOptionPane.showMessageDialog(Window.frame,
+            "You have a meme editor open. \nPlease close your Meme editor window to go back, thank you.\n",
+            "Open Meme Editor", JOptionPane.WARNING_MESSAGE);
+      }
     }
     else if (choice.equals("Make a meme!"))
     {
-      System.out.println("Feature not available yet");
+      if (clicked)
+      {
+        if (!openAlready)
+        {
+          new MemeMaker(icon);
+          openAlready = true;
+        }
+        else
+        {
+          JOptionPane.showMessageDialog(Window.frame,
+              "You already have a meme editor open. \nPlease close your current Meme editor window to open a new one, thank you.\n",
+              "Open Meme Editor", JOptionPane.WARNING_MESSAGE);
+        }
+      }
     }
     else
     {

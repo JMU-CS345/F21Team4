@@ -77,7 +77,7 @@ public class MemeMaker extends JFrame implements ActionListener
   {
     // Initializes all the frame components
     memeMakeFrame = new JFrame();
-    memeMakeFrame.setSize(new Dimension(750, 750));
+    memeMakeFrame.setSize(new Dimension(800, 750));
 
     memeMakeFrame.setVisible(true);
     memeMakeFrame.setJMenuBar(createMenuBar());
@@ -149,6 +149,7 @@ public class MemeMaker extends JFrame implements ActionListener
       public void windowClosing(WindowEvent e)
       {
         DogDisplay.openAlready = false;
+        RandomDogPane.openAlready = false;
         imageIcon.setImage(initImg);
         picLabel.setIcon(imageIcon);
       }
@@ -236,6 +237,7 @@ public class MemeMaker extends JFrame implements ActionListener
   private void close()
   {
     DogDisplay.openAlready = false;
+    RandomDogPane.openAlready = false;
     memeMakeFrame.setVisible(false);
     memeMakeFrame.dispose();
 
@@ -322,7 +324,10 @@ public class MemeMaker extends JFrame implements ActionListener
           File selectedFile = fileChooser.getSelectedFile();
           System.out.println("Selected file: " + selectedFile.getAbsolutePath());
 
-          picLabel.setIcon(new ImageIcon(selectedFile.getAbsolutePath().toString()));
+         
+          changeHistory.push(new ImageIcon(selectedFile.getAbsolutePath().toString()));
+          imageIcon.setImage(changeHistory.peek().getImage());
+          picLabel.setIcon(changeHistory.peek());
         }
       }
     }

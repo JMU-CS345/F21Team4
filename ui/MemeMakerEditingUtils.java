@@ -68,7 +68,9 @@ public class MemeMakerEditingUtils
       }
       
       return imageToBufferedImage(newImage);
+          
   }
+  
   
 
   /**
