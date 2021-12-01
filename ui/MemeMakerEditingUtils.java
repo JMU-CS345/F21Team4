@@ -63,9 +63,10 @@ public class MemeMakerEditingUtils
       for (int y = 0; y < image.getHeight(); y++) {
           for (int x = 0; x < image.getWidth(); x++) {
               Pixel pixel = image.getPixel(x, y);
-              newImage.setPixel(image.getWidth() - y - 1, x, pixel);
+              newImage.setPixel(x, image.getHeight() - y, pixel);
           }
       }
+      
       return imageToBufferedImage(newImage);
   }
   
