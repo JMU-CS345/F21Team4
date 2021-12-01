@@ -247,16 +247,20 @@ public class DogDisplay extends JPanel implements ListSelectionListener
       }
       else if (choice.equals("Back"))
       {
-        Window.layout.show(Window.layoutPane, "homescreen");
-        Window.frame.setTitle("Dog App");
+        if (!openAlready)
+        {
+          Window.layout.show(Window.layoutPane, "homescreen");
+          Window.frame.setTitle("Dog App");
+        }
+        else
+        {
+          JOptionPane.showMessageDialog(Window.frame,
+              "You have a meme editor open. \nPlease close your Meme editor window to go back, thank you.\n",
+              "Open Meme Editor", JOptionPane.WARNING_MESSAGE);
+        }
       }
       else if (choice.equals("Make a meme!"))
       {
-        // System.out.println("Feature not available yet");
-        // JInternalFrame internalFrame = new JInternalFrame("Meme Maker");
-        // Window.layoutPane.add(internalFrame);
-        // internalFrame.setVisible(true);
-        // internalFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         if (!openAlready)
         {
           new MemeMaker(icon);
@@ -266,7 +270,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
         {
           JOptionPane.showMessageDialog(Window.frame,
               "You already have a meme editor open. \nPlease close your current Meme editor window to open a new one, thank you.\n",
-              "Open Window", JOptionPane.WARNING_MESSAGE);
+              "Open Meme Editor", JOptionPane.WARNING_MESSAGE);
         }
       }
       else
