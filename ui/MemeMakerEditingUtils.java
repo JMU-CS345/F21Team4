@@ -55,7 +55,7 @@ public class MemeMakerEditingUtils
   }
 
   /**
-   * Mirrors/Flips the image over the horizontal axis
+   * Mirrors/Flips the image over the x axis
    */
   public static BufferedImage horizontalFlip(CustomImage image)
   {
@@ -71,7 +71,7 @@ public class MemeMakerEditingUtils
   
 
   /**
-   * Mirrors/Flips the image over the vertical axis
+   * Mirrors/Flips the image over the y axis
    */
   public static BufferedImage verticalFlip(CustomImage image)
   {
