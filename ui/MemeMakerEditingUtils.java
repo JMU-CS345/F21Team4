@@ -66,8 +66,9 @@ public class MemeMakerEditingUtils
               newImage.setPixel(image.getWidth() - y - 1, x, pixel);
           }
       }
-      return imageToBufferedImage(newImage);
+          return imageToBufferedImage(newImage);
   }
+  
   
 
   /**
