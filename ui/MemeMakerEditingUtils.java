@@ -59,15 +59,30 @@ public class MemeMakerEditingUtils
    */
   public static BufferedImage horizontalFlip(CustomImage image)
   {
-    return null;
+	  CustomImage newImage = new CustomImage(image.getWidth(), image.getHeight());
+      for (int y = 0; y < image.getHeight(); y++) {
+          for (int x = 0; x < image.getWidth(); x++) {
+              Pixel pixel = image.getPixel(x, y);
+              newImage.setPixel(image.getWidth() - y - 1, x, pixel);
+          }
+      }
+      return imageToBufferedImage(newImage);
   }
+  
 
   /**
    * Mirrors/Flips the image over the vertical axis
    */
   public static BufferedImage verticalFlip(CustomImage image)
   {
-    return null;
+	  CustomImage newImage = new CustomImage(image.getWidth(), image.getHeight());
+      for (int y = 0; y < image.getHeight(); y++) {
+          for (int x = 0; x < image.getWidth(); x++) {
+              Pixel pixel = image.getPixel(x, y);
+              newImage.setPixel(image.getWidth() - x - 1, y, pixel);
+          }
+      }
+      return imageToBufferedImage(newImage);
   }
 
   /**
