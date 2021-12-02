@@ -1,5 +1,6 @@
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -43,6 +44,9 @@ public class MemeMaker extends JFrame implements ActionListener
   private JPanel imagePanel;
   private JPanel toolPanel;
 
+  private final int windowWidth = 800;
+  private final int windowHeight = 750;
+
   // Declaring image editing components
   private JLabel picLabel;
   private ImageIcon imageIcon;
@@ -77,7 +81,7 @@ public class MemeMaker extends JFrame implements ActionListener
   {
     // Initializes all the frame components
     memeMakeFrame = new JFrame();
-    memeMakeFrame.setSize(new Dimension(800, 750));
+    memeMakeFrame.setSize(new Dimension(windowWidth, windowWidth));
 
     memeMakeFrame.setVisible(true);
     memeMakeFrame.setJMenuBar(createMenuBar());
@@ -119,8 +123,20 @@ public class MemeMaker extends JFrame implements ActionListener
     buttonPad.add(greyScale);
     buttonPad.add(deepFry);
 
+    // Converts icon into a buffered image and scales it
+    initImg = MemeMakerEditingUtils.iconToBufferedImage(icon.getImage());
+    double iconHeight = icon.getIconHeight();
+    double iconWidth = icon.getIconWidth();
+    while (iconHeight > 600 || iconWidth > 450)
+    {
+      iconHeight *= .85;
+      iconWidth *= .85;
+    }
+    Image scaledImage = initImg.getScaledInstance((int) iconWidth, (int) iconHeight,
+        Image.SCALE_AREA_AVERAGING);
+
     // Initializes the SplitPane and its components
-    imageIcon = icon;
+    imageIcon = new ImageIcon(scaledImage);
     picLabel = new JLabel(imageIcon);
     picLabel.setPreferredSize(new Dimension(600, 600));
 
@@ -138,8 +154,7 @@ public class MemeMaker extends JFrame implements ActionListener
     // upon each open.
     changeHistory = new Stack<ImageIcon>();
 
-    initImg = MemeMakerEditingUtils.iconToBufferedImage(icon.getImage());
-    changeHistory.push(new ImageIcon(initImg));
+    changeHistory.push(imageIcon);
 
     redoHistory = new Stack<ImageIcon>();
 
@@ -150,7 +165,8 @@ public class MemeMaker extends JFrame implements ActionListener
       {
         DogDisplay.openAlready = false;
         RandomDogPane.openAlready = false;
-        imageIcon.setImage(initImg);
+
+        imageIcon.setImage(scaledImage);
         picLabel.setIcon(imageIcon);
       }
     });
@@ -324,10 +340,10 @@ public class MemeMaker extends JFrame implements ActionListener
           File selectedFile = fileChooser.getSelectedFile();
           System.out.println("Selected file: " + selectedFile.getAbsolutePath());
 
-         
           changeHistory.push(new ImageIcon(selectedFile.getAbsolutePath().toString()));
           imageIcon.setImage(changeHistory.peek().getImage());
           picLabel.setIcon(changeHistory.peek());
+
         }
       }
     }
