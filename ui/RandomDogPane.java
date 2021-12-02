@@ -100,6 +100,25 @@ public class RandomDogPane extends JPanel implements ActionListener
     Image currImg;
     currImg = ImageIO.read(urlDogPics);
     icon = new ImageIcon(currImg);
+
+    // Scales the image down if it is too large and up if it is too small
+    double iconHeight = icon.getIconHeight();
+    double iconWidth = icon.getIconWidth();
+    while (iconHeight > 600 || iconWidth > 450)
+    {
+      iconHeight *= .85;
+      iconWidth *= .85;
+    }
+    while (iconHeight < 500 || iconWidth < 450)
+    {
+      iconHeight *= 1.15;
+      iconWidth *= 1.15;
+    }
+
+    Image scaledImage = currImg.getScaledInstance((int) iconWidth, (int) iconHeight,
+        Image.SCALE_AREA_AVERAGING);
+
+    icon = new ImageIcon(scaledImage);
     randDogIcon.setIcon(icon);
   }
 
