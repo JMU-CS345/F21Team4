@@ -104,7 +104,7 @@ public class RandomDogPane extends JPanel implements ActionListener
     // Scales the image down if it is too large and up if it is too small
     double iconHeight = icon.getIconHeight();
     double iconWidth = icon.getIconWidth();
-    while (iconHeight > 600 || iconWidth > 450)
+    while (iconHeight > ((double) windowHeight * .85) || iconWidth > ((double) windowWidth * .75))
     {
       iconHeight *= .85;
       iconWidth *= .85;
@@ -170,6 +170,12 @@ public class RandomDogPane extends JPanel implements ActionListener
               "You already have a meme editor open. \nPlease close your current Meme editor window to open a new one, thank you.\n",
               "Open Meme Editor", JOptionPane.WARNING_MESSAGE);
         }
+      }
+      else
+      {
+        JOptionPane.showMessageDialog(Window.frame,
+            "You have not generated a dog image yet.\nTo create a meme, please click new dog picture. Thank you.\n",
+            "No Image Yet", JOptionPane.WARNING_MESSAGE);
       }
     }
     else
