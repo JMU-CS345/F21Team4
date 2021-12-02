@@ -123,17 +123,8 @@ public class MemeMaker extends JFrame implements ActionListener
     buttonPad.add(greyScale);
     buttonPad.add(deepFry);
 
-    // Converts icon into a buffered image and scales it
-    initImg = MemeMakerEditingUtils.iconToBufferedImage(icon.getImage());
-    double iconHeight = icon.getIconHeight();
-    double iconWidth = icon.getIconWidth();
-    while (iconHeight > 600 || iconWidth > 450)
-    {
-      iconHeight *= .85;
-      iconWidth *= .85;
-    }
-    Image scaledImage = initImg.getScaledInstance((int) iconWidth, (int) iconHeight,
-        Image.SCALE_AREA_AVERAGING);
+    // Scales Image Icon
+    Image scaledImage = scaleImageIcon(icon);
 
     // Initializes the SplitPane and its components
     imageIcon = new ImageIcon(scaledImage);
@@ -170,6 +161,29 @@ public class MemeMaker extends JFrame implements ActionListener
         picLabel.setIcon(imageIcon);
       }
     });
+  }
+
+  /**
+   * Converts the ImageIcon into a buffered image, scales it down then converts it to an image and
+   * returns it.
+   * 
+   * @param icon
+   *          The initial image icon
+   * @return The scaled image
+   */
+  public Image scaleImageIcon(ImageIcon icon)
+  {
+    initImg = MemeMakerEditingUtils.iconToBufferedImage(icon.getImage());
+    double iconHeight = icon.getIconHeight();
+    double iconWidth = icon.getIconWidth();
+    while (iconHeight > 600 || iconWidth > 450)
+    {
+      iconHeight *= .85;
+      iconWidth *= .85;
+    }
+    Image scaledImage = initImg.getScaledInstance((int) iconWidth, (int) iconHeight,
+        Image.SCALE_AREA_AVERAGING);
+    return scaledImage;
   }
 
   /*
@@ -340,7 +354,10 @@ public class MemeMaker extends JFrame implements ActionListener
           File selectedFile = fileChooser.getSelectedFile();
           System.out.println("Selected file: " + selectedFile.getAbsolutePath());
 
-          changeHistory.push(new ImageIcon(selectedFile.getAbsolutePath().toString()));
+          Image scaledImage = scaleImageIcon(
+              new ImageIcon(selectedFile.getAbsolutePath().toString()));
+          ImageIcon scaledIcon = new ImageIcon(scaledImage);
+          changeHistory.push(scaledIcon);
           imageIcon.setImage(changeHistory.peek().getImage());
           picLabel.setIcon(changeHistory.peek());
 
