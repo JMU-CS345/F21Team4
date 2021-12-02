@@ -128,7 +128,8 @@ public class MemeMaker extends JFrame implements ActionListener
 
     // Initializes the SplitPane and its components
     initImg = MemeMakerEditingUtils.iconToBufferedImage(scaledImage);
-
+    
+    imageIcon = new ImageIcon(scaledImage);
     picLabel = new JLabel(imageIcon);
     picLabel.setPreferredSize(new Dimension(600, 600));
 
