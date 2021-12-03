@@ -62,6 +62,7 @@ public class MemeMaker extends JFrame implements ActionListener
   private JButton brighten;
   private JButton darken;
   private JButton deepFry;
+  private JButton addText;
 
   private String choice;
 
@@ -111,8 +112,11 @@ public class MemeMaker extends JFrame implements ActionListener
     deepFry = new JButton("Deep Fry");
     deepFry.addActionListener(new ButtonPress());
 
+    addText = new JButton("Add Text");
+    addText.addActionListener(new ButtonPress());
+
     // Initializes buttonPad and adds its JButtons
-    buttonPad = new JPanel(new GridLayout(4, 2));
+    buttonPad = new JPanel(new GridLayout(5, 2));
 
     buttonPad.add(leftRotate);
     buttonPad.add(rightRotate);
@@ -122,13 +126,14 @@ public class MemeMaker extends JFrame implements ActionListener
     buttonPad.add(darken);
     buttonPad.add(greyScale);
     buttonPad.add(deepFry);
+    buttonPad.add(addText);
 
     // Scales Image Icon
     Image scaledImage = scaleImageIcon(icon);
 
     // Initializes the SplitPane and its components
     initImg = MemeMakerEditingUtils.iconToBufferedImage(scaledImage);
-    
+
     imageIcon = new ImageIcon(scaledImage);
     picLabel = new JLabel(imageIcon);
     picLabel.setPreferredSize(new Dimension(600, 600));
@@ -466,14 +471,14 @@ public class MemeMaker extends JFrame implements ActionListener
       }
       else if (choice.equals("Add text"))
       {
-          BufferedImage iconAsBuffer = MemeMakerEditingUtils
-                  .iconToBufferedImage(imageIcon.getImage());
-              
-              iconAsBuffer = MemeMakerEditingUtils.addText(iconAsBuffer, "Hello", "World");
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils
+            .iconToBufferedImage(imageIcon.getImage());
 
-              imageIcon.setImage(iconAsBuffer);
-              picLabel.setIcon(new ImageIcon(iconAsBuffer));
-              changeHistory.push(new ImageIcon(iconAsBuffer));
+        iconAsBuffer = MemeMakerEditingUtils.addText(iconAsBuffer, "Hello", "World");
+
+        imageIcon.setImage(iconAsBuffer);
+        picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        changeHistory.push(new ImageIcon(iconAsBuffer));
       }
     }
   }
