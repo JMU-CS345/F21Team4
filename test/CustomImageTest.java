@@ -1,3 +1,4 @@
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
@@ -21,13 +22,24 @@ class CustomImageTest
     coloredImage = new CustomImage(500, 500, 255, 255, 255);
 
   }
+  @Test
+  void testConstructor()
+  {
+    image = new CustomImage(500, 500);
 
+    coloredImage = new CustomImage(500, 500, 255, 255, 255);
+    assertEquals(testPixel, image.getPixel(0, 0));
+    assertEquals(testPixel, coloredImage.getPixel(0, 0));
+    assertNull(coloredImage.getPixel(3000, 0));
+  }
+  
   @Test
   void testGetPixel()
   {
     testPixel = new Pixel(255, 255, 255);
     assertEquals(testPixel, image.getPixel(0, 0));
     assertEquals(testPixel, coloredImage.getPixel(0, 0));
+    assertNull(coloredImage.getPixel(3000, 0));
   }
 
   @Test
@@ -43,7 +55,7 @@ class CustomImageTest
   @Test
   void testGetWidth()
   {
-    
+
     assertEquals(500, image.getWidth());
     assertEquals(500, coloredImage.getWidth());
   }
@@ -51,24 +63,26 @@ class CustomImageTest
   @Test
   void testGetHeight()
   {
-    testPixel = new Pixel(255, 255, 255);
-    assertEquals(testPixel, image.getPixel(0, 0));
-    assertEquals(testPixel, coloredImage.getPixel(0, 0));
+
+    assertEquals(500, image.getHeight());
+    assertEquals(500, coloredImage.getHeight());
   }
 
   @Test
   void testEquals()
   {
-    testPixel = new Pixel(255, 255, 255);
-    assertEquals(testPixel, image.getPixel(0, 0));
-    assertEquals(testPixel, coloredImage.getPixel(0, 0));
+    int test = 10;
+    assertTrue(image.equals(coloredImage));
+    assertFalse(image.equals(test));
   }
 
   @Test
   void testToString()
   {
-    testPixel = new Pixel(255, 255, 255);
-    assertEquals(testPixel, image.getPixel(0, 0));
-    assertEquals(testPixel, coloredImage.getPixel(0, 0));
+    // testPixel = new Pixel(255, 255, 255);
+
+    assertEquals("<Image width=500 height=500>", image.toString());
+
+    // assertEquals("test", coloredImage.getPixel(0, 0));
   }
 }
