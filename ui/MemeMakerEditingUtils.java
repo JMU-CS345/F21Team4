@@ -1,11 +1,14 @@
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import java.awt.Image;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /**
  * This class contains all of the editing functionality for the memeMaker.
@@ -228,12 +231,13 @@ public class MemeMakerEditingUtils
   }
   
   public static BufferedImage addText(BufferedImage image, String topText, String bottomText) {
-	    Graphics g = image.getGraphics();
-	    g.setFont(g.getFont().deriveFont(30f));
-	    g.drawString("Hello World!", 100, 100);
-	    g.dispose();
-	    
-	    return image;
+	  Graphics2D g = (Graphics2D) image.getGraphics();
+	  g.setColor(Color.RED);
+	  System.out.println("worked");
+	  g.drawString("hello", 100, 100);
+	  g.dispose();
+	  
+	  return image;
   }
 
   /**
