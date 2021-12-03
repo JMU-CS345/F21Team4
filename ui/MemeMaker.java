@@ -429,6 +429,17 @@ public class MemeMaker extends JFrame implements ActionListener
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
         changeHistory.push(new ImageIcon(iconAsBuffer));
       }
+      else if (choice.equals("Add text"))
+      {
+          BufferedImage iconAsBuffer = MemeMakerEditingUtils
+                  .iconToBufferedImage(imageIcon.getImage());
+              
+              iconAsBuffer = MemeMakerEditingUtils.addText(iconAsBuffer, "Hello", "World");
+
+              imageIcon.setImage(iconAsBuffer);
+              picLabel.setIcon(new ImageIcon(iconAsBuffer));
+              changeHistory.push(new ImageIcon(iconAsBuffer));
+      }
     }
   }
 

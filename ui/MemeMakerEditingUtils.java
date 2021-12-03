@@ -180,6 +180,17 @@ public class MemeMakerEditingUtils {
 
 		return imageToBufferedImage(adjustedBrightness);
 	}
+	
+	public static BufferedImage addText(BufferedImage image, String topText, String bottomText) {
+	    Graphics g = image.getGraphics();
+	    g.setFont(g.getFont().deriveFont(30f));
+	    g.drawString(topText, 100, 100);
+	    g.drawString(bottomText, 200, 200);
+	    g.dispose();
+
+	    return image;
+	}
+	
 
 	public static CustomImage bufferedImageToImage(BufferedImage bufferedImage) {
 		CustomImage newImage = new CustomImage(bufferedImage.getWidth(), bufferedImage.getHeight());
@@ -194,6 +205,7 @@ public class MemeMakerEditingUtils {
 		return newImage;
 
 	}
+
 
 	/**
 	 * Convert from Image to java.awt.image.BufferedImage.
