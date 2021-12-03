@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -234,7 +235,13 @@ public class MemeMakerEditingUtils
 	  Graphics2D g = (Graphics2D) image.getGraphics();
 	  g.setColor(Color.RED);
 	  System.out.println("worked");
-	  g.drawString("hello", 100, 100);
+	  image.getHeight();
+	  double center = image.getWidth() / 3.5;
+	  int centerX = (int) center;
+	  double yVal = image.getHeight() * .15;
+	  int centerY = (int) yVal;
+      g.setFont(g.getFont().deriveFont(30f));
+	  g.drawString(topText, centerX, centerY);
 	  g.dispose();
 	  
 	  return image;
