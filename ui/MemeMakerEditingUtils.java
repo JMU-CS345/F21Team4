@@ -226,6 +226,15 @@ public class MemeMakerEditingUtils
     return newImage;
 
   }
+  
+  public static BufferedImage addText(BufferedImage image, String topText, String bottomText) {
+	    Graphics g = image.getGraphics();
+	    g.setFont(g.getFont().deriveFont(30f));
+	    g.drawString("Hello World!", 100, 100);
+	    g.dispose();
+	    
+	    return image;
+  }
 
   /**
    * Convert from Image to java.awt.image.BufferedImage.
