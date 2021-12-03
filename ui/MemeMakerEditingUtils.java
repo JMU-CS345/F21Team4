@@ -234,7 +234,12 @@ public class MemeMakerEditingUtils
 	  Graphics2D g = (Graphics2D) image.getGraphics();
 	  g.setColor(Color.RED);
 	  System.out.println("worked");
-	  g.drawString("hello", 100, 100);
+	  image.getHeight();
+	  double center = image.getWidth() / 2;
+	  int centerX = (int) center;
+	  double yVal = image.getHeight() * .15;
+	  int centerY = (int) yVal;
+	  g.drawString("hello", centerX, centerY);
 	  g.dispose();
 	  
 	  return image;
