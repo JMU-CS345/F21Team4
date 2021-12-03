@@ -8,18 +8,67 @@ import org.junit.jupiter.api.Test;
 
 class CustomImageTest
 {
+  CustomImage image;
+  CustomImage coloredImage;
+
+  Pixel testPixel;
+
   @BeforeEach
   void beforeEach() throws IOException
   {
-    CustomImage image = new CustomImage(500, 500);
+    image = new CustomImage(500, 500);
 
-    CustomImage coloredImage = new CustomImage(500, 500, 255, 255, 255);
+    coloredImage = new CustomImage(500, 500, 255, 255, 255);
+
   }
 
   @Test
-  void test()
+  void testGetPixel()
   {
-    fail("Not yet implemented");
+    testPixel = new Pixel(255, 255, 255);
+    assertEquals(testPixel, image.getPixel(0, 0));
+    assertEquals(testPixel, coloredImage.getPixel(0, 0));
   }
 
+  @Test
+  void testSetPixel()
+  {
+    testPixel = new Pixel(100, 100, 100);
+    image.setPixel(0, 0, new Pixel(100, 100, 100));
+
+    assertEquals(testPixel, image.getPixel(0, 0));
+
+  }
+
+  @Test
+  void testGetWidth()
+  {
+    
+    assertEquals(500, image.getWidth());
+    assertEquals(500, coloredImage.getWidth());
+  }
+
+  @Test
+  void testGetHeight()
+  {
+    testPixel = new Pixel(255, 255, 255);
+    assertEquals(testPixel, image.getPixel(0, 0));
+    assertEquals(testPixel, coloredImage.getPixel(0, 0));
+  }
+
+  @Test
+  void testEquals()
+  {
+    testPixel = new Pixel(255, 255, 255);
+    assertEquals(testPixel, image.getPixel(0, 0));
+    assertEquals(testPixel, coloredImage.getPixel(0, 0));
+  }
+
+  @Test
+  void testToString()
+  {
+    testPixel = new Pixel(255, 255, 255);
+    assertEquals(testPixel, image.getPixel(0, 0));
+    assertEquals(testPixel, coloredImage.getPixel(0, 0));
+  }
 }
