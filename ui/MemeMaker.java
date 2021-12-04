@@ -367,6 +367,8 @@ public class MemeMaker extends JFrame implements ActionListener
 
         imageIcon.setImage(changeHistory.peek().getImage());
         picLabel.setIcon(changeHistory.peek());
+        
+        changesNoText = MemeMakerEditingUtils.imageToBufferedImg(changeHistory.peek().getImage());
       }
     }
     else if ("redo".equals(e.getActionCommand()))
@@ -377,6 +379,8 @@ public class MemeMaker extends JFrame implements ActionListener
 
         imageIcon.setImage(changeHistory.peek().getImage());
         picLabel.setIcon(changeHistory.peek());
+        
+        changesNoText = MemeMakerEditingUtils.imageToBufferedImg(changeHistory.peek().getImage());
       }
     }
     else if ("upload".equals(e.getActionCommand()))
