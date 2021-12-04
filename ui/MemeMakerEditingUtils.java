@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 import java.awt.Image;
 import java.awt.Graphics;
@@ -20,8 +21,17 @@ import java.awt.Graphics2D;
 
 public class MemeMakerEditingUtils
 {
+  // Declaring the text graphics
+  private static Graphics2D line1;
+  private static Graphics2D line2;
+  private static Graphics2D textGraphic;
+
   /**
    * Rotates the image right in the clockwise manner.
+   * 
+   * @param image
+   *          The initial CustomImage object
+   * @return The edited BufferdImage version of the initial image
    */
   public static BufferedImage rightRotate(CustomImage image)
   {
@@ -36,12 +46,16 @@ public class MemeMakerEditingUtils
       }
     }
 
-    return imageToBufferedImage(newImage);
+    return customImgToBuffered(newImage);
 
   }
 
   /**
    * Rotates the image left in the counter clockwise manner.
+   * 
+   * @param image
+   *          The initial CustomImage object
+   * @return The edited BufferdImage version of the initial image
    */
   public static BufferedImage leftRotate(CustomImage image)
   {
@@ -54,12 +68,16 @@ public class MemeMakerEditingUtils
         newImage.setPixel(y, image.getWidth() - x - 1, pixel);
       }
     }
-    return imageToBufferedImage(newImage);
+    return customImgToBuffered(newImage);
 
   }
 
   /**
    * Mirrors/Flips the image over the x axis
+   * 
+   * @param image
+   *          The initial CustomImage object
+   * @return The edited BufferdImage version of the initial image
    */
   public static BufferedImage horizontalFlip(CustomImage image)
   {
@@ -72,11 +90,15 @@ public class MemeMakerEditingUtils
         newImage.setPixel(x, image.getHeight() - y - 1, pixel);
       }
     }
-    return imageToBufferedImage(newImage);
+    return customImgToBuffered(newImage);
   }
 
   /**
    * Mirrors/Flips the image over the y axis
+   * 
+   * @param image
+   *          The initial CustomImage object
+   * @return The edited BufferdImage version of the initial image
    */
   public static BufferedImage verticalFlip(CustomImage image)
   {
@@ -89,11 +111,15 @@ public class MemeMakerEditingUtils
         newImage.setPixel(image.getWidth() - x - 1, y, pixel);
       }
     }
-    return imageToBufferedImage(newImage);
+    return customImgToBuffered(newImage);
   }
 
   /**
    * Converts the image to greyscale.
+   * 
+   * @param image
+   *          The initial CustomImage object
+   * @return The edited BufferdImage version of the initial image
    */
   public static BufferedImage greyScale(CustomImage image)
   {
@@ -114,12 +140,16 @@ public class MemeMakerEditingUtils
       }
     }
 
-    return imageToBufferedImage(grayscaled);
+    return customImgToBuffered(grayscaled);
 
   }
 
   /**
    * Raises the brightness of the image by an RGB factor of 15.
+   * 
+   * @param image
+   *          The initial CustomImage object
+   * @return The edited BufferdImage version of the initial image
    */
   public static BufferedImage brighten(CustomImage image)
   {
@@ -140,12 +170,16 @@ public class MemeMakerEditingUtils
       }
     }
 
-    return imageToBufferedImage(adjustedBrightness);
+    return customImgToBuffered(adjustedBrightness);
 
   }
 
   /**
    * Lowers the brightness of the image by am RGB factor of 15.
+   * 
+   * @param image
+   *          The initial CustomImage object
+   * @return The edited BufferdImage version of the initial image
    */
   public static BufferedImage darken(CustomImage image)
   {
@@ -167,13 +201,17 @@ public class MemeMakerEditingUtils
       }
     }
 
-    return imageToBufferedImage(adjustedBrightness);
+    return customImgToBuffered(adjustedBrightness);
 
   }
 
   /**
    * "Deep Fries"/distorts an image by tinting the image red and yellow, lowers the image quality,
    * and runs the image through a series of filters.
+   * 
+   * @param image
+   *          The initial CustomImage object
+   * @return The edited BufferdImage version of the initial image
    */
   public static BufferedImage dEePfRy(CustomImage image)
   {
@@ -211,9 +249,16 @@ public class MemeMakerEditingUtils
       }
     }
 
-    return imageToBufferedImage(adjustedBrightness);
+    return customImgToBuffered(adjustedBrightness);
   }
 
+  /**
+   * Converts a BufferedImage into a CustomImage allowing us to edit the individual pixels
+   * 
+   * @param bufferedImage
+   *          The initial image
+   * @return The initial image as a CustomImage
+   */
   public static CustomImage bufferedImageToImage(BufferedImage bufferedImage)
   {
     CustomImage newImage = new CustomImage(bufferedImage.getWidth(), bufferedImage.getHeight());
@@ -230,31 +275,221 @@ public class MemeMakerEditingUtils
     return newImage;
 
   }
-  
-  public static BufferedImage addText(BufferedImage image, String topText, String bottomText) {
-	  Graphics2D g = (Graphics2D) image.getGraphics();
-	  g.setColor(Color.RED);
-	  System.out.println("worked");
-	  image.getHeight();
-	  double center = image.getWidth() / 3.5;
-	  int centerX = (int) center;
-	  double yVal = image.getHeight() * .15;
-	  int centerY = (int) yVal;
-      g.setFont(g.getFont().deriveFont(30f));
-	  g.drawString(topText, centerX, centerY);
-	  g.dispose();
-	  
-	  return image;
+
+  /**
+   * Takes a Buffered Image and adds text to the top of it.
+   * 
+   * @param image
+   *          The initial image
+   * @param topText
+   *          The text you want to add
+   * @return The initial image with the text
+   */
+  public static BufferedImage setTopText(BufferedImage image, String topText)
+  {
+    // Checks if the line is too long
+    line1 = (Graphics2D) image.getGraphics();
+    line1.setFont(line1.getFont().deriveFont(30f));
+
+    double singleCharSize = (line1.getFontMetrics().getStringBounds("M", line1).getWidth());
+
+    double maxNumArea = image.getWidth();
+    double maxNumCount = maxNumArea / singleCharSize;
+
+    if (topText.length() > maxNumCount)
+    {
+      // Finds the point where you break the text in half
+      int breakPoint = findBreak(topText, (int) maxNumCount);
+
+      // Declares the line graphics
+      line1 = (Graphics2D) image.getGraphics();
+      line2 = (Graphics2D) image.getGraphics();
+
+      // Sets the initial text colors
+      line1.setColor(Color.RED);
+      line2.setColor(Color.RED);
+
+      // Sets the initial font
+      line1.setFont(line1.getFont().deriveFont(30f));
+      line2.setFont(line2.getFont().deriveFont(30f));
+
+      // Finds the centers of the Strings themselves
+      int line1TextCenter = (int) line1.getFontMetrics()
+          .getStringBounds(topText.substring(0, breakPoint), line1).getWidth();
+
+      int line2TextCenter = (int) line2.getFontMetrics()
+          .getStringBounds(topText.substring(breakPoint), line2).getWidth();
+
+      // Calculates the lines's X-values
+      int line1Xval = (image.getWidth() / 2) - (line1TextCenter / 2);
+
+      int line2Xval = (image.getWidth() / 2) - (line2TextCenter / 2);
+
+      // Calculates the lines's Y-values
+      double line1Yval = image.getHeight() * .1;
+
+      double line2Yval = line1Yval + (int) line2.getFontMetrics()
+          .getStringBounds(topText.substring(breakPoint), line2).getHeight();
+
+      // Draws the graphics
+      line1.drawString(topText.substring(0, breakPoint), line1Xval, (int) line1Yval);
+
+      line2.drawString(topText.substring(breakPoint), line2Xval, (int) line2Yval);
+
+      return image;
+    }
+    else
+    {
+      // Declares and initializes graphics
+      textGraphic = (Graphics2D) image.getGraphics();
+
+      // Sets the text to its default color and font
+      textGraphic.setColor(Color.RED);
+      textGraphic.setFont(textGraphic.getFont().deriveFont(30f));
+
+      // Finds the X-value of the text
+      int TextCenter = (int) textGraphic.getFontMetrics().getStringBounds(topText, textGraphic)
+          .getWidth();
+
+      int textXval = (image.getWidth() / 2) - (TextCenter / 2);
+
+      // Finds the Y-value of the text
+      double textYval = (image.getHeight() * .05)
+          + (int) textGraphic.getFontMetrics().getStringBounds(topText, textGraphic).getHeight();
+
+      // Draws the graphics
+      textGraphic.drawString(topText, textXval, (int) textYval);
+
+      return image;
+    }
   }
 
   /**
-   * Convert from Image to java.awt.image.BufferedImage.
+   * Takes a Buffered Image and adds text to the bottom of it.
+   * 
+   * @param image
+   *          The initial image
+   * @param topText
+   *          The text you want to add
+   * @return The initial image with the text
+   */
+  public static BufferedImage setBottomText(BufferedImage image, String topText)
+  {
+    // Checks if the line is too long
+    line1 = (Graphics2D) image.getGraphics();
+    line1.setFont(line1.getFont().deriveFont(30f));
+
+    double singleCharSize = (line1.getFontMetrics().getStringBounds("M", line1).getWidth());
+
+    double maxNumArea = image.getWidth();
+    double maxNumCount = maxNumArea / singleCharSize;
+
+    if (topText.length() > maxNumCount)
+    {
+      // Finds the point where you break the text in half
+      int breakPoint = findBreak(topText, (int) maxNumCount);
+
+      // Declares the line graphics
+      line1 = (Graphics2D) image.getGraphics();
+      line2 = (Graphics2D) image.getGraphics();
+
+      // Sets the initial text colors
+      line1.setColor(Color.RED);
+      line2.setColor(Color.RED);
+
+      // Sets the initial font
+      line1.setFont(line1.getFont().deriveFont(30f));
+      line2.setFont(line2.getFont().deriveFont(30f));
+
+      // Finds the centers of the Strings themselves
+      int line1TextCenter = (int) line1.getFontMetrics()
+          .getStringBounds(topText.substring(0, breakPoint), line1).getWidth();
+
+      int line2TextCenter = (int) line2.getFontMetrics()
+          .getStringBounds(topText.substring(breakPoint), line2).getWidth();
+
+      // Calculates the lines's X-values
+      int line1Xval = (image.getWidth() / 2) - (line1TextCenter / 2);
+
+      int line2Xval = (image.getWidth() / 2) - (line2TextCenter / 2);
+
+      // Calculates the lines's Y-values
+      double line1Yval = (image.getHeight() * .90) - (int) line2.getFontMetrics()
+          .getStringBounds(topText.substring(breakPoint), line2).getHeight();
+
+      double line2Yval = image.getHeight() * .90;
+
+      // Draws the graphics
+      line1.drawString(topText.substring(0, breakPoint), line1Xval, (int) line1Yval);
+
+      line2.drawString(topText.substring(breakPoint), line2Xval, (int) line2Yval);
+
+      return image;
+    }
+    else
+    {
+      // Declares and initializes graphics
+      textGraphic = (Graphics2D) image.getGraphics();
+
+      // Sets the text to its default color and font
+      textGraphic.setColor(Color.RED);
+      textGraphic.setFont(textGraphic.getFont().deriveFont(30f));
+
+      // Finds the X-value of the text
+      int TextCenter = (int) textGraphic.getFontMetrics().getStringBounds(topText, textGraphic)
+          .getWidth();
+
+      int textXval = (image.getWidth() / 2) - (TextCenter / 2);
+
+      // Finds the Y-value of the text
+      double textYval = (image.getHeight() * .95)
+          - (int) textGraphic.getFontMetrics().getStringBounds(topText, textGraphic).getHeight();
+
+      // Draws the graphics
+      textGraphic.drawString(topText, textXval, (int) textYval);
+      textGraphic.getBackground();
+      return image;
+    }
+  }
+
+  /**
+   * Takes a string of text and the maximum number of lines and breaks it at the first space it can
+   * find from the maximum line
+   * 
+   * @param text
+   *          The text that you are breaking
+   * @param maxCount
+   *          The maximum number of characters per line
+   * @return The index at which to break
+   */
+  public static int findBreak(String text, int maxCount)
+  {
+    String shortenedString = text;
+    if (text.length() > maxCount + 3)
+    {
+      shortenedString = text.substring(0, maxCount + 3);
+    }
+
+    int index = shortenedString.length() - 1;
+    while (index >= 0)
+    {
+      if (shortenedString.charAt(index) == ' ')
+      {
+        return index;
+      }
+      index--;
+    }
+    return text.length() / 2;
+  }
+
+  /**
+   * Converts and CustomImage to a BufferedImage.
    * 
    * @param image
    *          The Image to convert.
    * @return Equivalent BufferedImage
    */
-  public static BufferedImage imageToBufferedImage(CustomImage image)
+  public static BufferedImage customImgToBuffered(CustomImage image)
   {
     BufferedImage bufferedImage = new BufferedImage(image.getWidth(), image.getHeight(),
         BufferedImage.TYPE_INT_RGB);
@@ -274,13 +509,20 @@ public class MemeMakerEditingUtils
 
   }
 
-  public static BufferedImage iconToBufferedImage(Image im)
+  /**
+   * Converts an Image to a BuffredImage.
+   * 
+   * @param image
+   *          The initial Image object
+   * @return The BufferedImage version of the initial image
+   */
+  public static BufferedImage imageToBufferedImg(Image image)
   {
-    BufferedImage bi = new BufferedImage(im.getWidth(null), im.getHeight(null),
+    BufferedImage initialImage = new BufferedImage(image.getWidth(null), image.getHeight(null),
         BufferedImage.TYPE_INT_RGB);
-    Graphics bg = bi.getGraphics();
-    bg.drawImage(im, 0, 0, null);
-    bg.dispose();
-    return bi;
+    Graphics background = initialImage.getGraphics();
+    background.drawImage(image, 0, 0, null);
+    background.dispose();
+    return initialImage;
   }
 }
