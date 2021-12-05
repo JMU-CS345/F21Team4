@@ -1,9 +1,15 @@
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,7 +28,8 @@ public class HomePage extends JPanel
   // Declaring all button components and variables
   private String choice;
 
-  public JPanel buttonPad;
+  private JPanel buttonPad;
+  private JPanel titleDisplay;
 
   private JButton dogDisplay;
   private JButton randomFact;
@@ -33,12 +40,14 @@ public class HomePage extends JPanel
   // Declaring HomePage panel and variables
   public JSplitPane splitPane;
   private JLabel welcomeText;
+  private JLabel dogImageLabel;
 
+  private ImageIcon dogImage;
   // Declaring and initializing all default window dimensions
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
 
-  public HomePage()
+  public HomePage() throws IOException
   {
     // Initializing "Dog Display" button
     dogDisplay = new JButton("Dog Display");
@@ -68,7 +77,7 @@ public class HomePage extends JPanel
     buttonPad.add(gamesPage);
     buttonPad.add(aboutPage);
 
-    buttonPad.setPreferredSize(new Dimension(windowWidth, (windowHeight / 2)));
+    buttonPad.setPreferredSize(new Dimension(windowWidth, (windowHeight / 3)));
     buttonPad.setVisible(true);
 
     // Initializing welcomeText JLabel
@@ -81,8 +90,22 @@ public class HomePage extends JPanel
 
     welcomeText.setVisible(true);
 
+    // Initializing DogImage and DogImageLabel
+    dogImage = new ImageIcon(readInImage(
+        "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=1200:*"));
+    dogImage = new ImageIcon(MemeMaker.scaleImageIcon(dogImage, windowWidth, 500));
+
+    dogImageLabel = new JLabel(dogImage);
+
+    // Initializing TitleDisplay
+    titleDisplay = new JPanel(new FlowLayout());
+    titleDisplay.add(welcomeText);
+    titleDisplay.add(dogImageLabel);
+
+    titleDisplay.setPreferredSize(new Dimension(windowWidth, 300));
+
     // Initializes split pane that houses all other HomePage components
-    splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, welcomeText, buttonPad);
+    splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, titleDisplay, buttonPad);
     splitPane.setEnabled(false);
   }
 
@@ -126,5 +149,21 @@ public class HomePage extends JPanel
         // Window.frame.setTitle("AboutPage");
       }
     }
+  }
+
+  /**
+   * Reads in an image from the Internet.
+   * 
+   * @param URL
+   *          The url to the image
+   * @return The image that was read in
+   * @throws IOException
+   */
+  public Image readInImage(String Url) throws IOException
+  {
+    URL url = new URL(Url);
+
+    Image image = ImageIO.read(url);
+    return image;
   }
 }
