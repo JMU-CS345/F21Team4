@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
@@ -111,9 +110,10 @@ public class HomePage extends JPanel
         Window.frame.setTitle("Random Dog Fact");
       }
 
-      else if (choice.equals("Games Page"))
+      else if (choice.equals("Dog Games"))
       {
-
+        Window.layout.show(Window.layoutPane, "gamePage");
+        Window.frame.setTitle("Dog Games");
       }
       else if (choice.equals("About Page"))
       {

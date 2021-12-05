@@ -18,9 +18,10 @@ public class Window
   public static JFrame frame = new JFrame("Dog App");
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
-  public static DogDisplay test;
+  public static DogDisplay dogDisplay;
   public static RandomDogPane randDogPage;
   public static RandomFactPane randFactPage;
+  public static GamePage gamePage;
   public static HomePage home;
   public static CardLayout layout;
 
@@ -32,9 +33,12 @@ public class Window
     layoutPane = new JPanel(layout);
     layoutPane.setPreferredSize(new Dimension(300, 310));
     layoutPane.setVisible(true);
-    test = new DogDisplay();
-    test.setPreferredSize(new Dimension(windowWidth, windowHeight));
-    randDogPage = new RandomDogPane();
+    
+    dogDisplay = new DogDisplay();
+    dogDisplay.setPreferredSize(new Dimension(windowWidth, windowHeight));
+    
+    
+    gamePage = new GamePage();
 
     home = new HomePage();
 
@@ -45,11 +49,12 @@ public class Window
   public void createAndShowGUI()
   {
     // Create and set up the window.
-    layoutPane.add(test.fullScreenImage, "fullscreen");
-    layoutPane.add(test.splitPane, "dogdisplay");
+    layoutPane.add(dogDisplay.fullScreenImage, "fullscreen");
+    layoutPane.add(dogDisplay.splitPane, "dogdisplay");
     layoutPane.add(home.splitPane, "homescreen");
     layoutPane.add(randDogPage.randImgPane, "randImg");
     layoutPane.add(randFactPage.factRandom, "randFact");
+    layoutPane.add(gamePage.gamePage, "gamePage");
 
     layout.show(layoutPane, "homescreen");
 

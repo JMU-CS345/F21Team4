@@ -56,7 +56,7 @@ public class MemeMaker extends JFrame implements ActionListener
   // Declaring image editing components
   private JLabel picLabel;
   private ImageIcon imageIcon;
-  private BufferedImage initImg;
+  private static BufferedImage initImg;
   private BufferedImage changesNoText;
 
   private JPanel buttonPad;
@@ -164,7 +164,7 @@ public class MemeMaker extends JFrame implements ActionListener
     buttonPad.add(patternList);
 
     // Initializing scaled Image Icon
-    Image scaledImage = scaleImageIcon(icon);
+    Image scaledImage = scaleImageIcon(icon, 600, 450);
 
     // Initializing image text modifying variables
     initImg = MemeMakerEditingUtils.imageToBufferedImg(scaledImage);
@@ -219,14 +219,18 @@ public class MemeMaker extends JFrame implements ActionListener
    * 
    * @param icon
    *          The initial image icon
-   * @return The scaled image
+   * @param height
+   *          The height to scale to
+   * @param width
+   *          the width to scale to
+   * @return Scaled image
    */
-  public Image scaleImageIcon(ImageIcon icon)
+  public static Image scaleImageIcon(ImageIcon icon, int height, int width)
   {
     initImg = MemeMakerEditingUtils.imageToBufferedImg(icon.getImage());
     double iconHeight = icon.getIconHeight();
     double iconWidth = icon.getIconWidth();
-    while (iconHeight > 600 || iconWidth > 450)
+    while (iconHeight > height || iconWidth > width)
     {
       iconHeight *= .85;
       iconWidth *= .85;
@@ -434,7 +438,7 @@ public class MemeMaker extends JFrame implements ActionListener
           System.out.println("Selected file: " + selectedFile.getAbsolutePath());
 
           Image scaledImage = scaleImageIcon(
-              new ImageIcon(selectedFile.getAbsolutePath().toString()));
+              new ImageIcon(selectedFile.getAbsolutePath().toString()), 600, 450);
           ImageIcon scaledIcon = new ImageIcon(scaledImage);
 
           changeHistory.push(scaledIcon);
