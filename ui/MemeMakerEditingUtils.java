@@ -1,16 +1,9 @@
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
-import java.awt.Image;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 /**
  * This class contains all of the editing functionality for the memeMaker.
@@ -285,16 +278,16 @@ public class MemeMakerEditingUtils
    *          The text you want to add
    * @return The initial image with the text
    */
-  public static BufferedImage setTopText(BufferedImage image, String topText)
+  public static BufferedImage setTopText(BufferedImage image, String topText, Color textColor,
+      String fontType)
   {
     // Checks if the line is too long
     line1 = (Graphics2D) image.getGraphics();
-    line1.setFont(line1.getFont().deriveFont(30f));
+    line1.setFont(new Font(fontType, Font.PLAIN, 30));
 
-    double singleCharSize = (line1.getFontMetrics().getStringBounds("M", line1).getWidth());
+    double singleCharSize = (line1.getFontMetrics().getStringBounds("X", line1).getWidth());
 
-    double maxNumArea = image.getWidth();
-    double maxNumCount = maxNumArea / singleCharSize;
+    double maxNumCount = (image.getWidth() / singleCharSize) + 5;
 
     if (topText.length() > maxNumCount)
     {
@@ -306,12 +299,12 @@ public class MemeMakerEditingUtils
       line2 = (Graphics2D) image.getGraphics();
 
       // Sets the initial text colors
-      line1.setColor(Color.RED);
-      line2.setColor(Color.RED);
+      line1.setColor(textColor);
+      line2.setColor(textColor);
 
       // Sets the initial font
-      line1.setFont(line1.getFont().deriveFont(30f));
-      line2.setFont(line2.getFont().deriveFont(30f));
+      line1.setFont(new Font(fontType, Font.PLAIN, 30));
+      line2.setFont(new Font(fontType, Font.PLAIN, 30));
 
       // Finds the centers of the Strings themselves
       int line1TextCenter = (int) line1.getFontMetrics()
@@ -344,8 +337,8 @@ public class MemeMakerEditingUtils
       textGraphic = (Graphics2D) image.getGraphics();
 
       // Sets the text to its default color and font
-      textGraphic.setColor(Color.RED);
-      textGraphic.setFont(textGraphic.getFont().deriveFont(30f));
+      textGraphic.setColor(textColor);
+      textGraphic.setFont(new Font(fontType, Font.PLAIN, 30));
 
       // Finds the X-value of the text
       int TextCenter = (int) textGraphic.getFontMetrics().getStringBounds(topText, textGraphic)
@@ -369,44 +362,45 @@ public class MemeMakerEditingUtils
    * 
    * @param image
    *          The initial image
-   * @param topText
+   * @param bottomText
    *          The text you want to add
    * @return The initial image with the text
    */
-  public static BufferedImage setBottomText(BufferedImage image, String topText)
+  public static BufferedImage setBottomText(BufferedImage image, String bottomText, Color textColor,
+      String fontType)
   {
     // Checks if the line is too long
     line1 = (Graphics2D) image.getGraphics();
-    line1.setFont(line1.getFont().deriveFont(30f));
+    line1.setFont(new Font(fontType, Font.PLAIN, 30));
 
-    double singleCharSize = (line1.getFontMetrics().getStringBounds("M", line1).getWidth());
+    double singleCharSize = (line1.getFontMetrics().getStringBounds("X", line1).getWidth());
 
-    double maxNumArea = image.getWidth();
-    double maxNumCount = maxNumArea / singleCharSize;
+    double maxNumCount = (image.getWidth() / singleCharSize) + 5;
+    // This is a very long piece of text
 
-    if (topText.length() > maxNumCount)
+    if (bottomText.length() > maxNumCount)
     {
       // Finds the point where you break the text in half
-      int breakPoint = findBreak(topText, (int) maxNumCount);
+      int breakPoint = findBreak(bottomText, (int) maxNumCount);
 
       // Declares the line graphics
       line1 = (Graphics2D) image.getGraphics();
       line2 = (Graphics2D) image.getGraphics();
 
       // Sets the initial text colors
-      line1.setColor(Color.RED);
-      line2.setColor(Color.RED);
+      line1.setColor(textColor);
+      line2.setColor(textColor);
 
       // Sets the initial font
-      line1.setFont(line1.getFont().deriveFont(30f));
-      line2.setFont(line2.getFont().deriveFont(30f));
+      line1.setFont(new Font(fontType, Font.PLAIN, 30));
+      line2.setFont(new Font(fontType, Font.PLAIN, 30));
 
       // Finds the centers of the Strings themselves
       int line1TextCenter = (int) line1.getFontMetrics()
-          .getStringBounds(topText.substring(0, breakPoint), line1).getWidth();
+          .getStringBounds(bottomText.substring(0, breakPoint), line1).getWidth();
 
       int line2TextCenter = (int) line2.getFontMetrics()
-          .getStringBounds(topText.substring(breakPoint), line2).getWidth();
+          .getStringBounds(bottomText.substring(breakPoint), line2).getWidth();
 
       // Calculates the lines's X-values
       int line1Xval = (image.getWidth() / 2) - (line1TextCenter / 2);
@@ -415,14 +409,14 @@ public class MemeMakerEditingUtils
 
       // Calculates the lines's Y-values
       double line1Yval = (image.getHeight() * .90) - (int) line2.getFontMetrics()
-          .getStringBounds(topText.substring(breakPoint), line2).getHeight();
+          .getStringBounds(bottomText.substring(breakPoint), line2).getHeight();
 
       double line2Yval = image.getHeight() * .90;
 
       // Draws the graphics
-      line1.drawString(topText.substring(0, breakPoint), line1Xval, (int) line1Yval);
+      line1.drawString(bottomText.substring(0, breakPoint), line1Xval, (int) line1Yval);
 
-      line2.drawString(topText.substring(breakPoint), line2Xval, (int) line2Yval);
+      line2.drawString(bottomText.substring(breakPoint), line2Xval, (int) line2Yval);
 
       return image;
     }
@@ -432,21 +426,21 @@ public class MemeMakerEditingUtils
       textGraphic = (Graphics2D) image.getGraphics();
 
       // Sets the text to its default color and font
-      textGraphic.setColor(Color.RED);
-      textGraphic.setFont(textGraphic.getFont().deriveFont(30f));
+      textGraphic.setColor(textColor);
+      textGraphic.setFont(new Font(fontType, Font.PLAIN, 30));
 
       // Finds the X-value of the text
-      int TextCenter = (int) textGraphic.getFontMetrics().getStringBounds(topText, textGraphic)
+      int TextCenter = (int) textGraphic.getFontMetrics().getStringBounds(bottomText, textGraphic)
           .getWidth();
 
       int textXval = (image.getWidth() / 2) - (TextCenter / 2);
 
       // Finds the Y-value of the text
       double textYval = (image.getHeight() * .95)
-          - (int) textGraphic.getFontMetrics().getStringBounds(topText, textGraphic).getHeight();
+          - (int) textGraphic.getFontMetrics().getStringBounds(bottomText, textGraphic).getHeight();
 
       // Draws the graphics
-      textGraphic.drawString(topText, textXval, (int) textYval);
+      textGraphic.drawString(bottomText, textXval, (int) textYval);
       textGraphic.getBackground();
       return image;
     }
