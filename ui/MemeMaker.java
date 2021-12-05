@@ -343,6 +343,17 @@ public class MemeMaker extends JFrame implements ActionListener
     return bufferCopy;
   }
 
+  /**
+   * Tests if the ChangeHistory needs to overwrite the old history.
+   */
+  public void testRedoClear()
+  {
+    if (changeHistory.size() == 1)
+    {
+      redoHistory.clear();
+    }
+  }
+
   @Override
   public void actionPerformed(ActionEvent e)
   {
@@ -391,6 +402,7 @@ public class MemeMaker extends JFrame implements ActionListener
         picLabel.setIcon(changeHistory.peek());
 
         changesNoText = MemeMakerEditingUtils.imageToBufferedImg(changeHistory.peek().getImage());
+        System.out.println("Undo:" + changeHistory.size());
       }
     }
     else if ("redo".equals(e.getActionCommand()))
@@ -403,6 +415,7 @@ public class MemeMaker extends JFrame implements ActionListener
         picLabel.setIcon(changeHistory.peek());
 
         changesNoText = MemeMakerEditingUtils.imageToBufferedImg(changeHistory.peek().getImage());
+        System.out.println("Redo:" + changeHistory.size());
       }
     }
     else if ("upload".equals(e.getActionCommand()))
@@ -512,7 +525,10 @@ public class MemeMaker extends JFrame implements ActionListener
 
         imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        testRedoClear();
+
         changeHistory.push(new ImageIcon(iconAsBuffer));
+
       }
       else if (choice.equals("Rotate Right"))
       {
@@ -525,6 +541,7 @@ public class MemeMaker extends JFrame implements ActionListener
 
         imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
       }
       else if (choice.equals("Horizontal Flip"))
@@ -538,6 +555,7 @@ public class MemeMaker extends JFrame implements ActionListener
 
         imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
       }
       else if (choice.equals("Vertical Flip"))
@@ -551,7 +569,9 @@ public class MemeMaker extends JFrame implements ActionListener
 
         imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
+
       }
       else if (choice.equals("Brighten"))
       {
@@ -564,7 +584,9 @@ public class MemeMaker extends JFrame implements ActionListener
 
         imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
+
       }
       else if (choice.equals("Darken"))
       {
@@ -577,6 +599,7 @@ public class MemeMaker extends JFrame implements ActionListener
 
         imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
       }
       else if (choice.equals("Grey Scale"))
@@ -590,6 +613,7 @@ public class MemeMaker extends JFrame implements ActionListener
 
         imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
       }
       else if (choice.equals("Deep Fry"))
@@ -604,6 +628,7 @@ public class MemeMaker extends JFrame implements ActionListener
         imageIcon.setImage(iconAsBuffer);
 
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
       }
       else if (choice.equals("Set Top Text"))
@@ -632,6 +657,7 @@ public class MemeMaker extends JFrame implements ActionListener
             imageIcon.setImage(iconAsBuffer);
             picLabel.setIcon(new ImageIcon(iconAsBuffer));
 
+            testRedoClear();
             changeHistory.push(new ImageIcon(iconAsBuffer));
           }
         }
@@ -667,8 +693,9 @@ public class MemeMaker extends JFrame implements ActionListener
 
             imageIcon.setImage(iconAsBuffer);
             picLabel.setIcon(new ImageIcon(iconAsBuffer));
-
+            testRedoClear();
             changeHistory.push(new ImageIcon(iconAsBuffer));
+
           }
         }
         else
@@ -690,8 +717,9 @@ public class MemeMaker extends JFrame implements ActionListener
 
         imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
-
+        testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
+
       }
       else if (choice.equals("Reset Image"))
       {
@@ -702,6 +730,8 @@ public class MemeMaker extends JFrame implements ActionListener
         imageIcon.setImage(initImg);
 
         picLabel.setIcon(new ImageIcon(initImg));
+        changeHistory.clear();
+        redoHistory.clear();
         changeHistory.push(new ImageIcon(initImg));
       }
       else
