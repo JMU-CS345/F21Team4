@@ -266,7 +266,6 @@ public class MemeMakerEditingUtils
       }
     }
     return newImage;
-
   }
 
   /**
@@ -278,6 +277,7 @@ public class MemeMakerEditingUtils
    *          The text you want to add
    * @return The initial image with the text
    */
+  // fix this over lay not working
   public static BufferedImage setTopText(BufferedImage image, String topText, Color textColor,
       String fontType)
   {
@@ -350,7 +350,7 @@ public class MemeMakerEditingUtils
       double textYval = (image.getHeight() * .05)
           + (int) textGraphic.getFontMetrics().getStringBounds(topText, textGraphic).getHeight();
 
-      // Draws the graphics
+      // Draws the graphic
       textGraphic.drawString(topText, textXval, (int) textYval);
 
       return image;
@@ -413,7 +413,7 @@ public class MemeMakerEditingUtils
 
       double line2Yval = image.getHeight() * .90;
 
-      // Draws the graphics
+      // Draws the graphic
       line1.drawString(bottomText.substring(0, breakPoint), line1Xval, (int) line1Yval);
 
       line2.drawString(bottomText.substring(breakPoint), line2Xval, (int) line2Yval);
@@ -448,7 +448,7 @@ public class MemeMakerEditingUtils
 
   /**
    * Takes a string of text and the maximum number of lines and breaks it at the first space it can
-   * find from the maximum line
+   * find from the maximum line.
    * 
    * @param text
    *          The text that you are breaking

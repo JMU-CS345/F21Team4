@@ -15,50 +15,59 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- * This class sets up the Game page.
+ * This class hold the functionality and components that make up the Game Page of the DogApp.
  * 
  * @author Matt Wong, Zach Tucker, Thomas Mandell, Alex Polivka, Jonathan Wist
- *
+ * @version Nov 1, 2021
  */
 public class GamePage extends JPanel implements ActionListener
 {
-  public JPanel buttonPad;
-  public JPanel gamePage;
-  // private JPanel buttonPad;
-
+  // Declaring the buttons of the GameDisplay page
   private JButton gameOne;
   private JButton gameTwo;
   private JButton gameThree;
   private JButton back;
 
+  // Declaring the Image Icons for the game posters
+  private ImageIcon gameOneIcon;
+  private ImageIcon gameTwoIcon;
+  private ImageIcon gameThreeIcon;
+
+  // Declaring the labels for the image icons
   private JLabel gameOneLabel;
   private JLabel gameTwoLabel;
   private JLabel gameThreeLabel;
 
-  private ImageIcon gameOneIcon;
-  private ImageIcon gameTwoIcon;
-  private ImageIcon gameThreeIcon;
+  // Declaring all components for the GameDisplay
+  public JPanel buttonPad;
+  public JPanel gamePage;
 
   private String choice;
 
   public GamePage() throws IOException
   {
+    // Initializing the panels
     gamePage = new JPanel();
     buttonPad = new JPanel(new GridLayout(3, 2));
 
+    // Initializing "Dog Simulator" button
     gameOne = new JButton("Dog Simulator");
     gameOne.addActionListener(this);
 
+    // Initializing "Doge Miner" button
     gameTwo = new JButton("Doge Miner");
     gameTwo.addActionListener(this);
 
+    // Initializing "Doge 2048" button
     gameThree = new JButton("Doge 2048");
     gameThree.addActionListener(this);
 
+    // Initializing "Back" button
     back = new JButton("Back");
     back.addActionListener(this);
     back.setPreferredSize(new Dimension(768, 100));
 
+    // Initializing the ImageIcons with their respective game posters
     gameOneIcon = new ImageIcon(readInImage(
         "https://images.crazygames.com/dog-simulator-3d/20210210175744/dog-simulator-3d-cover?auto=format,compress&q=75&cs=strip"));
     gameTwoIcon = new ImageIcon(readInImage(
@@ -66,14 +75,17 @@ public class GamePage extends JPanel implements ActionListener
     gameThreeIcon = new ImageIcon(
         readInImage("https://i.ytimg.com/vi/wTqTaAGmLY4/maxresdefault.jpg"));
 
+    // Setting the ImageIcons their scaled versions
     gameOneIcon = new ImageIcon(MemeMaker.scaleImageIcon(gameOneIcon, 220, 512));
     gameTwoIcon = new ImageIcon(MemeMaker.scaleImageIcon(gameTwoIcon, 220, 512));
     gameThreeIcon = new ImageIcon(MemeMaker.scaleImageIcon(gameThreeIcon, 220, 512));
 
+    // Initializing the labels with their respective ImageIcons
     gameOneLabel = new JLabel(gameOneIcon);
     gameTwoLabel = new JLabel(gameTwoIcon);
     gameThreeLabel = new JLabel(gameThreeIcon);
 
+    // Adding the buttons to the buttons and labels to the button pad
     buttonPad.add(gameOne);
     buttonPad.add(gameOneLabel);
 
@@ -83,13 +95,14 @@ public class GamePage extends JPanel implements ActionListener
     buttonPad.add(gameThree);
     buttonPad.add(gameThreeLabel);
 
+    // Adding components to the overall GamePage panel
     gamePage.add(back);
     gamePage.add(buttonPad);
 
   }
 
   /**
-   * Reads in an image from the internet
+   * Reads in an image from the Internet.
    * 
    * @param URL
    *          The url to the image
@@ -105,7 +118,7 @@ public class GamePage extends JPanel implements ActionListener
   }
 
   /**
-   * Takes a URL and opens the a game in the users default browser.
+   * Takes a URL and opens it in a new tabe of the users default browser.
    * 
    * @param urlString
    *          The URL to the game

@@ -52,6 +52,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
   private List<Dog> dogList;
   private JList dogJList;
 
+  // Declaring and and initializing variables for displaying
   private JLabel dogPictureLabel = new JLabel(" ", JLabel.CENTER);
   private JLabel dogInformationLabel = new JLabel(" ", JLabel.CENTER);
 
@@ -61,12 +62,12 @@ public class DogDisplay extends JPanel implements ListSelectionListener
   public JPanel fullScreenImage;
   private JLabel fullScreenLabel;
 
-  // Declaring and initializing all default dimensions
+  // Declaring and initializing MemeEditor property variable
+  public static boolean openAlready = false;
+
+  // Declaring and initializing all default window dimensions
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
-
-  // Meme Editor stuff
-  public static boolean openAlready = false;
 
   /**
    * Constructor for all the DogDisplay elements, including the frame, panes, and scrollable-list
@@ -150,6 +151,12 @@ public class DogDisplay extends JPanel implements ListSelectionListener
     }
   }
 
+  /**
+   * Creates an object mapper to find all the names, image urls, height, weight, origin, life span,
+   * and temperament in the API and stores them in an ArrayList.
+   * 
+   * @throws IOException
+   */
   public void getDogList() throws IOException
   {
     URL url = new URL("https://api.thedogapi.com/v1/breeds");
@@ -218,8 +225,10 @@ public class DogDisplay extends JPanel implements ListSelectionListener
       }
       icon = new ImageIcon(currImg);
       dogPictureLabel.setIcon(icon);
+
       fullScreenButton.setVisible(true);
       makeMeme.setVisible(true);
+
       dogPictureLabel.setVerticalTextPosition(JLabel.BOTTOM);
       dogPictureLabel.setHorizontalTextPosition(JLabel.CENTER);
     }

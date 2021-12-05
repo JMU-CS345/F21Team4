@@ -34,7 +34,7 @@ public class HomePage extends JPanel
   public JSplitPane splitPane;
   private JLabel welcomeText;
 
-  // Declaring and initializing all default dimensions
+  // Declaring and initializing all default window dimensions
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
 
@@ -68,7 +68,7 @@ public class HomePage extends JPanel
     buttonPad.add(gamesPage);
     buttonPad.add(aboutPage);
 
-    buttonPad.setPreferredSize(new Dimension(windowWidth, 334));
+    buttonPad.setPreferredSize(new Dimension(windowWidth, (windowHeight / 2)));
     buttonPad.setVisible(true);
 
     // Initializing welcomeText JLabel
@@ -86,9 +86,14 @@ public class HomePage extends JPanel
     splitPane.setEnabled(false);
   }
 
+  /**
+   * This class holds all of the functionality for the different buttons on the HomePage.
+   * 
+   * @author Matt Wong, Zach Tucker, Thomas Mandell, Alex Polivka, Jonathan Wist
+   * @version Nov 1, 2021
+   */
   private class ButtonPress implements ActionListener
   {
-
     @Override
     public void actionPerformed(ActionEvent e)
     {
@@ -117,7 +122,8 @@ public class HomePage extends JPanel
       }
       else if (choice.equals("About Page"))
       {
-
+        // Window.layout.show(Window.layoutPane, "aboutPage");
+        // Window.frame.setTitle("AboutPage");
       }
     }
   }
