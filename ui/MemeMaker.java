@@ -142,7 +142,7 @@ public class MemeMaker extends JFrame implements ActionListener
     reset = new JButton("Reset Image");
     reset.addActionListener(new ButtonPress());
 
-    String[] patternExamples = {"Arial", "Comic Sans", "Century Gothic", "SansSerif", "MS Gothic"};
+    String[] patternExamples = {"Arial", "Comic Sans", "Century Gothic"};
     patternList = new JComboBox(patternExamples);
     patternList.addActionListener(new ComboPress());
 
@@ -490,39 +490,6 @@ public class MemeMaker extends JFrame implements ActionListener
           changeHistory.push(new ImageIcon(iconAsBuffer));
         }
       }
-      else if ("SansSerif".equals(newSelection))
-      {
-        {
-          textFont = "SansSerif";
-          BufferedImage iconAsBuffer = cloneBuffer(changesNoText);
-
-          iconAsBuffer = MemeMakerEditingUtils.setTopText(iconAsBuffer, currentTop, textColor,
-              textFont);
-          iconAsBuffer = MemeMakerEditingUtils.setBottomText(iconAsBuffer, currentBottom, textColor,
-              textFont);
-
-          imageIcon.setImage(iconAsBuffer);
-          picLabel.setIcon(new ImageIcon(iconAsBuffer));
-          changeHistory.push(new ImageIcon(iconAsBuffer));
-        }
-      }
-      else if ("MS Gothic".equals(newSelection))
-      {
-        {
-          textFont = "MS Gothic";
-          BufferedImage iconAsBuffer = cloneBuffer(changesNoText);
-
-          iconAsBuffer = MemeMakerEditingUtils.setTopText(iconAsBuffer, currentTop, textColor,
-              textFont);
-          iconAsBuffer = MemeMakerEditingUtils.setBottomText(iconAsBuffer, currentBottom, textColor,
-              textFont);
-
-          imageIcon.setImage(iconAsBuffer);
-          picLabel.setIcon(new ImageIcon(iconAsBuffer));
-          changeHistory.push(new ImageIcon(iconAsBuffer));
-        }
-      }
-
     }
   }
 
