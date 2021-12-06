@@ -110,39 +110,51 @@ public class MemeMaker extends JFrame implements ActionListener
     // Initializes each JButton and gives them action listeners
     leftRotate = new JButton("Rotate Left");
     leftRotate.addActionListener(new ButtonPress());
+    leftRotate.setPreferredSize(new Dimension(50, 75));
 
     rightRotate = new JButton("Rotate Right");
     rightRotate.addActionListener(new ButtonPress());
+    rightRotate.setPreferredSize(new Dimension(50, 75));
 
     horizontalFlip = new JButton("Horizontal Flip");
     horizontalFlip.addActionListener(new ButtonPress());
+    horizontalFlip.setPreferredSize(new Dimension(50, 75));
 
     verticalFlip = new JButton("Vertical Flip");
     verticalFlip.addActionListener(new ButtonPress());
+    verticalFlip.setPreferredSize(new Dimension(50, 75));
 
     brighten = new JButton("Brighten");
     brighten.addActionListener(new ButtonPress());
+    brighten.setPreferredSize(new Dimension(50, 75));
 
     darken = new JButton("Darken");
     darken.addActionListener(new ButtonPress());
+    darken.setPreferredSize(new Dimension(50, 75));
 
     greyScale = new JButton("Grey Scale");
     greyScale.addActionListener(new ButtonPress());
+    greyScale.setPreferredSize(new Dimension(50, 75));
 
     deepFry = new JButton("Deep Fry");
     deepFry.addActionListener(new ButtonPress());
+    deepFry.setPreferredSize(new Dimension(50, 75));
 
     topText = new JButton("Set Top Text");
     topText.addActionListener(new ButtonPress());
+    topText.setPreferredSize(new Dimension(50, 75));
 
     bottomText = new JButton("Set Bottom Text");
     bottomText.addActionListener(new ButtonPress());
+    bottomText.setPreferredSize(new Dimension(50, 75));
 
     setTextColor = new JButton("Change Text Color");
     setTextColor.addActionListener(new ButtonPress());
+    setTextColor.setPreferredSize(new Dimension(50, 75));
 
     reset = new JButton("Reset Image");
     reset.addActionListener(new ButtonPress());
+    reset.setPreferredSize(new Dimension(50, 75));
 
     // Initializing Fonts and gives it an action listener
     String[] patternExamples = {"Arial", "Comic Sans", "Century Gothic"};
@@ -480,7 +492,7 @@ public class MemeMaker extends JFrame implements ActionListener
       String newSelection = (String) cb.getSelectedItem();
       currentTop = textChangeHistory.peek()[0];
       currentBottom = textChangeHistory.peek()[1];
-      
+
       if ("Arial".equals(newSelection))
       {
         textFont = "Arial";
@@ -494,7 +506,7 @@ public class MemeMaker extends JFrame implements ActionListener
         imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
         changeHistory.push(new ImageIcon(iconAsBuffer));
-        
+
         String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
         textChangeHistory.push(newEntry);
       }
@@ -512,7 +524,7 @@ public class MemeMaker extends JFrame implements ActionListener
           imageIcon.setImage(iconAsBuffer);
           picLabel.setIcon(new ImageIcon(iconAsBuffer));
           changeHistory.push(new ImageIcon(iconAsBuffer));
-          
+
           String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
           textChangeHistory.push(newEntry);
         }
@@ -531,7 +543,7 @@ public class MemeMaker extends JFrame implements ActionListener
           imageIcon.setImage(iconAsBuffer);
           picLabel.setIcon(new ImageIcon(iconAsBuffer));
           changeHistory.push(new ImageIcon(iconAsBuffer));
-          
+
           String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
           textChangeHistory.push(newEntry);
         }
@@ -567,7 +579,7 @@ public class MemeMaker extends JFrame implements ActionListener
         testRedoClear();
 
         changeHistory.push(new ImageIcon(iconAsBuffer));
-        
+
         String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
         textChangeHistory.push(newEntry);
       }
@@ -584,7 +596,7 @@ public class MemeMaker extends JFrame implements ActionListener
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
         testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
-        
+
         String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
         textChangeHistory.push(newEntry);
       }
@@ -601,7 +613,7 @@ public class MemeMaker extends JFrame implements ActionListener
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
         testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
-        
+
         String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
         textChangeHistory.push(newEntry);
       }
@@ -618,7 +630,7 @@ public class MemeMaker extends JFrame implements ActionListener
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
         testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
-        
+
         String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
         textChangeHistory.push(newEntry);
       }
@@ -635,7 +647,7 @@ public class MemeMaker extends JFrame implements ActionListener
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
         testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
-        
+
         String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
         textChangeHistory.push(newEntry);
       }
@@ -652,7 +664,7 @@ public class MemeMaker extends JFrame implements ActionListener
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
         testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
-        
+
         String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
         textChangeHistory.push(newEntry);
       }
@@ -669,7 +681,7 @@ public class MemeMaker extends JFrame implements ActionListener
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
         testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
-        
+
         String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
         textChangeHistory.push(newEntry);
       }
@@ -687,7 +699,7 @@ public class MemeMaker extends JFrame implements ActionListener
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
         testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
-        
+
         String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
         textChangeHistory.push(newEntry);
       }
@@ -716,8 +728,8 @@ public class MemeMaker extends JFrame implements ActionListener
 
             iconAsBuffer = MemeMakerEditingUtils.setTopText(iconAsBuffer, currentTop, textColor,
                 textFont);
-            iconAsBuffer = MemeMakerEditingUtils.setBottomText(iconAsBuffer, textChangeHistory.peek()[1],
-                textColor, textFont);
+            iconAsBuffer = MemeMakerEditingUtils.setBottomText(iconAsBuffer,
+                textChangeHistory.peek()[1], textColor, textFont);
 
             imageIcon.setImage(iconAsBuffer);
             picLabel.setIcon(new ImageIcon(iconAsBuffer));
@@ -757,8 +769,8 @@ public class MemeMaker extends JFrame implements ActionListener
           {
             BufferedImage iconAsBuffer = cloneBuffer(changesNoText);
 
-            iconAsBuffer = MemeMakerEditingUtils.setTopText(iconAsBuffer, textChangeHistory.peek()[0], textColor,
-                textFont);
+            iconAsBuffer = MemeMakerEditingUtils.setTopText(iconAsBuffer,
+                textChangeHistory.peek()[0], textColor, textFont);
             iconAsBuffer = MemeMakerEditingUtils.setBottomText(iconAsBuffer, currentBottom,
                 textColor, textFont);
 
@@ -792,7 +804,7 @@ public class MemeMaker extends JFrame implements ActionListener
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
         testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
-        
+
         String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
         textChangeHistory.push(newEntry);
       }
