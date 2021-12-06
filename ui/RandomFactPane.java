@@ -123,10 +123,11 @@ public class RandomFactPane extends JPanel implements ActionListener
     userFactList = new ArrayList<String>();
 
     bottomSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, bottomButtonPad, scrollPane);
-
+   // bottomSplitPane.setPreferredSize(new Dimension(windowWidth, windowHeight - 500));
     // Initializing the SplitPane that holds both top and bottom page components
     splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, topSplitPane, bottomSplitPane);
     splitPane.setPreferredSize(new Dimension(windowWidth, windowHeight));
+    splitPane.setDividerLocation(200);
 
     // Initializing and setting up Random Fact JPanel
     factRandom = new JPanel();
