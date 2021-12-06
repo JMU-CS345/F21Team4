@@ -2,25 +2,26 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class RandomFactPane extends JPanel implements ListSelectionListener, ActionListener
+/**
+ * This class hold the components that make up the Random Fact Generator Page of the DogApp.
+ * 
+ * @author Matt Wong, Zach Tucker, Thomas Mandell, Alex Polivka, Jonathan Wist
+ * @version Nov 1, 2021
+ */
+// export list maybe
+public class RandomFactPane extends JPanel implements ActionListener
 {
   // Declaring all button components and variables
   private String choice;
@@ -40,7 +41,7 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
   private JTextArea factTxtArea;
   private JSplitPane splitPane;
 
-  // Declaring and initializing all default dimensions
+  // Declaring and initializing all default window dimensions
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
 
@@ -83,51 +84,26 @@ public class RandomFactPane extends JPanel implements ListSelectionListener, Act
 
   }
 
+  /**
+   * Creates an object mapper to find all the "facts" in the API and stores them in an ArrayList.
+   * 
+   * @throws IOException
+   */
   public void getFacts() throws IOException
   {
-    /*
-     * DO NOT DELETE
-     */
-    // factList = new ArrayList<String>();
-    // URL url = new URL("https://dog-facts-api.herokuapp.com/api/v1/resources/dogs/all");
-    //
-    // ObjectMapper mapper = new ObjectMapper();
-    // JsonNode tree = mapper.readTree(url);
-    //
-    // for (int x = 0; x < tree.size(); x++)
-    // {
-    // JsonNode factNode = tree.get(x);
-    // String fact = factNode.get("fact").asText();
-    // this.factList.add(fact);
-    // }
-
-    // Temporary fix until the API is back online
     factList = new ArrayList<String>();
-    InputStream in = new FileInputStream("senators.json");
+    URL url = new URL("https://raw.githubusercontent.com/DukeNgn/Dog-facts-API/master/data.json");
+
     ObjectMapper mapper = new ObjectMapper();
-    JsonNode tree = mapper.readTree(in);
+    JsonNode tree = mapper.readTree(url);
 
     for (int x = 0; x < tree.size(); x++)
     {
       JsonNode factNode = tree.get(x);
-      String fact = factNode.get("first").asText();
+      String fact = factNode.get("fact").asText();
       this.factList.add(fact);
     }
 
-  }
-
-  @Override
-  public void valueChanged(ListSelectionEvent e)
-  {
-    urlString = "https://dog.ceo/api/breeds/image/random";
-    try
-    {
-      urlDogPic = new URL(urlString);
-    }
-    catch (MalformedURLException e1)
-    {
-      e1.printStackTrace();
-    }
   }
 
   /*

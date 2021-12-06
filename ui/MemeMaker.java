@@ -1,4 +1,6 @@
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -6,14 +8,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Stack;
 
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,13 +29,11 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.KeyStroke;
 
-import java.awt.image.BufferedImage;
-
 /**
  * This class sets up the Meme Makers UI.
  * 
  * @author Matt Wong, Zach Tucker, Thomas Mandell, Alex Polivka, Jonathan Wist
- *
+ * @version Nov 1, 2021
  */
 public class MemeMaker extends JFrame implements ActionListener
 {
@@ -44,14 +46,20 @@ public class MemeMaker extends JFrame implements ActionListener
   private JPanel imagePanel;
   private JPanel toolPanel;
 
-  private final int windowWidth = 800;
-  private final int windowHeight = 750;
-
   // Declaring image editing components
   private JLabel picLabel;
   private ImageIcon imageIcon;
-  private BufferedImage initImg;
+  private static BufferedImage initImg;
+  private BufferedImage changesNoText;
 
+  private String currentTop;
+  private String currentBottom;
+  private String[] initStrings = {" ", " "};
+
+  private String textFont;
+  private Color textColor;
+
+  // Declaring all MemeEditor components and variables
   private JPanel buttonPad;
 
   private JButton leftRotate;
@@ -62,11 +70,16 @@ public class MemeMaker extends JFrame implements ActionListener
   private JButton brighten;
   private JButton darken;
   private JButton deepFry;
-  private JButton addText;
+  private JButton topText;
+  private JButton bottomText;
+  private JButton reset;
+  private JButton setTextColor;
+
+  private JComboBox patternList;
 
   private String choice;
 
-  // Declaring the Menu's and Menu Item
+  // Declaring the Menu's and their Menu Item
   private JMenuBar menuBar;
 
   private JMenu menuFile;
@@ -78,16 +91,23 @@ public class MemeMaker extends JFrame implements ActionListener
   private Stack<ImageIcon> changeHistory;
   private Stack<ImageIcon> redoHistory;
 
+  private Stack<String[]> textChangeHistory;
+  private Stack<String[]> textRedoHistory;
+
+  // Declaring and initializing all default window dimensions
+  private final int windowWidth = 800;
+  private final int windowHeight = 750;
+
   public MemeMaker(ImageIcon icon)
   {
     // Initializes all the frame components
     memeMakeFrame = new JFrame();
-    memeMakeFrame.setSize(new Dimension(windowWidth, windowWidth));
+    memeMakeFrame.setSize(new Dimension(windowWidth, windowHeight));
 
     memeMakeFrame.setVisible(true);
     memeMakeFrame.setJMenuBar(createMenuBar());
 
-    // Initializing JButtons
+    // Initializes each JButton and gives them action listeners
     leftRotate = new JButton("Rotate Left");
     leftRotate.addActionListener(new ButtonPress());
 
@@ -112,11 +132,25 @@ public class MemeMaker extends JFrame implements ActionListener
     deepFry = new JButton("Deep Fry");
     deepFry.addActionListener(new ButtonPress());
 
-    addText = new JButton("Add Text");
-    addText.addActionListener(new ButtonPress());
+    topText = new JButton("Set Top Text");
+    topText.addActionListener(new ButtonPress());
+
+    bottomText = new JButton("Set Bottom Text");
+    bottomText.addActionListener(new ButtonPress());
+
+    setTextColor = new JButton("Change Text Color");
+    setTextColor.addActionListener(new ButtonPress());
+
+    reset = new JButton("Reset Image");
+    reset.addActionListener(new ButtonPress());
+
+    // Initializing Fonts and gives it an action listener
+    String[] patternExamples = {"Arial", "Comic Sans", "Century Gothic"};
+    patternList = new JComboBox(patternExamples);
+    patternList.addActionListener(new ComboPress());
 
     // Initializes buttonPad and adds its JButtons
-    buttonPad = new JPanel(new GridLayout(5, 2));
+    buttonPad = new JPanel(new GridLayout(7, 2));
 
     buttonPad.add(leftRotate);
     buttonPad.add(rightRotate);
@@ -126,14 +160,26 @@ public class MemeMaker extends JFrame implements ActionListener
     buttonPad.add(darken);
     buttonPad.add(greyScale);
     buttonPad.add(deepFry);
-    buttonPad.add(addText);
+    buttonPad.add(topText);
+    buttonPad.add(bottomText);
+    buttonPad.add(setTextColor);
+    buttonPad.add(reset);
+    buttonPad.add(patternList);
 
-    // Scales Image Icon
-    Image scaledImage = scaleImageIcon(icon);
+    // Initializing scaled Image Icon
+    Image scaledImage = scaleImageIcon(icon, 600, 450);
+
+    // Initializing image text modifying variables
+    initImg = MemeMakerEditingUtils.imageToBufferedImg(scaledImage);
+    changesNoText = initImg;
+
+    currentTop = " ";
+    currentBottom = " ";
+
+    textColor = Color.BLACK;
+    textFont = "Arial";
 
     // Initializes the SplitPane and its components
-    initImg = MemeMakerEditingUtils.iconToBufferedImage(scaledImage);
-
     imageIcon = new ImageIcon(scaledImage);
     picLabel = new JLabel(imageIcon);
     picLabel.setPreferredSize(new Dimension(600, 600));
@@ -148,13 +194,17 @@ public class MemeMaker extends JFrame implements ActionListener
 
     memeMakeFrame.add(splitPane);
 
-    // Initializes the change history for each instance of the MemeEditor effectively reseting it
+    // Initializes the change histories for each instance of the MemeEditor effectively reseting it
     // upon each open.
     changeHistory = new Stack<ImageIcon>();
-
     changeHistory.push(new ImageIcon(scaledImage));
 
     redoHistory = new Stack<ImageIcon>();
+
+    textChangeHistory = new Stack<String[]>();
+    textChangeHistory.push(initStrings);
+
+    textRedoHistory = new Stack<String[]>();
 
     // Listens for to the window to check if it's ever closed.
     memeMakeFrame.addWindowListener(new WindowAdapter()
@@ -176,14 +226,18 @@ public class MemeMaker extends JFrame implements ActionListener
    * 
    * @param icon
    *          The initial image icon
-   * @return The scaled image
+   * @param height
+   *          The height to scale to
+   * @param width
+   *          the width to scale to
+   * @return Scaled image
    */
-  public Image scaleImageIcon(ImageIcon icon)
+  public static Image scaleImageIcon(ImageIcon icon, int height, int width)
   {
-    initImg = MemeMakerEditingUtils.iconToBufferedImage(icon.getImage());
+    initImg = MemeMakerEditingUtils.imageToBufferedImg(icon.getImage());
     double iconHeight = icon.getIconHeight();
     double iconWidth = icon.getIconWidth();
-    while (iconHeight > 600 || iconWidth > 450)
+    while (iconHeight > height || iconWidth > width)
     {
       iconHeight *= .85;
       iconWidth *= .85;
@@ -194,7 +248,7 @@ public class MemeMaker extends JFrame implements ActionListener
   }
 
   /*
-   * This creates the menu bar at the top of the meme editor.
+   * This creates the menu bar at the top of the MemeMaker frame.
    */
   protected JMenuBar createMenuBar()
   {
@@ -207,7 +261,7 @@ public class MemeMaker extends JFrame implements ActionListener
   }
 
   /*
-   * This method sets up the "Edit" menu and its items for the menu bar in the meme editor.
+   * This method sets up the "Edit" menu and its items for the menu bar in the MemeMaker frame.
    */
   private void setUpMenuEdit()
   {
@@ -269,7 +323,8 @@ public class MemeMaker extends JFrame implements ActionListener
   }
 
   /*
-   * Closes the MemeMaker frame and sets the openAlready boolean to false.
+   * Closes the MemeMaker frame, sets the openAlready boolean to false, and sets the icon to the
+   * original.
    */
   private void close()
   {
@@ -282,12 +337,42 @@ public class MemeMaker extends JFrame implements ActionListener
     picLabel.setIcon(imageIcon);
   }
 
+  /**
+   * Clones a buffered Image so that they do not share the same item in the stack.
+   * 
+   * @param intlBufferImg
+   *          The initial image
+   * @return The new identical image with a different stack pointer
+   */
+  public static BufferedImage cloneBuffer(BufferedImage intlBufferImg)
+  {
+    BufferedImage bufferCopy = new BufferedImage(intlBufferImg.getWidth(),
+        intlBufferImg.getHeight(), intlBufferImg.getType());
+    Graphics bufferedImageGraphics = bufferCopy.getGraphics();
+
+    bufferedImageGraphics.drawImage(intlBufferImg, 0, 0, null);
+    bufferedImageGraphics.dispose();
+
+    return bufferCopy;
+  }
+
+  /**
+   * Tests if the ChangeHistory needs to overwrite the old history.
+   */
+  public void testRedoClear()
+  {
+    if (changeHistory.size() == 1 && textChangeHistory.size() == 1)
+    {
+      redoHistory.clear();
+      textRedoHistory.clear();
+    }
+  }
+
   @Override
   public void actionPerformed(ActionEvent e)
   {
     if ("save".equals(e.getActionCommand()))
     {
-      // System.out.println("Save feature not available yet");
       JFileChooser fileChooser = new JFileChooser();
       fileChooser.setDialogTitle("Specify a file to save");
 
@@ -295,8 +380,7 @@ public class MemeMaker extends JFrame implements ActionListener
 
       if (userSelection == JFileChooser.APPROVE_OPTION)
       {
-        BufferedImage iconAsBuffer = MemeMakerEditingUtils
-            .iconToBufferedImage(imageIcon.getImage());
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils.imageToBufferedImg(imageIcon.getImage());
         String name = fileChooser.getSelectedFile().toString();
         // String name = fileChooser.getSelectedFile().toString() +"png";
         File file = new File(name);
@@ -306,18 +390,12 @@ public class MemeMaker extends JFrame implements ActionListener
         }
         catch (IOException e1)
         {
-          // TODO Auto-generated catch block
           e1.printStackTrace();
         }
-
-        // File fileToSave = fileChooser.getSelectedFile();
-        // File desktop = new File(System.getProperty("user.home"), "Desktop");
-        // System.out.println("Save as file: " + fileToSave.getAbsolutePath());
       }
     }
     else if ("quit".equals(e.getActionCommand()))
     {
-
       int optionResult = JOptionPane.showConfirmDialog(memeMakeFrame,
           "If you exit this page without saving, you will lose all progress.\nWould you still like to continue?",
           "Do not exit yet", JOptionPane.YES_NO_OPTION);
@@ -328,22 +406,37 @@ public class MemeMaker extends JFrame implements ActionListener
     }
     else if ("undo".equals(e.getActionCommand()))
     {
-      if (changeHistory.size() > 1)
+      if (changeHistory.size() > 1 && textChangeHistory.size() > 1)
       {
         redoHistory.push(changeHistory.pop());
+        textRedoHistory.push(textChangeHistory.pop());
+        
+        System.out.println("redo:"+redoHistory.size());
+        System.out.println("text redo:"+textRedoHistory.size());
+        
+        System.out.println("change:"+changeHistory.size());
+        System.out.println("text change:"+textChangeHistory.size());
 
         imageIcon.setImage(changeHistory.peek().getImage());
         picLabel.setIcon(changeHistory.peek());
+
+        changesNoText = cloneBuffer(
+            MemeMakerEditingUtils.imageToBufferedImg(changeHistory.peek().getImage()));
       }
     }
     else if ("redo".equals(e.getActionCommand()))
     {
-      if (redoHistory.size() > 0)
+      if (redoHistory.size() > 0 && textRedoHistory.size() > 0)
       {
         changeHistory.push(redoHistory.pop());
+        textChangeHistory.push(textRedoHistory.pop());
 
         imageIcon.setImage(changeHistory.peek().getImage());
         picLabel.setIcon(changeHistory.peek());
+
+        changesNoText = cloneBuffer(
+            MemeMakerEditingUtils.imageToBufferedImg(changeHistory.peek().getImage()));
+
       }
     }
     else if ("upload".equals(e.getActionCommand()))
@@ -359,20 +452,105 @@ public class MemeMaker extends JFrame implements ActionListener
         if (result == JFileChooser.APPROVE_OPTION)
         {
           File selectedFile = fileChooser.getSelectedFile();
-          System.out.println("Selected file: " + selectedFile.getAbsolutePath());
 
           Image scaledImage = scaleImageIcon(
-              new ImageIcon(selectedFile.getAbsolutePath().toString()));
+              new ImageIcon(selectedFile.getAbsolutePath().toString()), 600, 450);
           ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
           changeHistory.push(scaledIcon);
           imageIcon.setImage(changeHistory.peek().getImage());
           picLabel.setIcon(changeHistory.peek());
+
+          textChangeHistory.push(initStrings);
+          initImg = MemeMakerEditingUtils.imageToBufferedImg(changeHistory.peek().getImage());
+
+          changesNoText = MemeMakerEditingUtils.imageToBufferedImg(changeHistory.peek().getImage());
 
         }
       }
     }
   }
 
+  /**
+   * This class handles the actions for the font selection box in the MemeEditor.
+   * 
+   * @author Matt Wong, Zach Tucker, Thomas Mandell, Alex Polivka, Jonathan Wist
+   * @version Nov 1, 2021
+   */
+  private class ComboPress implements ActionListener
+  {
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+      JComboBox cb = (JComboBox) e.getSource();
+      String newSelection = (String) cb.getSelectedItem();
+      currentTop = textChangeHistory.peek()[0];
+      currentBottom = textChangeHistory.peek()[1];
+      
+      if ("Arial".equals(newSelection))
+      {
+        textFont = "Arial";
+        BufferedImage iconAsBuffer = cloneBuffer(changesNoText);
+
+        iconAsBuffer = MemeMakerEditingUtils.setTopText(iconAsBuffer, currentTop, textColor,
+            textFont);
+        iconAsBuffer = MemeMakerEditingUtils.setBottomText(iconAsBuffer, currentBottom, textColor,
+            textFont);
+
+        imageIcon.setImage(iconAsBuffer);
+        picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        changeHistory.push(new ImageIcon(iconAsBuffer));
+        
+        String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
+        textChangeHistory.push(newEntry);
+      }
+      else if ("Comic Sans".equals(newSelection))
+      {
+        {
+          textFont = "Comic Sans MS";
+          BufferedImage iconAsBuffer = cloneBuffer(changesNoText);
+
+          iconAsBuffer = MemeMakerEditingUtils.setTopText(iconAsBuffer, currentTop, textColor,
+              textFont);
+          iconAsBuffer = MemeMakerEditingUtils.setBottomText(iconAsBuffer, currentBottom, textColor,
+              textFont);
+
+          imageIcon.setImage(iconAsBuffer);
+          picLabel.setIcon(new ImageIcon(iconAsBuffer));
+          changeHistory.push(new ImageIcon(iconAsBuffer));
+          
+          String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
+          textChangeHistory.push(newEntry);
+        }
+      }
+      else if ("Century Gothic".equals(newSelection))
+      {
+        {
+          textFont = "Century Gothic";
+          BufferedImage iconAsBuffer = cloneBuffer(changesNoText);
+
+          iconAsBuffer = MemeMakerEditingUtils.setTopText(iconAsBuffer, currentTop, textColor,
+              textFont);
+          iconAsBuffer = MemeMakerEditingUtils.setBottomText(iconAsBuffer, currentBottom, textColor,
+              textFont);
+
+          imageIcon.setImage(iconAsBuffer);
+          picLabel.setIcon(new ImageIcon(iconAsBuffer));
+          changeHistory.push(new ImageIcon(iconAsBuffer));
+          
+          String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
+          textChangeHistory.push(newEntry);
+        }
+      }
+    }
+  }
+
+  /**
+   * This class handles the actions for each of the buttons in the MemeEditor.
+   * 
+   * @author Matt Wong, Zach Tucker, Thomas Mandell, Alex Polivka, Jonathan Wist
+   * @version Nov 1, 2021
+   */
   private class ButtonPress implements ActionListener
   {
 
@@ -383,104 +561,269 @@ public class MemeMaker extends JFrame implements ActionListener
 
       if (choice.equals("Rotate Left"))
       {
-        BufferedImage iconAsBuffer = MemeMakerEditingUtils
-            .iconToBufferedImage(imageIcon.getImage());
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils.imageToBufferedImg(imageIcon.getImage());
         CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
         iconAsBuffer = MemeMakerEditingUtils.leftRotate(iconAsCustom);
 
+        CustomImage temp = MemeMakerEditingUtils.bufferedImageToImage(changesNoText);
+        changesNoText = MemeMakerEditingUtils.leftRotate(temp);
+
         imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        testRedoClear();
+
         changeHistory.push(new ImageIcon(iconAsBuffer));
+        
+        String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
+        textChangeHistory.push(newEntry);
       }
       else if (choice.equals("Rotate Right"))
       {
-        BufferedImage iconAsBuffer = MemeMakerEditingUtils
-            .iconToBufferedImage(imageIcon.getImage());
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils.imageToBufferedImg(imageIcon.getImage());
         CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
         iconAsBuffer = MemeMakerEditingUtils.rightRotate(iconAsCustom);
 
+        CustomImage temp = MemeMakerEditingUtils.bufferedImageToImage(changesNoText);
+        changesNoText = MemeMakerEditingUtils.rightRotate(temp);
+
         imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
+        
+        String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
+        textChangeHistory.push(newEntry);
       }
       else if (choice.equals("Horizontal Flip"))
       {
-        BufferedImage iconAsBuffer = MemeMakerEditingUtils
-            .iconToBufferedImage(imageIcon.getImage());
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils.imageToBufferedImg(imageIcon.getImage());
         CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
         iconAsBuffer = MemeMakerEditingUtils.horizontalFlip(iconAsCustom);
 
+        CustomImage temp = MemeMakerEditingUtils.bufferedImageToImage(changesNoText);
+        changesNoText = MemeMakerEditingUtils.horizontalFlip(temp);
+
         imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
+        
+        String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
+        textChangeHistory.push(newEntry);
       }
       else if (choice.equals("Vertical Flip"))
       {
-        BufferedImage iconAsBuffer = MemeMakerEditingUtils
-            .iconToBufferedImage(imageIcon.getImage());
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils.imageToBufferedImg(imageIcon.getImage());
         CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
         iconAsBuffer = MemeMakerEditingUtils.verticalFlip(iconAsCustom);
 
+        CustomImage temp = MemeMakerEditingUtils.bufferedImageToImage(changesNoText);
+        changesNoText = MemeMakerEditingUtils.verticalFlip(temp);
+
         imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
+        
+        String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
+        textChangeHistory.push(newEntry);
       }
       else if (choice.equals("Brighten"))
       {
-        BufferedImage iconAsBuffer = MemeMakerEditingUtils
-            .iconToBufferedImage(imageIcon.getImage());
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils.imageToBufferedImg(imageIcon.getImage());
         CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
         iconAsBuffer = MemeMakerEditingUtils.brighten(iconAsCustom);
 
+        CustomImage temp = MemeMakerEditingUtils.bufferedImageToImage(changesNoText);
+        changesNoText = MemeMakerEditingUtils.brighten(temp);
+
         imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
+        
+        String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
+        textChangeHistory.push(newEntry);
       }
       else if (choice.equals("Darken"))
       {
-        BufferedImage iconAsBuffer = MemeMakerEditingUtils
-            .iconToBufferedImage(imageIcon.getImage());
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils.imageToBufferedImg(imageIcon.getImage());
         CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
         iconAsBuffer = MemeMakerEditingUtils.darken(iconAsCustom);
 
+        CustomImage temp = MemeMakerEditingUtils.bufferedImageToImage(changesNoText);
+        changesNoText = MemeMakerEditingUtils.darken(temp);
+
         imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
+        
+        String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
+        textChangeHistory.push(newEntry);
       }
       else if (choice.equals("Grey Scale"))
       {
-        BufferedImage iconAsBuffer = MemeMakerEditingUtils
-            .iconToBufferedImage(imageIcon.getImage());
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils.imageToBufferedImg(imageIcon.getImage());
         CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
         iconAsBuffer = MemeMakerEditingUtils.greyScale(iconAsCustom);
 
+        CustomImage temp = MemeMakerEditingUtils.bufferedImageToImage(changesNoText);
+        changesNoText = MemeMakerEditingUtils.greyScale(temp);
+
         imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
+        
+        String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
+        textChangeHistory.push(newEntry);
       }
       else if (choice.equals("Deep Fry"))
       {
-        BufferedImage iconAsBuffer = MemeMakerEditingUtils
-            .iconToBufferedImage(imageIcon.getImage());
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils.imageToBufferedImg(imageIcon.getImage());
         CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
         iconAsBuffer = MemeMakerEditingUtils.dEePfRy(iconAsCustom);
 
+        CustomImage temp = MemeMakerEditingUtils.bufferedImageToImage(changesNoText);
+        changesNoText = MemeMakerEditingUtils.dEePfRy(temp);
+
         imageIcon.setImage(iconAsBuffer);
+
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
+        
+        String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
+        textChangeHistory.push(newEntry);
       }
-      else if (choice.equals("Add Text"))
+      else if (choice.equals("Set Top Text"))
       {
-        BufferedImage iconAsBuffer = MemeMakerEditingUtils
-            .iconToBufferedImage(imageIcon.getImage());
 
-        iconAsBuffer = MemeMakerEditingUtils.addText(iconAsBuffer, "Hello", "World");
+        String temp = (String) JOptionPane.showInputDialog(memeMakeFrame,
+            "What would you like the top text to be?");
+        if (temp != null)
+        {
+          currentTop = temp;
+        }
+
+        // If a string was returned, say so.
+        if ((currentTop != null) && (currentTop.length() > 0))
+        {
+          if (currentTop.length() > 40)
+          {
+            JOptionPane.showMessageDialog(memeMakeFrame,
+                "Your top text is too long, please try again", "Too Many Characters",
+                JOptionPane.WARNING_MESSAGE);
+          }
+          else
+          {
+            BufferedImage iconAsBuffer = cloneBuffer(changesNoText);
+
+            iconAsBuffer = MemeMakerEditingUtils.setTopText(iconAsBuffer, currentTop, textColor,
+                textFont);
+            iconAsBuffer = MemeMakerEditingUtils.setBottomText(iconAsBuffer, textChangeHistory.peek()[1],
+                textColor, textFont);
+
+            imageIcon.setImage(iconAsBuffer);
+            picLabel.setIcon(new ImageIcon(iconAsBuffer));
+
+            testRedoClear();
+            changeHistory.push(new ImageIcon(iconAsBuffer));
+
+            String[] newEntry = {currentTop, textChangeHistory.peek()[1]};
+            textChangeHistory.push(newEntry);
+          }
+        }
+        else
+        {
+          JOptionPane.showMessageDialog(memeMakeFrame, "You need to enter some text",
+              "No Text Was Entered", JOptionPane.WARNING_MESSAGE);
+        }
+      }
+      else if (choice.equals("Set Bottom Text"))
+      {
+        String temp = (String) JOptionPane.showInputDialog(memeMakeFrame,
+            "What would you like the bottom text to be?");
+        if (temp != null)
+        {
+          currentBottom = temp;
+        }
+
+        // If a string was returned, say so.
+        if ((currentBottom != null) && (currentBottom.length() > 0))
+        {
+          if (currentBottom.length() > 40)
+          {
+            JOptionPane.showMessageDialog(memeMakeFrame,
+                "Your top text is too long, please try again", "Too Many Characters",
+                JOptionPane.WARNING_MESSAGE);
+          }
+          else
+          {
+            BufferedImage iconAsBuffer = cloneBuffer(changesNoText);
+
+            iconAsBuffer = MemeMakerEditingUtils.setTopText(iconAsBuffer, textChangeHistory.peek()[0], textColor,
+                textFont);
+            iconAsBuffer = MemeMakerEditingUtils.setBottomText(iconAsBuffer, currentBottom,
+                textColor, textFont);
+
+            imageIcon.setImage(iconAsBuffer);
+            picLabel.setIcon(new ImageIcon(iconAsBuffer));
+            testRedoClear();
+            changeHistory.push(new ImageIcon(iconAsBuffer));
+
+            String[] newEntry = {textChangeHistory.peek()[0], currentBottom};
+            textChangeHistory.push(newEntry);
+          }
+        }
+        else
+        {
+          JOptionPane.showMessageDialog(memeMakeFrame, "You need to enter some text",
+              "No Text Was Entered", JOptionPane.WARNING_MESSAGE);
+        }
+      }
+      else if (choice.equals("Change Text Color"))
+      {
+        textColor = JColorChooser.showDialog(null, "Select a color", textColor);
+
+        BufferedImage iconAsBuffer = cloneBuffer(changesNoText);
+
+        iconAsBuffer = MemeMakerEditingUtils.setTopText(iconAsBuffer, textChangeHistory.peek()[0],
+            textColor, textFont);
+        iconAsBuffer = MemeMakerEditingUtils.setBottomText(iconAsBuffer,
+            textChangeHistory.peek()[1], textColor, textFont);
 
         imageIcon.setImage(iconAsBuffer);
         picLabel.setIcon(new ImageIcon(iconAsBuffer));
+        testRedoClear();
         changeHistory.push(new ImageIcon(iconAsBuffer));
+        
+        String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
+        textChangeHistory.push(newEntry);
+      }
+      else if (choice.equals("Reset Image"))
+      {
+        currentTop = " ";
+        currentBottom = " ";
+        textColor = Color.WHITE;
+
+        imageIcon.setImage(initImg);
+
+        picLabel.setIcon(new ImageIcon(initImg));
+        changeHistory.clear();
+        redoHistory.clear();
+        changesNoText = initImg;
+        changeHistory.push(new ImageIcon(initImg));
+
+        textChangeHistory.clear();
+        textChangeHistory.push(initStrings);
+      }
+      else
+      {
+        JOptionPane.showMessageDialog(memeMakeFrame, "You need to enter some text",
+            "No Text Was Entered", JOptionPane.WARNING_MESSAGE);
       }
     }
   }
-
 }
