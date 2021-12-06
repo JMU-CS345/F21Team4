@@ -1,4 +1,6 @@
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -61,6 +63,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
   public ImageIcon icon;
   public JPanel fullScreenImage;
   private JLabel fullScreenLabel;
+  private JLabel fullscreenInfo = new JLabel("Hit esc to exit fullscreen and return to the information page.");
 
   // Declaring and initializing MemeEditor property variable
   public static boolean openAlready = false;
@@ -117,8 +120,16 @@ public class DogDisplay extends JPanel implements ListSelectionListener
 
     fullScreenImage.setPreferredSize(new Dimension(windowWidth, windowHeight));
     fullScreenLabel.setPreferredSize(new Dimension(windowWidth, windowHeight));
+    fullscreenInfo.setSize(windowWidth, 50);
+    fullscreenInfo.setFont(new Font("Serif", Font.PLAIN, 24));
+    fullscreenInfo.setVerticalAlignment(JLabel.TOP);
+    fullscreenInfo.setHorizontalAlignment(JLabel.CENTER);
+    fullscreenInfo.setForeground(Color.WHITE);
+    fullscreenInfo.setBackground(Color.BLACK);
+    fullscreenInfo.setOpaque(true);
 
     fullScreenImage.add(fullScreenLabel);
+    fullScreenLabel.add(fullscreenInfo);
 
     fullScreenImage.addKeyListener(new ButtonPress());
 
