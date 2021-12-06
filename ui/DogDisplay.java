@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.Timer;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -120,6 +121,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
 
     fullScreenImage.setPreferredSize(new Dimension(windowWidth, windowHeight));
     fullScreenLabel.setPreferredSize(new Dimension(windowWidth, windowHeight));
+    
     fullscreenInfo.setSize(windowWidth, 50);
     fullscreenInfo.setFont(new Font("Serif", Font.PLAIN, 24));
     fullscreenInfo.setVerticalAlignment(JLabel.TOP);
@@ -259,10 +261,22 @@ public class DogDisplay extends JPanel implements ListSelectionListener
       {
         if (currImg != null)
         {
+          fullscreenInfo.setVisible(true);
+          Timer infoTimer = new Timer(4000, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+              fullscreenInfo.setVisible(false);
+              
+            }
+            
+          });
           fullScreenLabel.setIcon(new ImageIcon(
               currImg.getScaledInstance(windowWidth, windowHeight, Image.SCALE_SMOOTH)));
           Window.layout.show(Window.layoutPane, "fullscreen");
           fullScreenImage.requestFocus();
+          infoTimer.start();
         }
       }
       else if (choice.equals("Back"))
