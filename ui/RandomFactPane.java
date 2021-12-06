@@ -2,19 +2,15 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -44,23 +40,22 @@ public class RandomFactPane extends JPanel implements ActionListener
   private JButton save;
 
   // Declaring all variables for fact generation
-  String urlString;
-  URL urlDogPic;
+  private ArrayList<String> factList;
+  private List<String> userFactList;
 
-  String fact;
+  private String curFact;
 
   // Declaring all components and variables for Random Fact Display
-  JPanel factRandom;
-  private ArrayList<String> factList;
+  public JPanel factRandom;
 
-  private JTextArea factTxtArea;
   private JSplitPane topSplitPane;
-  private JSplitPane bottomSplitPane;
-  private JSplitPane splitPane;
+  private JTextArea factTxtArea;
 
+  private JSplitPane bottomSplitPane;
+  private JTextArea listTxtArea;
   private JScrollPane scrollPane;
-  List<String> userFactList;
-  private JList<String> userFactJList;
+
+  private JSplitPane splitPane;
 
   // Declaring and initializing all default window dimensions
   private final int windowWidth = 1024;
@@ -92,7 +87,7 @@ public class RandomFactPane extends JPanel implements ActionListener
     addFact.setPreferredSize(new Dimension(100, 100));
     addFact.setVisible(true);
 
-    // Initializing and setting up button Pad
+    // Initializing and setting up buttonPads
     topButtonPad = new JPanel(new GridLayout(1, 2));
     topButtonPad.setPreferredSize(new Dimension(windowWidth, 100));
     topButtonPad.add(random);
@@ -103,36 +98,39 @@ public class RandomFactPane extends JPanel implements ActionListener
     bottomButtonPad.add(addFact);
     bottomButtonPad.add(save);
 
-    // Initializing variables and components for fact display
+    // Initializing variables and components for fact display and users fact list
     getFacts();
 
-    factTxtArea = new JTextArea(factList.get(0));
+    factTxtArea = new JTextArea(curFact);
     factTxtArea.setVisible(true);
     factTxtArea.setLineWrap(true);
     factTxtArea.setWrapStyleWord(true);
     factTxtArea.setEditable(false);
     factTxtArea.setSize(windowWidth / 3, windowHeight - 200);
 
-    // Initializing SplitPane that houses the buttonPad and fact panel
+    listTxtArea = new JTextArea();
+    listTxtArea.setVisible(true);
+    listTxtArea.setLineWrap(true);
+    listTxtArea.setWrapStyleWord(true);
+    listTxtArea.setEditable(false);
+
+    // Initializing top splitPane that houses the top components
     topSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, topButtonPad, factTxtArea);
-    // topSplitPane.setPreferredSize(new Dimension(windowWidth, windowHeight / 2));
 
-    // Initializing the SplitPane that holds both top and bottom page components
-
+    // Initializing bottom splitPane that houses bottom components
     scrollPane = new JScrollPane();
+    scrollPane.setViewportView(listTxtArea);
     userFactList = new ArrayList<String>();
-    userFactJList = new JList<String>(userFactList.toArray(new String[userFactList.size()]));
-    scrollPane.setViewportView(userFactJList);
-    userFactJList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 
     bottomSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, bottomButtonPad, scrollPane);
+
+    // Initializing the SplitPane that holds both top and bottom page components
     splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, topSplitPane, bottomSplitPane);
     splitPane.setPreferredSize(new Dimension(windowWidth, windowHeight));
 
     // Initializing and setting up Random Fact JPanel
     factRandom = new JPanel();
     factRandom.add(splitPane);
-
   }
 
   /**
@@ -151,20 +149,25 @@ public class RandomFactPane extends JPanel implements ActionListener
     for (int x = 0; x < tree.size(); x++)
     {
       JsonNode factNode = tree.get(x);
-      fact = factNode.get("fact").asText();
-      this.factList.add(fact);
+      curFact = factNode.get("fact").asText();
+      this.factList.add(curFact);
     }
   }
 
   /**
-   * Clears the Fact List
+   * Clears the users fact list and resets the fact display
    */
   public void clearList()
   {
     userFactList = new ArrayList<String>();
-    userFactJList = new JList<String>();
-    scrollPane.setViewportView(userFactJList);
-    userFactJList.setLayoutOrientation(JList.VERTICAL);
+
+    listTxtArea = new JTextArea("");
+    listTxtArea.setVisible(true);
+    listTxtArea.setLineWrap(true);
+    listTxtArea.setWrapStyleWord(true);
+    listTxtArea.setEditable(false);
+
+    scrollPane.setViewportView(listTxtArea);
   }
 
   /*
@@ -177,7 +180,8 @@ public class RandomFactPane extends JPanel implements ActionListener
     if (choice.equals("New Fact!"))
     {
       String temp = factList.get((int) Math.floor(Math.random() * (100 - 0 + 1) + 0));
-      fact = temp;
+      curFact = temp;
+
       factTxtArea = new JTextArea(temp);
       factTxtArea.setLineWrap(true);
       factTxtArea.setWrapStyleWord(true);
@@ -193,13 +197,27 @@ public class RandomFactPane extends JPanel implements ActionListener
     else if (choice.equals("Add Fact"))
     {
 
-      if (fact != null)
+      if (curFact != null)
       {
-        if (!userFactList.contains(fact))
+        if (!userFactList.contains(curFact))
         {
-          userFactList.add(fact);
-          userFactJList = new JList<String>(userFactList.toArray(new String[userFactList.size()]));
-          scrollPane.setViewportView(userFactJList);
+          userFactList.add(curFact);
+          String text = "";
+          StringBuilder test = new StringBuilder();
+
+          for (int i = 0; i < userFactList.size(); i++)
+          {
+            test.append(userFactList.get(i) + "\n\n");
+            text = test.toString();
+          }
+
+          listTxtArea = new JTextArea(text);
+          listTxtArea.setVisible(true);
+          listTxtArea.setLineWrap(true);
+          listTxtArea.setWrapStyleWord(true);
+          listTxtArea.setEditable(false);
+
+          scrollPane.setViewportView(listTxtArea);
         }
       }
     }
