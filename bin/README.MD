@@ -1,1 +1,1 @@
-HELLLOOOOO
+This folder contains all of the classes that support the UI of the Dog App.

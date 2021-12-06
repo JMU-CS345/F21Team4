@@ -1,1 +1,1 @@
-HELLLOOOOO
+This folder contains all of the tests for the custom data types that we created for the Dog App.
