@@ -410,12 +410,6 @@ public class MemeMaker extends JFrame implements ActionListener
       {
         redoHistory.push(changeHistory.pop());
         textRedoHistory.push(textChangeHistory.pop());
-        
-        System.out.println("redo:"+redoHistory.size());
-        System.out.println("text redo:"+textRedoHistory.size());
-        
-        System.out.println("change:"+changeHistory.size());
-        System.out.println("text change:"+textChangeHistory.size());
 
         imageIcon.setImage(changeHistory.peek().getImage());
         picLabel.setIcon(changeHistory.peek());
