@@ -48,11 +48,7 @@ public class AboutPage extends JPanel implements ActionListener {
   public JPanel aboutPage;
 
   public AboutPage() throws IOException {
-    // Initializing AppDescription text area and components
-    // BufferedReader reader = new BufferedReader(new FileReader(new File("dogabout.txt")));
-    // while (reader.readLine() != null) {
-    // appDescription += reader.readLine() + "\n";
-    // }
+
     try {
       appDescription = new String(Files.readAllBytes(Paths.get("dogabout.txt")));
     } catch (IOException e) {
