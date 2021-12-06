@@ -123,11 +123,11 @@ public class DogDisplay extends JPanel implements ListSelectionListener
     fullScreenLabel.setPreferredSize(new Dimension(windowWidth, windowHeight));
     
     fullscreenInfo.setSize(windowWidth, 50);
-    fullscreenInfo.setFont(new Font("Serif", Font.PLAIN, 24));
+    fullscreenInfo.setFont(new Font("Arial", Font.BOLD, 24));
     fullscreenInfo.setVerticalAlignment(JLabel.TOP);
     fullscreenInfo.setHorizontalAlignment(JLabel.CENTER);
     fullscreenInfo.setForeground(Color.WHITE);
-    fullscreenInfo.setBackground(Color.BLACK);
+    fullscreenInfo.setBackground(new Color(0, 0, 0, 75));
     fullscreenInfo.setOpaque(true);
 
     fullScreenImage.add(fullScreenLabel);
