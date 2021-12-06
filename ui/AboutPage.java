@@ -1,14 +1,16 @@
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
-
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * This class contains the contributers information and app description.
@@ -17,8 +19,7 @@ import java.awt.event.ActionListener;
  *
  */
 
-public class AboutPage extends JPanel implements ActionListener
-{
+public class AboutPage extends JPanel implements ActionListener {
   // Declaring AppDescription Text Area and components
   private JTextArea appDescriptTxtArea;
 
@@ -46,15 +47,19 @@ public class AboutPage extends JPanel implements ActionListener
   // Initializing AboutPage JPanel
   public JPanel aboutPage;
 
-  public AboutPage()
-  {
+  public AboutPage() throws IOException {
     // Initializing AppDescription text area and components
-    appDescription = "Our dog app makes it easy to do various activities "
-        + "involving dogs.\nIt finds random images of dogs or a an image of "
-        + "a specific dog breed, provides fleshed out image editing capability "
-        + "with import and export features, a fact generator, that allows you to "
-        + "compile a list of facts and export them, and a list of dog games for "
-        + "the user to open in their browser.";
+    // BufferedReader reader = new BufferedReader(new FileReader(new File("dogabout.txt")));
+    // while (reader.readLine() != null) {
+    // appDescription += reader.readLine() + "\n";
+    // }
+    try {
+      appDescription = new String(Files.readAllBytes(Paths.get("dogabout.txt")));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+
     appDescriptTxtArea = new JTextArea(appDescription);
     appDescriptTxtArea.setLineWrap(true);
     appDescriptTxtArea.setWrapStyleWord(true);
@@ -79,17 +84,13 @@ public class AboutPage extends JPanel implements ActionListener
   }
 
   @Override
-  public void actionPerformed(ActionEvent e)
-  {
+  public void actionPerformed(ActionEvent e) {
     choice = e.getActionCommand();
 
-    if (choice.equals("Back"))
-    {
+    if (choice.equals("Back")) {
       Window.layout.show(Window.layoutPane, "homescreen");
       Window.frame.setTitle("Dog App");
-    }
-    else if (choice.equals(""))
-    {
+    } else if (choice.equals("")) {
 
     }
 
