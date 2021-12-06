@@ -43,9 +43,9 @@ public class RandomDogPane extends JPanel implements ActionListener
   // Meme Editor stuff
   private ImageIcon icon;
   public static boolean openAlready = false;
-  public boolean clicked = false;
+  public boolean clicked = true;
 
-  public RandomDogPane()
+  public RandomDogPane() throws IOException
   {
     // Initializing and setting up "New Dog Picture" button
     random = new JButton("New Dog Picture");
@@ -84,7 +84,7 @@ public class RandomDogPane extends JPanel implements ActionListener
     // Initializing JPanel that hold everything else
     randImgPane = new JPanel();
     randImgPane.add(splitPane);
-
+    getDogImage();
   }
 
   public void getDogImage() throws IOException
@@ -134,7 +134,7 @@ public class RandomDogPane extends JPanel implements ActionListener
       clicked = true;
       try
       {
-        this.getDogImage();
+        getDogImage();
       }
       catch (IOException e1)
       {
