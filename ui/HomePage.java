@@ -145,8 +145,8 @@ public class HomePage extends JPanel
       }
       else if (choice.equals("About Page"))
       {
-        // Window.layout.show(Window.layoutPane, "aboutPage");
-        // Window.frame.setTitle("AboutPage");
+        Window.layout.show(Window.layoutPane, "aboutPage");
+        Window.frame.setTitle("AboutPage");
       }
     }
   }

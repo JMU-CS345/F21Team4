@@ -52,7 +52,7 @@ public class Window
     randDogPage = new RandomDogPane();
     randFactPage = new RandomFactPane();
     gamePage = new GamePage();
-    // aboutPage = new AboutPage();
+     aboutPage = new AboutPage();
 
   }
 
@@ -68,7 +68,7 @@ public class Window
     layoutPane.add(randDogPage.randImgPane, "randImg");
     layoutPane.add(randFactPage.factRandom, "randFact");
     layoutPane.add(gamePage.gamePage, "gamePage");
-    // layoutPane.add(aboutPage.aboutPage, "aboutPage");
+    layoutPane.add(aboutPage.aboutPage, "aboutPage");
 
     // Set up the HomePage
     layout.show(layoutPane, "homescreen");

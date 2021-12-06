@@ -4,6 +4,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
+
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,19 +50,32 @@ public class AboutPage extends JPanel implements ActionListener
   {
     // Initializing AppDescription text area and components
     appDescription = "Our dog app makes it easy to do various activities "
-        + "involving dogs.\n It finds random images of dogs or a an image of "
+        + "involving dogs.\nIt finds random images of dogs or a an image of "
         + "a specific dog breed, provides fleshed out image editing capability "
         + "with import and export features, a fact generator, that allows you to "
         + "compile a list of facts and export them, and a list of dog games for "
         + "the user to open in their browser.";
     appDescriptTxtArea = new JTextArea(appDescription);
+    appDescriptTxtArea.setLineWrap(true);
+    appDescriptTxtArea.setWrapStyleWord(true);
+    appDescriptTxtArea.setEditable(false);
 
+    // Initializing and setting up "Back" button
+    back = new JButton("Back");
+    back.addActionListener((ActionListener) this);
+    back.setPreferredSize(new Dimension(100, 100));
+    back.setVisible(true);
+
+    //
     profileLabel = new JLabel();
 
     splitPane = new JSplitPane();
 
     // Initializing aboutPage JPanel
     aboutPage = new JPanel(new GridLayout(1, 2));
+
+    aboutPage.add(appDescriptTxtArea);
+    aboutPage.add(back);
   }
 
   @Override
@@ -72,8 +87,10 @@ public class AboutPage extends JPanel implements ActionListener
     {
       Window.layout.show(Window.layoutPane, "homescreen");
       Window.frame.setTitle("Dog App");
-    } else if (choice.equals("")){
-      
+    }
+    else if (choice.equals(""))
+    {
+
     }
 
   }
