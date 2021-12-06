@@ -16,6 +16,12 @@ import javax.swing.JSplitPane;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+/**
+ * This class hold the components that make up the Random Dog Image Generator Page of the DogApp.
+ * 
+ * @author Matt Wong, Zach Tucker, Thomas Mandell, Alex Polivka, Jonathan Wist
+ * @version Nov 1, 2021
+ */
 
 public class RandomDogPane extends JPanel implements ActionListener
 {

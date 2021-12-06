@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author Matt Wong, Zach Tucker, Thomas Mandell, Alex Polivka, Jonathan Wist
  * @version Nov 1, 2021
  */
-// export list maybe
+
 public class RandomFactPane extends JPanel implements ActionListener
 {
   // Declaring all button components and variables

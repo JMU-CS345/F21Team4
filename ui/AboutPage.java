@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * This class contains the contributers information and .
+ * This class contains the contributers information and app description.
  * 
  * @author Matt Wong, Zach Tucker, Thomas Mandell, Alex Polivka, Jonathan Wist
  *
