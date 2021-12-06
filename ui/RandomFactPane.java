@@ -101,6 +101,8 @@ public class RandomFactPane extends JPanel implements ActionListener
     // Initializing variables and components for fact display and users fact list
     getFacts();
 
+    curFact = factList.get((int) Math.floor(Math.random() * (100 - 0 + 1) + 0));
+
     factTxtArea = new JTextArea(curFact);
     factTxtArea.setVisible(true);
     factTxtArea.setLineWrap(true);
@@ -123,7 +125,7 @@ public class RandomFactPane extends JPanel implements ActionListener
     userFactList = new ArrayList<String>();
 
     bottomSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, bottomButtonPad, scrollPane);
-   // bottomSplitPane.setPreferredSize(new Dimension(windowWidth, windowHeight - 500));
+
     // Initializing the SplitPane that holds both top and bottom page components
     splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, topSplitPane, bottomSplitPane);
     splitPane.setPreferredSize(new Dimension(windowWidth, windowHeight));
@@ -150,8 +152,8 @@ public class RandomFactPane extends JPanel implements ActionListener
     for (int x = 0; x < tree.size(); x++)
     {
       JsonNode factNode = tree.get(x);
-      curFact = factNode.get("fact").asText();
-      this.factList.add(curFact);
+      String temp = factNode.get("fact").asText();
+      factList.add(temp);
     }
   }
 
@@ -197,22 +199,21 @@ public class RandomFactPane extends JPanel implements ActionListener
     }
     else if (choice.equals("Add Fact"))
     {
-
       if (curFact != null)
       {
         if (!userFactList.contains(curFact))
         {
           userFactList.add(curFact);
-          String text = "";
-          StringBuilder test = new StringBuilder();
+          String listAsText = "";
+          StringBuilder listAsTextBuilder = new StringBuilder();
 
           for (int i = 0; i < userFactList.size(); i++)
           {
-            test.append(userFactList.get(i) + "\n\n");
-            text = test.toString();
+            listAsTextBuilder.append(userFactList.get(i) + "\n\n");
           }
 
-          listTxtArea = new JTextArea(text);
+          listAsText = listAsTextBuilder.toString();
+          listTxtArea = new JTextArea(listAsText);
           listTxtArea.setVisible(true);
           listTxtArea.setLineWrap(true);
           listTxtArea.setWrapStyleWord(true);
@@ -236,6 +237,7 @@ public class RandomFactPane extends JPanel implements ActionListener
           String pathName = fileChooser.getSelectedFile().toString();
           File file = new File(pathName);
           FileWriter fileWriter = new FileWriter(file.getPath() + ".txt");
+          fileWriter.write("Thanks for using our Dog App!\nThe following are your dog facts:\n\n");
 
           for (int i = 0; i < userFactList.size(); i++)
           {
