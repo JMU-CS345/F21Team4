@@ -234,7 +234,6 @@ public class MemeMakerEditingUtils
   public static BufferedImage addText(BufferedImage image, String topText, String bottomText) {
 	  Graphics2D g = (Graphics2D) image.getGraphics();
 	  g.setColor(Color.RED);
-	  System.out.println("worked");
 	  image.getHeight();
 	  double center = image.getWidth() / 3.5;
 	  int centerX = (int) center;
