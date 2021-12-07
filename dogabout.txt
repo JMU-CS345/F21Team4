@@ -2,7 +2,8 @@ Our dog app makes it easy to do various activities involving dogs.
 One feature finds random images of dogs or an image of a specific dog breed, 
 another provides fleshed out image editing capability with import and 
 export features, another is a dog fact generator, and a list of dog games 
-for the user to open in their browser. The application uses an open source 
+for the user to open in their browser. 
+The application uses an open source 
 API that is formatted to be a JSON file.
 
 This application was created by Thomas Mandell, Zach Tucker, Matt Wong, 
