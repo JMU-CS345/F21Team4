@@ -34,9 +34,7 @@ public class AboutPage extends JPanel implements ActionListener
   // Declaring AppDescription Text Area and components
   private JTextArea appDescriptTxtArea;
   private JTextArea acknowledgementsTxtArea;
-  private JTextArea sources;
 
-  private String test;
   private String acknowledgements;
   private String appDescription;
 
@@ -95,7 +93,7 @@ public class AboutPage extends JPanel implements ActionListener
     appDescriptTxtArea.setLineWrap(true);
     appDescriptTxtArea.setWrapStyleWord(true);
     appDescriptTxtArea.setEditable(false);
-    appDescriptTxtArea.setFont(new Font("Helvetica", Font.PLAIN, 20));
+    appDescriptTxtArea.setFont(new Font("Arial", Font.PLAIN, 20));
 
     acknowledgements = "Sources and Acknowledgements:\nOur \"Dog App\" application uses open "
         + "source API's to retrive images and facts.\nThe API's that we used can be found below "
@@ -105,7 +103,7 @@ public class AboutPage extends JPanel implements ActionListener
     acknowledgementsTxtArea.setLineWrap(true);
     acknowledgementsTxtArea.setWrapStyleWord(true);
     acknowledgementsTxtArea.setEditable(false);
-    acknowledgementsTxtArea.setFont(new Font("Helvetica", Font.PLAIN, 20));
+    acknowledgementsTxtArea.setFont(new Font("Arial", Font.PLAIN, 20));
 
     title = new JLabel("<html> <font color='green'>About Page</font></html>",
         SwingConstants.CENTER);
@@ -148,21 +146,30 @@ public class AboutPage extends JPanel implements ActionListener
     schoolImgLabel.setPreferredSize(new Dimension(530, 300));
 
     topPanelImg = new JPanel(new GridLayout(1, 5));
-    // Temproary
-    for (int i = 0; i < 5; i++)
-    {
-      JLabel test = new JLabel(new ImageIcon(MemeMaker.scaleImageIcon(new ImageIcon(readInImage(
-          "https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg")),
-          100, 100)));
-      test.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-      topPanelImg.add(test);
-    }
-    // topPanelImg.add(pic1);
-    // topPanelImg.add(pic2);
-    // topPanelImg.add(pic3);
-    // topPanelImg.add(pic4);
-    // topPanelImg.add(pic5);
 
+    pic1 = new JLabel(new ImageIcon(MemeMaker.scaleImageIcon(new ImageIcon(readInImage(
+        "https://www.thesprucepets.com/thmb/8AbpM2wKHHjljTmYJL4TRP6df4k=/2121x1414/filters:fill(auto,1)/Akita-GettyImages-588622984-533e955df9214301a56b4c0689b32114.jpg")),
+        100, 150)));
+    pic2 = new JLabel(new ImageIcon(MemeMaker.scaleImageIcon(new ImageIcon(readInImage(
+        "https://dogtime.com/assets/uploads/gallery/labradoodle-dog-breed-pictures/side-1.jpg")),
+        100, 150)));
+    pic3 = new JLabel(new ImageIcon(MemeMaker.scaleImageIcon(
+        new ImageIcon(readInImage("https://fluffyhund.com/wp-content/uploads/beagle-thumb.jpg")),
+        100, 150)));
+    pic4 = new JLabel(new ImageIcon(MemeMaker.scaleImageIcon(new ImageIcon(readInImage(
+        "https://www.harlingenveterinaryclinic.com/sites/default/files/styles/large/public/golden-retriever-dog-breed-info.jpg?itok=cdghqKxv")),
+        100, 150)));
+    pic5 = new JLabel(new ImageIcon(MemeMaker.scaleImageIcon(new ImageIcon(readInImage(
+        "https://cdn.discordapp.com/attachments/885229880151777283/918222422015094794/IMG_4110.jpg")),
+        100, 150)));
+
+    topPanelImg.add(pic1);
+    topPanelImg.add(pic2);
+    topPanelImg.add(pic3);
+    topPanelImg.add(pic4);
+    topPanelImg.add(pic5);
+
+    // Initializing names panel
     topPanelName = new JPanel(new GridLayout(1, 5));
     topPanelName.setPreferredSize(new Dimension(50, 50));
     topPanelName.add(name1);
