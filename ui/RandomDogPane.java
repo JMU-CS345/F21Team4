@@ -16,6 +16,7 @@ import javax.swing.JSplitPane;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * This class hold the components that make up the Random Dog Image Generator Page of the DogApp.
  * 
@@ -86,9 +87,11 @@ public class RandomDogPane extends JPanel implements ActionListener
 
     // Initializing SplitPane that houses the image buttons and images
     splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, buttonPad, randDogIcon);
+    splitPane.setDividerLocation(100);
+    splitPane.setEnabled(false);
 
     // Initializing JPanel that hold everything else
-    randImgPane = new JPanel();
+    randImgPane = new JPanel(new GridLayout(1, 1));
     randImgPane.add(splitPane);
     getDogImage();
   }
@@ -115,7 +118,7 @@ public class RandomDogPane extends JPanel implements ActionListener
       iconHeight *= .85;
       iconWidth *= .85;
     }
-    while (iconHeight < 500 || iconWidth < 450)
+    while (iconHeight < 500 && iconWidth < 450)
     {
       iconHeight *= 1.15;
       iconWidth *= 1.15;

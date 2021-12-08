@@ -157,7 +157,7 @@ public class MemeMaker extends JFrame implements ActionListener
     reset.setPreferredSize(new Dimension(50, 75));
 
     // Initializing Fonts and gives it an action listener
-    String[] patternExamples = {"Arial", "Comic Sans", "Century Gothic"};
+    String[] patternExamples = {"Arial", "Comic Sans", "Century Gothic", "Futura"};
     patternList = new JComboBox(patternExamples);
     patternList.addActionListener(new ComboPress());
 
@@ -203,6 +203,7 @@ public class MemeMaker extends JFrame implements ActionListener
     toolPanel.add(buttonPad);
 
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, imagePanel, toolPanel);
+    splitPane.setEnabled(false);
 
     memeMakeFrame.add(splitPane);
 
@@ -533,6 +534,25 @@ public class MemeMaker extends JFrame implements ActionListener
       {
         {
           textFont = "Century Gothic";
+          BufferedImage iconAsBuffer = cloneBuffer(changesNoText);
+
+          iconAsBuffer = MemeMakerEditingUtils.setTopText(iconAsBuffer, currentTop, textColor,
+              textFont);
+          iconAsBuffer = MemeMakerEditingUtils.setBottomText(iconAsBuffer, currentBottom, textColor,
+              textFont);
+
+          imageIcon.setImage(iconAsBuffer);
+          picLabel.setIcon(new ImageIcon(iconAsBuffer));
+          changeHistory.push(new ImageIcon(iconAsBuffer));
+
+          String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
+          textChangeHistory.push(newEntry);
+        }
+      }
+      else if ("Futura".equals(newSelection))
+      {
+        {
+          textFont = "Futura";
           BufferedImage iconAsBuffer = cloneBuffer(changesNoText);
 
           iconAsBuffer = MemeMakerEditingUtils.setTopText(iconAsBuffer, currentTop, textColor,

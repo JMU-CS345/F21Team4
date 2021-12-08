@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 
 /**
  * This class hold the functionality and components that make up the Game Page of the DogApp.
@@ -39,7 +40,8 @@ public class GamePage extends JPanel implements ActionListener
   private JLabel gameThreeLabel;
 
   // Declaring all components for the GameDisplay
-  public JPanel buttonPad;
+  private JPanel buttonPad;
+  private JSplitPane gameSplitPane;
   public JPanel gamePage;
 
   private String choice;
@@ -47,7 +49,7 @@ public class GamePage extends JPanel implements ActionListener
   public GamePage() throws IOException
   {
     // Initializing the panels
-    gamePage = new JPanel();
+    gamePage = new JPanel(new GridLayout(1, 1));
     buttonPad = new JPanel(new GridLayout(3, 2));
 
     // Initializing "Dog Simulator" button
@@ -96,8 +98,11 @@ public class GamePage extends JPanel implements ActionListener
     buttonPad.add(gameThreeLabel);
 
     // Adding components to the overall GamePage panel
-    gamePage.add(back);
-    gamePage.add(buttonPad);
+    gameSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, back, buttonPad);
+    gameSplitPane.setDividerLocation(100);
+    gameSplitPane.setEnabled(false);
+
+    gamePage.add(gameSplitPane);
 
   }
 

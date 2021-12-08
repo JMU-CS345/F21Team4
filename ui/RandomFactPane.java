@@ -130,9 +130,10 @@ public class RandomFactPane extends JPanel implements ActionListener
     splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, topSplitPane, bottomSplitPane);
     splitPane.setPreferredSize(new Dimension(windowWidth, windowHeight));
     splitPane.setDividerLocation(200);
+    splitPane.setEnabled(false);
 
     // Initializing and setting up Random Fact JPanel
-    factRandom = new JPanel();
+    factRandom = new JPanel(new GridLayout(1, 1));
     factRandom.add(splitPane);
   }
 

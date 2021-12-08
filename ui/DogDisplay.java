@@ -147,6 +147,7 @@ public class DogDisplay extends JPanel implements ListSelectionListener
     // Initializing split pane that houses all other DigDisplay components
     splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, pictureAndText);
     splitPane.setVisible(false);
+    splitPane.setEnabled(false);
 
   }
 

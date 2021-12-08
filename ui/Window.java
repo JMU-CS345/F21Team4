@@ -52,7 +52,7 @@ public class Window
     randDogPage = new RandomDogPane();
     randFactPage = new RandomFactPane();
     gamePage = new GamePage();
-     aboutPage = new AboutPage();
+    aboutPage = new AboutPage();
 
   }
 
