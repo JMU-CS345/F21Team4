@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.Stack;
 
 import javax.imageio.ImageIO;
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
@@ -27,6 +28,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
 /**
@@ -39,7 +41,7 @@ public class MemeMaker extends JFrame implements ActionListener
 {
 
   // Declaring frames and panels for the meme Maker
-  private JFrame memeMakeFrame;
+  public static JFrame memeMakeFrame;
 
   private JSplitPane splitPane;
 
@@ -67,15 +69,16 @@ public class MemeMaker extends JFrame implements ActionListener
   private JButton horizontalFlip;
   private JButton verticalFlip;
   private JButton greyScale;
+  private JButton crop;
   private JButton brighten;
   private JButton darken;
   private JButton deepFry;
   private JButton topText;
   private JButton bottomText;
-  private JButton reset;
   private JButton setTextColor;
+  private JButton reset;
 
-  private JComboBox patternList;
+  private JComboBox fontSelector;
 
   private String choice;
 
@@ -136,6 +139,10 @@ public class MemeMaker extends JFrame implements ActionListener
     greyScale.addActionListener(new ButtonPress());
     greyScale.setPreferredSize(new Dimension(50, 75));
 
+    crop = new JButton("Crop");
+    crop.addActionListener(new ButtonPress());
+    crop.setPreferredSize(new Dimension(50, 75));
+
     deepFry = new JButton("Deep Fry");
     deepFry.addActionListener(new ButtonPress());
     deepFry.setPreferredSize(new Dimension(50, 75));
@@ -158,10 +165,10 @@ public class MemeMaker extends JFrame implements ActionListener
 
     // Initializing Fonts and gives it an action listener
     String[] patternExamples = {"Arial", "Comic Sans", "Century Gothic", "Futura"};
-    patternList = new JComboBox(patternExamples);
-    patternList.addActionListener(new ComboPress());
+    fontSelector = new JComboBox(patternExamples);
+    fontSelector.addActionListener(new ComboPress());
 
-    // Initializes buttonPad and adds its JButtons
+    // Initializes buttonPad and adds its JButtons/ComboBox
     buttonPad = new JPanel(new GridLayout(7, 2));
 
     buttonPad.add(leftRotate);
@@ -170,13 +177,14 @@ public class MemeMaker extends JFrame implements ActionListener
     buttonPad.add(verticalFlip);
     buttonPad.add(brighten);
     buttonPad.add(darken);
+    buttonPad.add(crop);
     buttonPad.add(greyScale);
     buttonPad.add(deepFry);
     buttonPad.add(topText);
     buttonPad.add(bottomText);
     buttonPad.add(setTextColor);
+    buttonPad.add(fontSelector);
     buttonPad.add(reset);
-    buttonPad.add(patternList);
 
     // Initializing scaled Image Icon
     Image scaledImage = scaleImageIcon(icon, 600, 450);
@@ -472,7 +480,6 @@ public class MemeMaker extends JFrame implements ActionListener
           initImg = MemeMakerEditingUtils.imageToBufferedImg(changeHistory.peek().getImage());
 
           changesNoText = MemeMakerEditingUtils.imageToBufferedImg(changeHistory.peek().getImage());
-
         }
       }
     }
@@ -687,6 +694,93 @@ public class MemeMaker extends JFrame implements ActionListener
 
         String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
         textChangeHistory.push(newEntry);
+      }
+      else if (choice.equals("Crop"))
+      {
+        JTextField xField1 = new JTextField(5);
+        JTextField xField2 = new JTextField(5);
+        JTextField yField1 = new JTextField(5);
+        JTextField yField2 = new JTextField(5);
+
+        BufferedImage iconAsBuffer = MemeMakerEditingUtils.imageToBufferedImg(imageIcon.getImage());
+        CustomImage iconAsCustom = MemeMakerEditingUtils.bufferedImageToImage(iconAsBuffer);
+
+        JPanel dialoguePanel = new JPanel();
+        dialoguePanel.add(new JLabel("x1:"));
+        dialoguePanel.add(xField1);
+        dialoguePanel.add(Box.createHorizontalStrut(15));
+        dialoguePanel.add(new JLabel("y1:"));
+        dialoguePanel.add(yField1);
+        dialoguePanel.add(Box.createHorizontalStrut(15));
+        dialoguePanel.add(new JLabel("x2:"));
+        dialoguePanel.add(xField2);
+        dialoguePanel.add(Box.createHorizontalStrut(15)); // a spacer
+        dialoguePanel.add(new JLabel("y2:"));
+        dialoguePanel.add(yField2);
+
+        JSplitPane split = new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JLabel(
+            "Please enter top left and bottom right points that you want to crop to. Current Width: "
+                + iconAsCustom.getWidth() + "px Current Height: " + iconAsCustom.getHeight() + "px"),
+            dialoguePanel);
+        split.setEnabled(false);
+
+        int result = JOptionPane.showConfirmDialog(null, split, "Cropping Points",
+            JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION)
+        {
+          if (xField1.getText() != null || xField2.getText() != null || yField1.getText() != null
+              || yField2.getText() != null)
+          {
+            try
+            {
+              int x1int = Integer.parseInt(xField1.getText());
+              int y1int = Integer.parseInt(yField1.getText());
+
+              int x2int = Integer.parseInt(xField2.getText());
+              int y2int = Integer.parseInt(yField2.getText());
+
+              if (x2int > x1int && y2int > y1int && (x1int >= 0 && x1int < iconAsCustom.getWidth())
+                  && (x2int > 0 && x2int < iconAsCustom.getWidth())
+                  && (y1int >= 0 && y1int < iconAsCustom.getHeight())
+                  && (y2int > 0 && y2int < iconAsCustom.getHeight()))
+              {
+               
+                iconAsBuffer = MemeMakerEditingUtils.crop(iconAsCustom, x1int, y1int, x2int, y2int);
+
+                CustomImage temp = MemeMakerEditingUtils.bufferedImageToImage(changesNoText);
+                changesNoText = MemeMakerEditingUtils.crop(temp, x1int, y1int, x2int, y2int);
+
+                imageIcon.setImage(iconAsBuffer);
+                picLabel.setIcon(new ImageIcon(iconAsBuffer));
+                testRedoClear();
+                changeHistory.push(new ImageIcon(iconAsBuffer));
+
+                String[] newEntry = {textChangeHistory.peek()[0], textChangeHistory.peek()[1]};
+                textChangeHistory.push(newEntry);
+              }
+              else
+              {
+                JOptionPane.showMessageDialog(MemeMaker.memeMakeFrame,
+                    "Some of your arguments are invalid", "Invalid Arguments",
+                    JOptionPane.WARNING_MESSAGE);
+              }
+
+            }
+            catch (NumberFormatException x)
+            {
+              JOptionPane.showMessageDialog(MemeMaker.memeMakeFrame,
+                  "Some of your arguments are invalid", "Invalid Arguments",
+                  JOptionPane.WARNING_MESSAGE);
+            }
+          }
+          else
+          {
+            JOptionPane.showMessageDialog(MemeMaker.memeMakeFrame,
+                "You need to provide a parameter for each value.Thank you", "Null Values",
+                JOptionPane.WARNING_MESSAGE);
+          }
+
+        }
       }
       else if (choice.equals("Grey Scale"))
       {

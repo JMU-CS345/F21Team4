@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
+
 /**
  * This class contains all of the editing functionality for the memeMaker.
  * 
@@ -198,6 +200,66 @@ public class MemeMakerEditingUtils
 
   }
 
+  public static BufferedImage crop(CustomImage image, int topLeftX, int topLeftY, int bottomRightX,
+      int bottomRightY)
+  {
+    int intlHeight = image.getHeight();
+    int intlWidth = image.getWidth();
+
+    int modHeight = bottomRightX - topLeftX;
+    int modWidth = bottomRightY - topLeftX;
+
+    // CustomImage cropped = new CustomImage(modWidth, modHeight);
+    //
+    // for (int x = topLeftX; x < modWidth; x++)
+    // {
+    // int n = 0;
+    // for (int y = topLeftY; y < modHeight; y++)
+    // {
+    // int m = 0;
+    //
+    // cropped.setPixel(n, m, image.getPixel(x, y));
+    // m++;
+    // }
+    // n++;
+    // }
+
+    BufferedImage cropped2 = customImgToBuffered(image);
+    cropped2 = cropped2.getSubimage(topLeftX, topLeftY, modWidth + 150, modHeight + 100);
+    cropped2 = customImgToBuffered(
+        scaleImage(bufferedImageToImage(cropped2), intlHeight, intlWidth));
+    // return customImgToBuffered(cropped);
+    return cropped2;
+  }
+
+  /**
+   * Converts the ImageIcon into a buffered image, scales it down then converts it to an image and
+   * returns it.
+   * 
+   * @param icon
+   *          The initial image icon
+   * @param height
+   *          The height to scale to
+   * @param width
+   *          the width to scale to
+   * @return Scaled image
+   */
+  public static CustomImage scaleImage(CustomImage image, int height, int width)
+  {
+    BufferedImage initImg = MemeMakerEditingUtils.customImgToBuffered(image);
+    double imgHeight = initImg.getHeight();
+    double imgWidth = initImg.getWidth();
+    while (imgHeight < height && imgWidth < width)
+    {
+      imgHeight *= 1.15;
+      imgWidth *= 1.15;
+    }
+    BufferedImage scaledImage = imageToBufferedImg(
+        initImg.getScaledInstance((int) imgWidth, (int) imgHeight, Image.SCALE_AREA_AVERAGING));
+    CustomImage retImg = bufferedImageToImage(scaledImage);
+    return retImg;
+  }
+
   /**
    * "Deep Fries"/distorts an image by tinting the image red and yellow, lowers the image quality,
    * and runs the image through a series of filters.
@@ -243,29 +305,6 @@ public class MemeMakerEditingUtils
     }
 
     return customImgToBuffered(adjustedBrightness);
-  }
-
-  /**
-   * Converts a BufferedImage into a CustomImage allowing us to edit the individual pixels
-   * 
-   * @param bufferedImage
-   *          The initial image
-   * @return The initial image as a CustomImage
-   */
-  public static CustomImage bufferedImageToImage(BufferedImage bufferedImage)
-  {
-    CustomImage newImage = new CustomImage(bufferedImage.getWidth(), bufferedImage.getHeight());
-    Color color;
-
-    for (int y = 0; y < bufferedImage.getHeight(); y++)
-    {
-      for (int x = 0; x < bufferedImage.getWidth(); x++)
-      {
-        color = new Color(bufferedImage.getRGB(x, y));
-        newImage.setPixel(x, y, new Pixel(color.getRed(), color.getGreen(), color.getBlue()));
-      }
-    }
-    return newImage;
   }
 
   /**
@@ -501,6 +540,29 @@ public class MemeMakerEditingUtils
     }
     return bufferedImage;
 
+  }
+
+  /**
+   * Converts a BufferedImage into a CustomImage allowing us to edit the individual pixels
+   * 
+   * @param bufferedImage
+   *          The initial image
+   * @return The initial image as a CustomImage
+   */
+  public static CustomImage bufferedImageToImage(BufferedImage bufferedImage)
+  {
+    CustomImage newImage = new CustomImage(bufferedImage.getWidth(), bufferedImage.getHeight());
+    Color color;
+
+    for (int y = 0; y < bufferedImage.getHeight(); y++)
+    {
+      for (int x = 0; x < bufferedImage.getWidth(); x++)
+      {
+        color = new Color(bufferedImage.getRGB(x, y));
+        newImage.setPixel(x, y, new Pixel(color.getRed(), color.getGreen(), color.getBlue()));
+      }
+    }
+    return newImage;
   }
 
   /**

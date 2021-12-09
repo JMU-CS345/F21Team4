@@ -159,7 +159,7 @@ public class RandomDogPane extends JPanel implements ActionListener
       }
       else
       {
-        JOptionPane.showMessageDialog(Window.frame,
+        JOptionPane.showMessageDialog(MemeMaker.memeMakeFrame,
             "You have a meme editor open. \nPlease close your Meme editor window to go back, thank you.\n",
             "Open Meme Editor", JOptionPane.WARNING_MESSAGE);
       }
@@ -175,7 +175,7 @@ public class RandomDogPane extends JPanel implements ActionListener
         }
         else
         {
-          JOptionPane.showMessageDialog(Window.frame,
+          JOptionPane.showMessageDialog(MemeMaker.memeMakeFrame,
               "You already have a meme editor open. \nPlease close your current Meme editor window to open a new one, thank you.\n",
               "Open Meme Editor", JOptionPane.WARNING_MESSAGE);
         }
