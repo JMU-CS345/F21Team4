@@ -209,27 +209,12 @@ public class MemeMakerEditingUtils
     int modHeight = bottomRightX - topLeftX;
     int modWidth = bottomRightY - topLeftX;
 
-    // CustomImage cropped = new CustomImage(modWidth, modHeight);
-    //
-    // for (int x = topLeftX; x < modWidth; x++)
-    // {
-    // int n = 0;
-    // for (int y = topLeftY; y < modHeight; y++)
-    // {
-    // int m = 0;
-    //
-    // cropped.setPixel(n, m, image.getPixel(x, y));
-    // m++;
-    // }
-    // n++;
-    // }
+    BufferedImage croppedImage = customImgToBuffered(image);
+    croppedImage = croppedImage.getSubimage(topLeftX, topLeftY, modWidth + 150, modHeight + 100);
+    croppedImage = customImgToBuffered(
+        scaleImage(bufferedImageToImage(croppedImage), intlHeight, intlWidth));
 
-    BufferedImage cropped2 = customImgToBuffered(image);
-    cropped2 = cropped2.getSubimage(topLeftX, topLeftY, modWidth + 150, modHeight + 100);
-    cropped2 = customImgToBuffered(
-        scaleImage(bufferedImageToImage(cropped2), intlHeight, intlWidth));
-    // return customImgToBuffered(cropped);
-    return cropped2;
+    return croppedImage;
   }
 
   /**
