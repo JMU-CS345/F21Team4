@@ -5,8 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
-
 /**
  * This class contains all of the editing functionality for the memeMaker.
  * 
@@ -68,7 +66,7 @@ public class MemeMakerEditingUtils
   }
 
   /**
-   * Mirrors/Flips the image over the x axis
+   * Mirrors/Flips the image over the x axis.
    * 
    * @param image
    *          The initial CustomImage object
@@ -89,7 +87,7 @@ public class MemeMakerEditingUtils
   }
 
   /**
-   * Mirrors/Flips the image over the y axis
+   * Mirrors/Flips the image over the y axis.
    * 
    * @param image
    *          The initial CustomImage object
@@ -200,6 +198,16 @@ public class MemeMakerEditingUtils
 
   }
 
+  /**
+   * Crops the image based upon upper left and bottom right values.
+   * 
+   * @param image the image to be cropped
+   * @param topLeftX x-coordinate of the top left value
+   * @param topLeftY y-coordinate of the top left value
+   * @param bottomRightX x-coordinate of the bottom right value
+   * @param bottomRightY y-coordinate of the bottom right value
+   * @return new image cropped to the top left and bottom right desired
+   */
   public static BufferedImage crop(CustomImage image, int topLeftX, int topLeftY, int bottomRightX,
       int bottomRightY)
   {
@@ -221,7 +229,7 @@ public class MemeMakerEditingUtils
    * Converts the ImageIcon into a buffered image, scales it down then converts it to an image and
    * returns it.
    * 
-   * @param icon
+   * @param image
    *          The initial image icon
    * @param height
    *          The height to scale to
@@ -299,6 +307,10 @@ public class MemeMakerEditingUtils
    *          The initial image
    * @param topText
    *          The text you want to add
+   * @param textColor
+   *          Color of the text
+   * @param fontType
+   *          Font of the text
    * @return The initial image with the text
    */
   // fix this over lay not working
@@ -365,10 +377,10 @@ public class MemeMakerEditingUtils
       textGraphic.setFont(new Font(fontType, Font.PLAIN, 30));
 
       // Finds the X-value of the text
-      int TextCenter = (int) textGraphic.getFontMetrics().getStringBounds(topText, textGraphic)
+      int textCenter = (int) textGraphic.getFontMetrics().getStringBounds(topText, textGraphic)
           .getWidth();
 
-      int textXval = (image.getWidth() / 2) - (TextCenter / 2);
+      int textXval = (image.getWidth() / 2) - (textCenter / 2);
 
       // Finds the Y-value of the text
       double textYval = (image.getHeight() * .05)
@@ -388,6 +400,10 @@ public class MemeMakerEditingUtils
    *          The initial image
    * @param bottomText
    *          The text you want to add
+   * @param textColor
+   *          Color of the text
+   * @param fontType
+   *          Font of the text
    * @return The initial image with the text
    */
   public static BufferedImage setBottomText(BufferedImage image, String bottomText, Color textColor,
@@ -454,10 +470,10 @@ public class MemeMakerEditingUtils
       textGraphic.setFont(new Font(fontType, Font.PLAIN, 30));
 
       // Finds the X-value of the text
-      int TextCenter = (int) textGraphic.getFontMetrics().getStringBounds(bottomText, textGraphic)
+      int textCenter = (int) textGraphic.getFontMetrics().getStringBounds(bottomText, textGraphic)
           .getWidth();
 
-      int textXval = (image.getWidth() / 2) - (TextCenter / 2);
+      int textXval = (image.getWidth() / 2) - (textCenter / 2);
 
       // Finds the Y-value of the text
       double textYval = (image.getHeight() * .95)
@@ -528,7 +544,7 @@ public class MemeMakerEditingUtils
   }
 
   /**
-   * Converts a BufferedImage into a CustomImage allowing us to edit the individual pixels
+   * Converts a BufferedImage into a CustomImage allowing us to edit the individual pixels.
    * 
    * @param bufferedImage
    *          The initial image

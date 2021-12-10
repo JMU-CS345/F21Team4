@@ -154,8 +154,7 @@ public class HomePage extends JPanel
   /**
    * Reads in an image from the Internet.
    * 
-   * @param URL
-   *          The url to the image
+   * @param Url The url to the image
    * @return The image that was read in
    * @throws IOException
    */

@@ -45,9 +45,6 @@ public class RandomFactPane extends JPanel implements ActionListener
 
   private String curFact;
 
-  // Declaring all components and variables for Random Fact Display
-  public JPanel factRandom;
-
   private JSplitPane topSplitPane;
   private JTextArea factTxtArea;
 
@@ -60,6 +57,9 @@ public class RandomFactPane extends JPanel implements ActionListener
   // Declaring and initializing all default window dimensions
   private final int windowWidth = 1024;
   private final int windowHeight = 768;
+  
+  // Declaring all components and variables for Random Fact Display
+  public JPanel factRandom;
 
   public RandomFactPane() throws IOException
   {
@@ -159,7 +159,7 @@ public class RandomFactPane extends JPanel implements ActionListener
   }
 
   /**
-   * Clears the users fact list and resets the fact display
+   * Clears the users fact list and resets the fact display.
    */
   public void clearList()
   {
