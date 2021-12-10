@@ -50,7 +50,7 @@ public class HomePage extends JPanel
   public HomePage() throws IOException
   {
     // Initializing "Dog Display" button
-    dogDisplay = new JButton("Dog Display");
+    dogDisplay = new JButton("Dog Breed Display");
     dogDisplay.addActionListener(new ButtonPress());
 
     // Initializing "Random Dog Picture" button
@@ -122,10 +122,10 @@ public class HomePage extends JPanel
     {
       choice = e.getActionCommand();
 
-      if (choice.equals("Dog Display"))
+      if (choice.equals("Dog Breed Display"))
       {
         Window.layout.show(Window.layoutPane, "dogdisplay");
-        Window.frame.setTitle("Dog Display");
+        Window.frame.setTitle("Dog Breed Display");
       }
       else if (choice.equals("Random Dog Picture"))
       {
@@ -146,7 +146,7 @@ public class HomePage extends JPanel
       else if (choice.equals("About Page"))
       {
         Window.layout.show(Window.layoutPane, "aboutPage");
-        Window.frame.setTitle("AboutPage");
+        Window.frame.setTitle("About Page");
       }
     }
   }
