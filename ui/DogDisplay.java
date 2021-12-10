@@ -227,10 +227,10 @@ public class DogDisplay extends JPanel implements ListSelectionListener
         currImg = ImageIO.read(picURL);
         currImg = currImg.getScaledInstance(windowWidth / 3, windowHeight / 3, Image.SCALE_SMOOTH);
         dogInformationLabel.setText("<html>" + "Dog Breed: " + dogList.get(index).getName()
-            + "<br/>" + " Dog Height: " + dogList.get(index).getHeight() + " inches<br/>"
-            + " Dog Weight: " + dogList.get(index).getWeight() + "lbs<br/>" + " Dog Lifespan: "
+            + "<br/>" + " Average Dog Height: " + dogList.get(index).getHeight() + " inches<br/>"
+            + " Average Dog Weight: " + dogList.get(index).getWeight() + "lbs<br/>" + " Average Dog Lifespan: "
             + dogList.get(index).getLifespan() + "<br/>" + " Dog Tempermant: "
-            + dogList.get(index).getTemperament() + "<br/>" + "Press ESC to exit fullscreen"
+            + dogList.get(index).getTemperament() + "<br/>"
             + "<html/>");
       }
       catch (IOException exception)
