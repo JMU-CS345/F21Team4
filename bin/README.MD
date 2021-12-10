@@ -1,1 +1,1 @@
-This folder contains all of the classes that support the UI of the Dog App.
+This folder contains all of the tests for the custom data types that we created for the Dog App.
