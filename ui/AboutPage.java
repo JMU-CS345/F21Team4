@@ -1,6 +1,5 @@
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -8,11 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -31,6 +27,9 @@ import javax.swing.SwingConstants;
 
 public class AboutPage extends JPanel implements ActionListener
 {
+  // Declaring all components and variables for Random Fact Display
+  public JPanel aboutPage;
+  
   // Declaring AppDescription Text Area and components
   private JTextArea appDescriptTxtArea;
   private JTextArea acknowledgementsTxtArea;
@@ -77,9 +76,11 @@ public class AboutPage extends JPanel implements ActionListener
 
   private JPanel bottomSources;
 
-  // Initializing AboutPage JPanel
-  public JPanel aboutPage;
-
+  /**
+   * Creates the about page and displays the text and images.
+   * 
+   * @throws IOException if the text file is not found.
+   */
   public AboutPage() throws IOException
   {
     // Initializing all text areas and content
@@ -236,14 +237,13 @@ public class AboutPage extends JPanel implements ActionListener
   /**
    * Reads in an image from the Internet.
    * 
-   * @param URL
-   *          The url to the image
+   * @param urlString The url to the image
    * @return The image that was read in
    * @throws IOException
    */
-  public Image readInImage(String Url) throws IOException
+  public Image readInImage(String urlString) throws IOException
   {
-    URL url = new URL(Url);
+    URL url = new URL(urlString);
 
     Image image = ImageIO.read(url);
     return image;
